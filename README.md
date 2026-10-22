@@ -8,8 +8,9 @@ Deliverable: a 4-6 page ICML-style short paper.
 ## Team
 
 - Michael Incorvaia
-- TBD
-- TBD
+- Kian Chakamian
+- Rajan Sandhu
+- Yosep Rhe
 
 ## Theme
 
