@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+runs/
+results/
+logs/
+*.pkl
+.ipynb_checkpoints/
+bench_data/
+smoke_data/
+smoke_runs/
+smoke_results/
