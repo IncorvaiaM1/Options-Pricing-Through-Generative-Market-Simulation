@@ -12,6 +12,12 @@ Prediction file (npz), all arrays over the TEST split in test.npz order:
   python -m bench.trackB score --test bench_data/D2/test.npz --pred results/trackB/preds/ssvi_sparse10.npz
   python -m bench.trackB table results/trackB/*.json
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 import glob
 import json
@@ -19,8 +25,8 @@ import os
 
 import numpy as np
 
-from .finance import EXOTICS, bs_call
-from .surfaces import load
+from bench.finance import EXOTICS, bs_call
+from bench.surfaces import load
 
 
 def butterfly_violation_rate(iv, xgrid, taus, tol=1e-7):
@@ -82,6 +88,7 @@ def score(test, pred):
         d = w1(pred["density"][g], test["density"][idx][g], dz)
         out["density_w1_std_units"] = float(np.nanmean(d))
         out["density_w1_by_maturity"] = np.nanmean(d, 0).tolist()
+    out.update(hedging_scores_B(test, idx, pred["iv"]))
     if "exotics" in pred:
         te = test["exotics"][idx]
         pe = pred["exotics"]
@@ -94,6 +101,30 @@ def score(test, pred):
         if "exotics_lo" in pred:
             out["exotic_coverage"] = np.nanmean((te >= pred["exotics_lo"]) & (te <= pred["exotics_hi"]), 0).tolist()
     return out
+
+
+def hedging_scores_B(test, idx, pred_iv, maturity_days=20):
+    """Delta-hedge each grid strike of the 20-day smile at the model's IV, sold at the model's price, on the TRUE
+    paths of each test surface; report against the oracle (true IV) on the same paths. Needs fatnarwhal-quant."""
+    try:
+        from bench import hedging as bh
+        from bench.finance import bs_otm
+    except ImportError:
+        return {}
+    if "paths_lnS" not in test:
+        return {}
+    j = list(test["taus_days"]).index(maturity_days)
+    x, tau = test["xgrid"][j], test["taus"][j]
+    paths = np.diff(test["paths_lnS"][idx][:, :, :maturity_days + 1].astype(np.float64), axis=-1)  # [S, N, d] returns
+    t_iv = test["iv"][idx][:, j]
+    m_iv = np.where(np.isfinite(pred_iv[:, j]), pred_iv[:, j], np.nan)
+    o = bh.hedge_scores(paths, x, tau, bs_otm(t_iv, x[None], tau), t_iv)
+    a = bh.hedge_scores(paths, x, tau, bs_otm(m_iv, x[None], tau), m_iv)
+    wing = np.abs(test["ks"]) >= 2
+    r = a["std"] / o["std"]
+    return dict(hedge20_std_ratio_by_k=r.tolist(), hedge20_mean_minus_oracle_bps_by_k=(a["mean"] - o["mean"]).tolist(),
+                hedge20_std_ratio_wings=float(np.nanmean(r[wing])), hedge20_std_ratio_atm=float(np.nanmean(r[np.abs(test["ks"]) <= 1])),
+                hedge20_abs_mean_minus_oracle_bps=float(np.nanmean(np.abs(a["mean"] - o["mean"]))))
 
 
 def save_pred(path, method, scenario, iv, **extra):
@@ -110,7 +141,8 @@ def score_and_save(test_path, pred_path, out_dir="results/trackB"):
     with open(p, "w") as f:
         json.dump(res, f, indent=1)
     keys = [k for k in ("iv_rmse_heldout", "iv_rmse_heldout_wings", "coverage90_heldout", "density_w1_std_units",
-                        "butterfly_violation_rate") if res.get(k) is not None]
+                        "butterfly_violation_rate", "hedge20_std_ratio_wings", "hedge20_abs_mean_minus_oracle_bps")
+            if res.get(k) is not None]
     print(f"[{res['method']} | {res['scenario']}] " + "  ".join(f"{k}={res[k]:.4g}" for k in keys))
     if "exotic_rel_err_by_family" in res:
         for f, v in res["exotic_rel_err_by_family"].items():
@@ -119,9 +151,10 @@ def score_and_save(test_path, pred_path, out_dir="results/trackB"):
 
 
 def table(paths):
-    rows = [json.load(open(p)) for p in sorted(paths)]
+    rows = [r for r in (json.load(open(p)) for p in sorted(paths)) if "scenario" in r and "method" in r]  # skip e.g. b4 summaries
     cols = ["iv_rmse_heldout", "iv_rmse_heldout_wings", "iv_rmse_heldout_garch", "iv_rmse_heldout_heston",
-            "coverage90_heldout", "density_w1_std_units", "butterfly_violation_rate"]
+            "coverage90_heldout", "density_w1_std_units", "butterfly_violation_rate", "hedge20_std_ratio_wings",
+            "hedge20_abs_mean_minus_oracle_bps"]
     print("| method | scenario | " + " | ".join(cols) + " |")
     print("|---|---|" + "---|" * len(cols))
     for r in sorted(rows, key=lambda r: (r["scenario"], r.get("iv_rmse_heldout") or 1e9)):

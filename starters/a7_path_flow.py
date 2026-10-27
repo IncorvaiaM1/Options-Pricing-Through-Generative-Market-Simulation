@@ -10,6 +10,12 @@ gives exponentially heavy tails, which blew up in testing. The t base supplies t
   python -m starters.a7_path_flow --data bench_data/A --out runs/a7
   python -m bench.trackA score --data bench_data/A --samples runs/a7/samples.npy
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 
 import flax.linen as nn

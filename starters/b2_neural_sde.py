@@ -14,6 +14,12 @@ same quotes, exotics by Heston Monte Carlo. Heston-family test surfaces are the 
 
   python -m starters.b2_neural_sde --test bench_data/D2/test.npz --n_surfaces 8
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 import os
 

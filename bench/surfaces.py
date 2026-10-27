@@ -17,13 +17,19 @@ Quotes carry IV noise with sd = 0.5 vol pts * (1 + |k|/2).
 
   python -m bench.surfaces --out bench_data/D2 --n_train 512 --n_test 64 --paths 20000
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 import os
 import time
 
 import numpy as np
 
-from .finance import (EXOTICS, exotic_prices, heston_paths, heston_surface_iv, implied_vol,
+from bench.finance import (EXOTICS, exotic_prices, heston_paths, heston_surface_iv, implied_vol,
                       otm_from_logret)
 
 TAUS_D = np.array([5, 10, 20, 40, 60])
@@ -85,7 +91,7 @@ def sample_heston_params(rng):
 
 
 # ---------------------------------------------------------------- build
-def build_surface(family, rng, n_paths, with_exotics):
+def build_surface(family, rng, n_paths, with_exotics, n_keep=0):
     xd = density_xgrid()
     dz = ZGRID[1] - ZGRID[0]
     if family == "garch":
@@ -101,11 +107,14 @@ def build_surface(family, rng, n_paths, with_exotics):
             dens[j] = h / (h.sum() * dz)  # density in z units
         params = np.array([p["annual_vol"], p["alpha"], p["gamma"], p["beta"], p["nu"], np.sqrt(state * 252)])
         ex = exotic_prices(lnS) if with_exotics else None
-        return iv, dens, params, ex
+        keep = lnS[:n_keep, :61].astype(np.float32) if n_keep else None
+        return iv, dens, params, ex, keep
     hp = sample_heston_params(rng)
     iv = heston_surface_iv(XGRID, TAUS, hp)
-    ex = exotic_prices(heston_paths(hp, 60, n_paths, rng)) if with_exotics else None
-    return iv, np.full((len(TAUS), len(ZGRID)), np.nan), np.array(hp), ex
+    lnS = heston_paths(hp, 60, n_paths, rng) if (with_exotics or n_keep) else None
+    ex = exotic_prices(lnS) if with_exotics else None
+    keep = lnS[:n_keep].astype(np.float32) if n_keep else None
+    return iv, np.full((len(TAUS), len(ZGRID)), np.nan), np.array(hp), ex, keep
 
 
 def make_quotes(iv, scenario, rng, noise_vp=0.5):
@@ -126,14 +135,16 @@ def make_quotes(iv, scenario, rng, noise_vp=0.5):
     return mask, np.maximum(q, 0.01)
 
 
-def build_split(n, rng, n_paths, with_exotics, garch_frac, label):
+def build_split(n, rng, n_paths, with_exotics, garch_frac, label, n_keep=0):
     fam = np.where(rng.random(n) < garch_frac, "garch", "heston")
-    IV, DENS, EX = [], [], []
+    IV, DENS, EX, KEEP = [], [], [], []
     params_g = np.full((n, 6), np.nan)  # annual_vol, alpha, gamma, beta, nu, state_vol
     params_h = np.full((n, 5), np.nan)
     t0 = time.time()
     for i in range(n):
-        iv, dens, par, ex = build_surface(fam[i], rng, n_paths, with_exotics)
+        iv, dens, par, ex, keep = build_surface(fam[i], rng, n_paths, with_exotics, n_keep)
+        if keep is not None:
+            KEEP.append(keep)
         IV.append(iv); DENS.append(dens)
         (params_g if fam[i] == "garch" else params_h)[i] = par
         if with_exotics:
@@ -144,6 +155,8 @@ def build_split(n, rng, n_paths, with_exotics, garch_frac, label):
                heston_params=params_h, taus=TAUS, taus_days=TAUS_D, ks=KS, xgrid=XGRID, zgrid=ZGRID)
     if with_exotics:
         out["exotics"] = np.array(EX)
+    if KEEP:
+        out["paths_lnS"] = np.array(KEEP)  # [S, n_keep, 61] true daily log-price paths (martingale), for hedging
         out["exotic_names"] = np.array(EXOTICS)
     return out
 
@@ -160,6 +173,7 @@ def main(argv=None):
     ap.add_argument("--n_test", type=int, default=64)
     ap.add_argument("--paths", type=int, default=20000, help="MC paths per GARCH surface")
     ap.add_argument("--test_paths", type=int, default=100000, help="MC paths per test surface (truth quality)")
+    ap.add_argument("--hedge_paths", type=int, default=2000, help="true paths kept per test surface for the hedging metric")
     ap.add_argument("--garch_frac", type=float, default=0.7)
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args(argv)
@@ -169,7 +183,7 @@ def main(argv=None):
     train = build_split(args.n_train, rng, args.paths, False, args.garch_frac, "train")
     np.savez_compressed(os.path.join(args.out, "train.npz"), **train)
 
-    test = build_split(args.n_test, rng, args.test_paths, True, args.garch_frac, "test")
+    test = build_split(args.n_test, rng, args.test_paths, True, args.garch_frac, "test", args.hedge_paths)
     qrng = np.random.default_rng(args.seed + 1)
     for sc in SCENARIOS:
         masks, quotes = zip(*[make_quotes(iv, sc, qrng) for iv in test["iv"]])

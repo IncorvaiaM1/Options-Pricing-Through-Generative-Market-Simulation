@@ -35,11 +35,14 @@ Track B (option-implied models, outside the pitch, kept for now): see `starters/
   and takes a snapshot of today's option chains. Presets: `spy`, `index_etfs`, `megacap_tech`, `banks`, `energy`,
   `staples` (clusters of similar stocks), or `TICKERS="AAPL"` for a single name.
 
+Every script runs either way from the repo root: `python -m starters.b4_schrodinger_bridge` or
+`python starters/b4_schrodinger_bridge.py`. Track B scripts need `python -m bench.surfaces --out bench_data/D2` first.
+
 ## Run one model
 
 ```bash
 bash scripts/run_model.sh <model> <data_dir>                        # e.g. pure_diffusion bench_data/A
-MARKET=bench_data/market/<date>_<name> bash scripts/run_model.sh path_flow bench_data/real/megacap_tech
+MARKET=bench_data/market/2026-10-27_megacap_tech bash scripts/run_model.sh path_flow bench_data/real/megacap_tech
 QUICK=1 bash scripts/run_model.sh rnade bench_data/A                  # tiny settings, plumbing check
 ```
 
@@ -53,13 +56,38 @@ Each run trains, generates 8192 paths per evaluation context, scores, and plots:
 
 ```bash
 bash scripts/submit_all.sh bench_data/A                                            # every model, one GPU job each
-MARKET=bench_data/market/<date>_megacap_tech bash scripts/submit_all.sh bench_data/real/megacap_tech
+MARKET=bench_data/market/2026-10-27_megacap_tech bash scripts/submit_all.sh bench_data/real/megacap_tech   # use the folder real_data_setup.sh printed
 MODELS="pure_diffusion path_flow" bash scripts/submit_all.sh bench_data/A          # a subset
 bash scripts/report.sh bench_data/A                                                # tables + figures (auto after submit_all)
 ```
 
 `scripts/report.sh` writes leaderboard tables and figures to `figs/<data>/`: IV error by strike, smiles vs truth,
 terminal-return densities (tails), backtest summary and PIT histograms, market smiles. Setup details: `PACE.md`.
+
+## Hedging metric (fatnarwhal-quant)
+
+The Black-Scholes, Greeks and implied vol behind FatNarwhal's site tools ship as a small library,
+`fatnarwhal-quant`. With it installed, every score also reports **hedging error**: sell the option at the model's
+price, delta-hedge daily at the model's implied vol on the TRUE paths, pay the payoff. Mean P&L is the pricing error a
+trader would feel; the std is hedge quality. Both are reported against the oracle (true price and true vol hedged on
+the same paths), for every Track A model (`bench/trackA.py`) and for Track B surfaces at 20 days (`bench/trackB.py`).
+Without the package the scorers skip this metric and say so.
+
+```bash
+pip install -e <path to fatnarwhal-quant>      # until the public repo exists; then the line in requirements.txt
+python -m pytest tests/test_fn_quant_crosscheck.py   # bench/finance.py agrees with the site's math (18 tests)
+python -m experiments.hedging_demo                   # oracle vs Black-Scholes hedging, ~30 s on CPU
+```
+
+Notes for the paper: the oracle is a reference, not a floor (a Black-Scholes delta at the true implied vol is not
+the variance-minimizing hedge under fat tails, so ratios slightly below 1 happen); use `--n_hedge_paths 10000` in
+`bench.trackA export` for final numbers, since deep-wing strikes are rarely exercised.
+
+**Known issue (team decision pending):** the synthetic GARCH-t spot is not a martingale. Log returns are mean zero, so
+E[S_T] drifts up by about half the summed variance (~15 to 18 bps over 20 days). Model-vs-truth comparisons are still
+fair (same measure on both sides); hedging is reported against the oracle for this reason. A true fix (convexity-corrected,
+truncated innovations) changes the truth and means rerunning everything. The Track B surfaces (`bench/surfaces.py`)
+and the real-data market comparison are already martingale-corrected.
 
 ## Teammate models
 

@@ -16,11 +16,20 @@ A single ticker is a one-item list; a preset of similar stocks gives the pitch's
 (windows from all tickers are pooled; returns are in raw daily log-return units, and the models see each
 window's own volatility level through the context).
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 import json
 import os
 
 import numpy as np
+import warnings
+
+warnings.filterwarnings("ignore", message=".*inplace keyword.*")  # yfinance + pandas 3 deprecation noise
 import pandas as pd
 
 PRESETS = {

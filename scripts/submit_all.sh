@@ -1,7 +1,7 @@
 #!/bin/bash
 # Submit every Track A model for one data folder as separate PACE jobs, then a report job that waits for all.
 #   bash scripts/submit_all.sh bench_data/A
-#   MARKET=bench_data/market/2026-10-27 bash scripts/submit_all.sh bench_data/real/megacap_tech
+#   MARKET=bench_data/market/2026-10-27_megacap_tech bash scripts/submit_all.sh bench_data/real/megacap_tech
 #   MODELS="pure_diffusion path_flow" bash scripts/submit_all.sh bench_data/A     # a subset
 set -e
 cd "$(dirname "$0")/.."

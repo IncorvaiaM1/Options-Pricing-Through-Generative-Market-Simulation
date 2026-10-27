@@ -17,6 +17,12 @@ back to hundreds of std, so it only removes numerical blowups, never real tail e
   python -m starters.a6_pure_diffusion --data bench_data/A --out runs/a6
   python -m bench.trackA score --data bench_data/A --samples runs/a6/samples.npy
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 
 import flax.linen as nn

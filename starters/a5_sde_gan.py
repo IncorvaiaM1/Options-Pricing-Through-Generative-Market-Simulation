@@ -16,6 +16,12 @@ far wings (|k| = 4) trail A1. Ablation: add a jump term (--jumps) with learned i
   python -m starters.a5_sde_gan --data bench_data/A --out runs/a5
   python -m bench.trackA score --data bench_data/A --samples runs/a5/samples.npy
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 
 import flax.linen as nn

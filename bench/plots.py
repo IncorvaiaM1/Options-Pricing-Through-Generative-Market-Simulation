@@ -18,6 +18,12 @@ Examples:
   python -m bench.plots backtest --results "results/backtest/*.json" --out figs
   python -m bench.plots trackB --test bench_data/D2/test.npz --preds results/trackB/preds --scenario sparse10 --out figs
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 import glob
 import json
@@ -222,6 +228,21 @@ def plot_leaderboard(a):
     axes[1].grid(axis="x", visible=False)
     os.makedirs(a.out, exist_ok=True)
     f = os.path.join(a.out, "trackA_leaderboard.png"); fig.savefig(f); plt.close(fig); print("saved", f)
+
+    hrows = [r for r in rows if "hedge_std_ratio_by_k" in r]
+    if hrows:  # delta-hedging error vs the oracle (fatnarwhal-quant)
+        fig, axes = plt.subplots(1, 2, figsize=(12, 3.8))
+        for r in hrows:
+            kw = dict(color=color_for(r["label"]), ls=ls_for(r["label"]), marker="o", ms=4, lw=1.6, label=r["label"])
+            axes[0].plot(r["ks"], r["hedge_mean_minus_oracle_bps_by_k"], **kw)
+            axes[1].plot(r["ks"], r["hedge_std_ratio_by_k"], **kw)
+        axes[0].axhline(0, color=INK, lw=1); axes[1].axhline(1, color=INK, lw=1)
+        axes[0].set_ylabel("mean hedged P&L minus oracle (bps of spot)"); axes[0].set_title("Pricing error seen by a hedger (+ = priced rich)")
+        axes[1].set_ylabel("std of hedged P&L / oracle std"); axes[1].set_title("Hedge quality vs hedging at the true vol")
+        for ax in axes:
+            ax.set_xlabel("strike, std units (puts < 0 < calls)")
+        axes[1].legend(fontsize=7)
+        f = os.path.join(a.out, "trackA_hedging.png"); fig.savefig(f); plt.close(fig); print("saved", f)
 
 
 # ---------------------------------------------------------------- real-data backtest

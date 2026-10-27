@@ -11,7 +11,14 @@ import numpy as np
 
 
 # ---------------------------------------------------------------- Track A data
+def _need(path, how):
+    if not os.path.exists(path):
+        raise SystemExit(f"missing {path}\n  create it first with:  {how}")
+
+
 def load_trackA(data_dir):
+    _need(os.path.join(data_dir, "config.json"),
+          "python -m bench.trackA export --out bench_data/A   (synthetic)  or  bash scripts/real_data_setup.sh <preset>  (real)")
     cfg = json.load(open(os.path.join(data_dir, "config.json")))
     s = cfg["scale"]
     train = np.load(os.path.join(data_dir, "train.npy")) / s
@@ -102,6 +109,7 @@ class AdaLNBlock(nn.Module):
 
 # ---------------------------------------------------------------- Track B data
 def load_D2(path):
+    _need(path, "python -m bench.surfaces --out bench_data/D2   (Track B synthetic option surfaces, a few minutes)")
     d = np.load(path, allow_pickle=False)
     return {k: d[k] for k in d.files}
 

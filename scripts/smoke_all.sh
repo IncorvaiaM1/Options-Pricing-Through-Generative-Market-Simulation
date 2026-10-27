@@ -11,6 +11,7 @@ echo "== data =="
 python -m bench.trackA export --out $D/A --n_eval 8 --n_mc 20000
 python -m bench.surfaces --out $D/D2 --n_train 64 --n_test 12 --paths 5000 --test_paths 30000
 python -m tests.test_diffusion_sampler
+python -m pytest -q tests/test_fn_quant_crosscheck.py || true   # skips if fatnarwhal-quant is not installed
 
 echo "== Track A =="
 python -m starters.a6_pure_diffusion --data $D/A --out $R/a6 --width 128 --depth 2 --T 200 --steps 5000 --log_every 1000 --n_paths 256

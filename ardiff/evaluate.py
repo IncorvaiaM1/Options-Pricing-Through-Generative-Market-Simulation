@@ -6,6 +6,12 @@ Strikes are set in units of the long-run H-day vol: K = S0 * exp(k * sd_H), k in
 k < 0 prices a put, k > 0 a call, k = 0 a straddle. Errors are reported in price and in
 implied-vol points (IV error is the fair way to compare deep OTM, where prices are tiny).
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 import json
 import math
@@ -17,11 +23,11 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 
-from . import data as D
-from . import diffusion as dif
-from . import tokens as tok
-from .model import ARModel
-from .train import build
+from ardiff import data as D
+from ardiff import diffusion as dif
+from ardiff import tokens as tok
+from ardiff.model import ARModel
+from ardiff.train import build
 
 
 # ------------------------------------------------------------------ sampling

@@ -8,7 +8,7 @@
 #          rnade                                        A3 (PyTorch, team's RNADE)
 #          gan | sde_gan | pure_diffusion | path_flow | path_flow_t     A4 A5 A6 A7 (JAX)
 # data_dir: a synthetic export (bench.trackA export) or a real one (bench.real export).
-# Optional env:  MARKET=bench_data/market/<date>   also price that market snapshot (bench.market compare)
+# Optional env:  MARKET=bench_data/market/2026-10-27_megacap_tech   also price that market snapshot (bench.market compare)
 #                N_PATHS=8192   QUICK=1 (tiny settings for a plumbing check)
 #
 # Outputs: runs/<data name>/<model>/samples.npy, results/<data name>/{trackA|backtest|market}/<label>.json,

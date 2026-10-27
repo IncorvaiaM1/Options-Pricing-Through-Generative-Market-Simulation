@@ -3,6 +3,12 @@
   python -m ardiff.export_samples --ckpt runs/v0_diff/ckpt.pkl --data bench_data/A --n_paths 8192 --out runs/v0_diff
   python -m bench.trackA score --data bench_data/A --samples runs/v0_diff/samples.npy
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 import json
 import os
@@ -13,9 +19,9 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 
-from . import tokens as tok
-from .evaluate import generate, make_sampler
-from .train import build
+from ardiff import tokens as tok
+from ardiff.evaluate import generate, make_sampler
+from ardiff.train import build
 
 
 def main(argv=None):

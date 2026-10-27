@@ -9,6 +9,12 @@ the standard NADE trick, O(D) instead of O(D^2)), minibatching, and a GPU option
   python -m starters.a3_rnade --data bench_data/A --out runs/a3
   python -m bench.trackA score --data bench_data/A --samples runs/a3/samples.npy
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 import json
 import os

@@ -76,3 +76,9 @@ squeue -u $USER                                      # progress; figures land in
 
 One model by hand: `sbatch -J a6 scripts/pace_model.sbatch pure_diffusion bench_data/A`.
 Plumbing check before a big run: `QUICK=1 bash scripts/run_model.sh <model> bench_data/A` on an interactive node.
+
+## Hedging metric (optional, needs fatnarwhal-quant)
+
+Until the package has a public repo, copy it to PACE (e.g. `scp -r fatnarwhal-quant <gt-user>@login-ice.pace.gatech.edu:~/`)
+and `pip install -e ~/fatnarwhal-quant`. Re-export the synthetic data so it keeps enough true paths for hedging:
+`python -m bench.trackA export --out bench_data/A --n_hedge_paths 10000`. The scorers pick the metric up automatically.

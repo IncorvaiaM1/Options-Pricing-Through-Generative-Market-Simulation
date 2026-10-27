@@ -3,6 +3,12 @@
   python -m ardiff.train --head diffusion --out runs/diff
   python -m ardiff.train --head token --n_bins 256 --bin_scheme quantile --out runs/tok
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 import json
 import os
@@ -14,10 +20,10 @@ import jax.numpy as jnp
 import numpy as np
 import optax
 
-from . import data as D
-from . import diffusion as dif
-from . import tokens as tok
-from .model import ARModel
+from ardiff import data as D
+from ardiff import diffusion as dif
+from ardiff import tokens as tok
+from ardiff.model import ARModel
 
 
 def get_args(argv=None):

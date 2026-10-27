@@ -7,6 +7,12 @@ When the teammate's GAN is ready, have it write samples.npy for bench_data/A/eva
 
   python -m starters.a4_gan --data bench_data/A --out runs/a4
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 
 import flax.linen as nn

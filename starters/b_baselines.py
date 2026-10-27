@@ -13,6 +13,12 @@
   python -m starters.b_baselines --test bench_data/D2/test.npz --scenarios per_mat5 sparse10 nowings
   python -m bench.trackB table "results/trackB/*.json"
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 import math
 import os

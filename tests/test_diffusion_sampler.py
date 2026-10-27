@@ -6,6 +6,12 @@ Plugging it into the sampler must give back a unit-variance Gaussian. This is wh
 
   python -m tests.test_diffusion_sampler
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import jax
 import jax.numpy as jnp
 import numpy as np

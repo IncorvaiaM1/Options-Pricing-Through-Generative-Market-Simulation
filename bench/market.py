@@ -18,6 +18,12 @@ yfinance only serves today's option chains (no history), so this is a snapshot c
    points with the market mid. The unadjusted (real-world) version is also reported; its gap to the market is
    mostly the volatility risk premium, not model error.
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 import datetime as dt
 import glob
@@ -27,6 +33,9 @@ import os
 import shutil
 
 import numpy as np
+import warnings
+
+warnings.filterwarnings("ignore", message=".*inplace keyword.*")  # yfinance + pandas 3 deprecation noise
 
 from bench.finance import implied_vol
 

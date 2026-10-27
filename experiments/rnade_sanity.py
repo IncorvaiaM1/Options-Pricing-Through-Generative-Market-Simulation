@@ -16,6 +16,12 @@ Usage:
   python experiments/rnade_sanity.py --dataset all
   python experiments/rnade_sanity.py --dataset gbm --epochs 20000 --hidden 64 --K 5
 """
+import os as _os
+import sys as _sys
+
+if __package__ in (None, ""):  # also allow `python path/to/file.py`, not only `python -m pkg.file`
+    _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import argparse
 import json
 import math
