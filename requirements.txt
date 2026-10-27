@@ -10,3 +10,4 @@ flax
 optax
 # fatnarwhal-quant (FatNarwhal's option math; powers the hedging metric). Uncomment once the repo is public (Plan 19, step 1):
 # fatnarwhal-quant @ git+https://github.com/<owner>/fatnarwhal-quant
+ipykernel   # notebooks/run_all.ipynb

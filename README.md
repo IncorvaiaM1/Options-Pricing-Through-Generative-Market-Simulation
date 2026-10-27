@@ -52,6 +52,15 @@ Each run trains, generates 8192 paths per evaluation context, scores, and plots:
 - market: `results/<name>/market/<label>.json` (implied vol vs market mid, risk-neutral adjusted)
 - `figs/<data>/paths_<label>.png` (simulated price paths, like the notebook plot, with bands and truth / reality)
 
+## Run everything from a notebook
+
+`notebooks/run_all.ipynb` runs any model, set of models (`baselines`, `thesis`, `generative`, `all`) or Track B method
+from cells, using the same scripts as above. While a model trains you see its log tail and its loss curves grow; after
+each one the leaderboard table, IV-error-by-strike comparison and its price-path plot update. Full logs go to
+`logs/notebook/`. Open it in a PACE OnDemand Jupyter session on a GPU node with the `gdl` kernel (`MODE = "local"`), or
+set `MODE = "slurm"` to submit batch jobs and watch all of them live from one cell. `QUICK = True` checks the plumbing in
+about 15 minutes on CPU. Helpers live in `bench/nb.py`.
+
 ## Run everything on PACE
 
 ```bash

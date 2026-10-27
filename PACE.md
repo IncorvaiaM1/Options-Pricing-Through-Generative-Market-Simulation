@@ -82,3 +82,14 @@ Plumbing check before a big run: `QUICK=1 bash scripts/run_model.sh <model> benc
 Until the package has a public repo, copy it to PACE (e.g. `scp -r fatnarwhal-quant <gt-user>@login-ice.pace.gatech.edu:~/`)
 and `pip install -e ~/fatnarwhal-quant`. Re-export the synthetic data so it keeps enough true paths for hedging:
 `python -m bench.trackA export --out bench_data/A --n_hedge_paths 10000`. The scorers pick the metric up automatically.
+
+## Notebook (live view of all models)
+
+```bash
+conda activate gdl
+pip install ipykernel && python -m ipykernel install --user --name gdl --display-name "Python (gdl)"
+```
+Then OnDemand (ondemand-ice.pace.gatech.edu) -> Interactive Apps -> Jupyter, request a GPU, open
+`notebooks/run_all.ipynb`, pick the "Python (gdl)" kernel, run top to bottom. On a login-node session set `MODE = "slurm"`
+instead (it submits jobs and watches them; training never runs on the login node).
+Clear outputs before committing the notebook (Edit -> Clear All Outputs) so the repo stays small.
