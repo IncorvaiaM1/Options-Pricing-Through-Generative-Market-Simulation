@@ -24,7 +24,7 @@ import jax.numpy as jnp
 import numpy as np
 import optax
 
-from starters.common import MLP, Timer, ctx_features, load_trackA, n_params, write_samples
+from starters.common import add_also_eval_arg, also_eval, MLP, Timer, ctx_features, load_trackA, n_params, write_samples
 
 
 class Generator(nn.Module):
@@ -103,6 +103,7 @@ def main(argv=None):
     ap.add_argument("--chunk", type=int, default=8192)
     ap.add_argument("--log_every", type=int, default=250)
     ap.add_argument("--seed", type=int, default=0)
+    add_also_eval_arg(ap)
     args = ap.parse_args(argv)
 
     cfg, train, val, ctx_eval = load_trackA(args.data)
@@ -173,8 +174,10 @@ def main(argv=None):
         outs.append(np.asarray(gen(jnp.asarray(rep[s:s + args.chunk]), k)))
     gen_s = clock()
     fut = np.concatenate(outs).reshape(ctx_eval.shape[0], args.n_paths, H) * cfg["scale"]
-    write_samples(args.out, fut, dict(label="a5_sde_gan" + ("_jumps" if args.jumps else ""),
-                                      n_params=n_params(pg), train_seconds=train_s, gen_seconds=gen_s))
+    meta = dict(label="a5_sde_gan" + ("_jumps" if args.jumps else ""),
+                                      n_params=n_params(pg), train_seconds=train_s, gen_seconds=gen_s)
+    write_samples(args.out, fut, meta)
+    also_eval(args, cfg, gen, key, meta)
 
 
 if __name__ == "__main__":

@@ -34,6 +34,27 @@ def write_samples(out_dir, fut_raw, meta):
     print(f"wrote {out_dir}/samples.npy {np.shape(fut_raw)}", flush=True)
 
 
+def add_also_eval_arg(ap):
+    ap.add_argument("--also_eval", nargs="*", default=[],
+                    help="extra data folders (e.g. a market snapshot) whose eval_ctx.npy should also get samples, "
+                         "written to <out>/also_<folder name>/samples.npy")
+
+
+def also_eval(args, cfg, sample_chunk, key, meta):
+    """After training: generate samples for each --also_eval folder. sample_chunk(ctx_norm [B, L], key) -> [B, H]."""
+    for d in getattr(args, "also_eval", []) or []:
+        c2 = json.load(open(os.path.join(d, "config.json")))
+        assert c2["ctx_len"] == cfg["ctx_len"], f"{d}: context length {c2['ctx_len']} != {cfg['ctx_len']}"
+        ctx = np.load(os.path.join(d, "eval_ctx.npy")).astype(np.float32) / cfg["scale"]
+        rep = np.repeat(ctx, args.n_paths, axis=0)
+        outs = []
+        for s in range(0, rep.shape[0], args.chunk):
+            key, k = jax.random.split(key)
+            outs.append(np.asarray(sample_chunk(jnp.asarray(rep[s:s + args.chunk]), k)))
+        fut = np.concatenate(outs).reshape(ctx.shape[0], args.n_paths, -1) * cfg["scale"]
+        write_samples(os.path.join(args.out, "also_" + os.path.basename(os.path.normpath(d))), fut, dict(meta))
+
+
 def n_params(params):
     return int(sum(x.size for x in jax.tree_util.tree_leaves(params)))
 

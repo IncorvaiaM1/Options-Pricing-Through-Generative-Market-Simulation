@@ -19,6 +19,7 @@ import glob
 import json
 import math
 import os
+import warnings
 
 import numpy as np
 
@@ -49,7 +50,7 @@ def export(args):
     np.save(os.path.join(args.out, "val.npy"), sp["val"].astype(np.float32))
     np.save(os.path.join(args.out, "eval_ctx.npy"), sp["eval_ctx"].astype(np.float32))
     np.save(os.path.join(args.out, "eval_next_var.npy"), sp["eval_next_var"])
-    cfg = dict(ctx_len=args.ctx_len, horizon=args.horizon, n_train=args.n_train, n_val=args.n_val,
+    cfg = dict(kind="synthetic", r=0.0, ctx_len=args.ctx_len, horizon=args.horizon, n_train=args.n_train, n_val=args.n_val,
                n_eval=args.n_eval, nu=args.nu, data_seed=args.data_seed, scale=sp["scale"], garch=g.to_dict(), ks=KS)
     json.dump(cfg, open(os.path.join(args.out, "config.json"), "w"), indent=1)
 
@@ -58,6 +59,8 @@ def export(args):
     H, E = args.horizon, args.n_eval
     sd_H = g.annual_vol * math.sqrt(H / 252)
     P = np.zeros((E, len(KS))); stats = []
+    n_keep = min(512, args.n_mc)
+    keep_paths = np.empty((E, n_keep, H), np.float32)  # a few true continuation paths per context, for plots
     for e in range(E):
         var = np.full(args.n_mc, sp["eval_next_var"][e])
         paths = np.empty((args.n_mc, H))
@@ -67,13 +70,16 @@ def export(args):
             var = g.omega + g.alpha * r ** 2 + g.beta * var
         P[e] = otm_prices(paths.sum(-1)[None], np.array(KS), sd_H)[0][0]
         stats.append(path_stats(paths[None]))
+        keep_paths[e] = paths[:n_keep]
     st = {k: np.concatenate([s[k] for s in stats]) for k in stats[0]}
     iv = implied_vol(P, np.array(KS), sd_H, H / 252)
-    np.savez(os.path.join(args.out, "truth.npz"), price=P, iv=iv, state_vol=np.sqrt(sp["eval_next_var"] * 252), **st)
+    np.savez(os.path.join(args.out, "truth.npz"), price=P, iv=iv, state_vol=np.sqrt(sp["eval_next_var"] * 252),
+             truth_paths=keep_paths, **st)
     print(f"exported to {args.out}: train {sp['train'].shape}, eval {E} contexts, truth from {args.n_mc:,} paths each")
 
 
 def score(args):
+    warnings.filterwarnings("ignore", category=RuntimeWarning)  # all-NaN strikes for weak models are expected
     cfg = json.load(open(os.path.join(args.data, "config.json")))
     tr = dict(np.load(os.path.join(args.data, "truth.npz")))
     smp = np.load(args.samples).astype(np.float64)

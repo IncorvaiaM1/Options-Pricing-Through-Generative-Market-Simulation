@@ -26,7 +26,7 @@ import numpy as np
 import optax
 
 from ardiff.diffusion import make_schedule
-from starters.common import (AdaLNBlock, MLP, Timer, ctx_features, load_trackA, n_params, timestep_embedding,
+from starters.common import (add_also_eval_arg, also_eval, AdaLNBlock, MLP, Timer, ctx_features, load_trackA, n_params, timestep_embedding,
                              write_samples)
 
 
@@ -64,6 +64,7 @@ def main(argv=None):
     ap.add_argument("--var_type", default="large", choices=["large", "small"], help="reverse-step variance; see ardiff/diffusion.py")
     ap.add_argument("--clip_mult", type=float, default=1.5, help="clip x0_hat at this x max|train| (<=0 disables)")
     ap.add_argument("--seed", type=int, default=0)
+    add_also_eval_arg(ap)
     args = ap.parse_args(argv)
 
     cfg, train, val, ctx_eval = load_trackA(args.data)
@@ -136,8 +137,10 @@ def main(argv=None):
         outs.append(np.asarray(sample(jnp.asarray(rep[s:s + args.chunk]), k)))
     gen_s = clock()
     fut = inv(np.concatenate(outs)).reshape(ctx_eval.shape[0], args.n_paths, H) * cfg["scale"]
-    write_samples(args.out, fut, dict(label="a6_pure_diffusion", n_params=n_params(params),
-                                      train_seconds=train_s, gen_seconds=gen_s))
+    meta = dict(label="a6_pure_diffusion", n_params=n_params(params),
+                                      train_seconds=train_s, gen_seconds=gen_s)
+    write_samples(args.out, fut, meta)
+    also_eval(args, cfg, lambda c, k: inv(np.asarray(sample(c, k))), key, meta)
 
 
 if __name__ == "__main__":

@@ -33,8 +33,12 @@ def main(argv=None):
     c = pickle.load(open(args.ckpt, "rb"))
     cfg = c["cfg"]
     dcfg = json.load(open(os.path.join(args.data, "config.json")))
-    for k in ("ctx_len", "horizon", "n_train", "n_val", "n_eval", "nu", "data_seed"):
+    for k in ("ctx_len", "horizon"):
         assert cfg[k] == dcfg[k], f"checkpoint and exported data disagree on {k}"
+    if dcfg.get("kind", "synthetic") == "synthetic":
+        for k in ("n_train", "n_val", "n_eval", "nu", "data_seed"):
+            if cfg.get(k) != dcfg.get(k):
+                print(f"WARNING: checkpoint was trained with {k}={cfg.get(k)} but --data has {k}={dcfg.get(k)}")
     model = build(cfg)
     params = jax.tree_util.tree_map(jnp.asarray, c["params"])
     bins = None if c["bins"] is None else jax.tree_util.tree_map(jnp.asarray, c["bins"])

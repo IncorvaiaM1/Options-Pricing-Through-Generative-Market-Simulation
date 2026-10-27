@@ -1,8 +1,10 @@
 torch
 numpy
+pandas
 scipy
 scikit-learn
 matplotlib
+yfinance
 jax
 flax
 optax

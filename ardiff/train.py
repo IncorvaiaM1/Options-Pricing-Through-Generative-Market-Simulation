@@ -24,6 +24,8 @@ def get_args(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--head", default="diffusion", choices=["diffusion", "token"])
     ap.add_argument("--out", default="runs/default")
+    ap.add_argument("--data", default=None, help="train on an exported data folder (bench.trackA export or bench.real export) "
+                                                  "instead of generating synthetic data here; then use ardiff.export_samples")
     # data
     ap.add_argument("--ctx_len", type=int, default=64)
     ap.add_argument("--horizon", type=int, default=20)
@@ -71,10 +73,19 @@ def main(argv=None):
     print("devices:", jax.devices(), flush=True)
 
     garch = D.GarchT(nu=args.nu)
-    splits = D.make_splits(garch, args.ctx_len, args.horizon, args.n_train, args.n_val, args.n_eval, args.data_seed)
-    scale = splits["scale"]
-    train = jnp.asarray(splits["train"] / scale, jnp.float32)
-    val = jnp.asarray(splits["val"] / scale, jnp.float32)
+    if args.data:
+        dcfg = json.load(open(os.path.join(args.data, "config.json")))
+        scale = dcfg["scale"]
+        train = jnp.asarray(np.load(os.path.join(args.data, "train.npy")) / scale, jnp.float32)
+        val = jnp.asarray(np.load(os.path.join(args.data, "val.npy")) / scale, jnp.float32)
+        for k in ("ctx_len", "horizon", "n_train", "n_val", "n_eval", "nu", "data_seed"):
+            cfg[k] = dcfg.get(k)  # record what the data really is
+        cfg["data_kind"] = dcfg.get("kind", "synthetic")
+    else:
+        splits = D.make_splits(garch, args.ctx_len, args.horizon, args.n_train, args.n_val, args.n_eval, args.data_seed)
+        scale = splits["scale"]
+        train = jnp.asarray(splits["train"] / scale, jnp.float32)
+        val = jnp.asarray(splits["val"] / scale, jnp.float32)
     print(f"train {train.shape}  scale(daily std)={scale:.5f}  max|x|={float(jnp.abs(train).max()):.1f} std units", flush=True)
 
     model = build(cfg)
@@ -122,7 +133,7 @@ def main(argv=None):
         params, opt_state, loss = train_step(params, opt_state, train[idx], ks)
         if step % args.log_every == 0 or step == 1 or step == args.steps:
             key, kv1, kv2 = jax.random.split(key, 3)
-            vidx = jax.random.randint(kv1, (min(1024, val.shape[0]),), 0, val.shape[0])
+            vidx = jax.random.randint(kv1, (min(args.batch, val.shape[0]),), 0, val.shape[0])  # same size as a training batch (memory)
             vl = float(val_loss(params, val[vidx], kv2))
             el = time.time() - t0
             print(f"step {step:6d}  train {float(loss):.4f}  val {vl:.4f}  {el:7.1f}s", flush=True)

@@ -32,8 +32,14 @@ python -m bench.trackA table "results/trackA/*.json"
 Metrics: IV error at the money / in the wings / wings in stressed contexts, Asian and barrier price error,
 vol clustering (lag-1 autocorrelation of |r|), explosive-sample rate, timing.
 
+Easiest: `bash scripts/run_model.sh <name> <data_dir>` (see the top-level README for names); it trains, scores and plots.
+
 | id | file | what it is | run (GPU) |
 |---|---|---|---|
+| A0 | `starters/a0_baselines.py` | Black-Scholes-Merton, historical bootstrap, GARCH-t (MLE) as sample generators | CPU, seconds |
+| A3 | `starters/a3_rnade.py` | team RNADE (PyTorch), context-first ordering for conditioning | GPU or CPU |
+| A4 | `starters/a4_gan.py` | conditional WGAN-GP (placeholder for the teammate GAN) | GPU |
+| A7 | `starters/a7_path_flow.py` | conditional RealNVP flow over the 20-day path; `--base t` heavy-tailed base | GPU |
 | A1 | `ardiff/` | AR transformer + diffusion head (ours) | `bash scripts/run_thesis_v0.sh`, then `python -m ardiff.export_samples ...` |
 | A2 | `ardiff/` + `scripts/a2_token_sweep.sh` | token AR, sweep of 64 to 4096 bins × quantile/uniform × 3 decode modes | `bash scripts/a2_token_sweep.sh`, later `--score` |
 | A5 | `starters/a5_sde_gan.py` | neural SDE generator (Euler-Maruyama, latent state), GRU critic, WGAN-GP; `--jumps` ablation | `sbatch -J a5 scripts/pace_starter.sbatch starters.a5_sde_gan` |

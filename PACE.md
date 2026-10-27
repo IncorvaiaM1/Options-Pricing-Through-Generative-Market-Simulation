@@ -57,3 +57,22 @@ cat results/v0/report.md              # when done
 ```
 
 See `ardiff/README.md` for what each piece does.
+
+## Model comparison workflow (pitch-aligned)
+
+```bash
+git pull && pip install -r requirements.txt          # adds yfinance + pandas
+
+# synthetic benchmark (exact truth)
+python -m bench.trackA export --out bench_data/A
+bash scripts/submit_all.sh bench_data/A              # one GPU job per model + a report job
+
+# real data: run the setup on the LOGIN node (compute nodes may not have internet)
+bash scripts/real_data_setup.sh megacap_tech         # yfinance download, time-split export, today's option chains
+MARKET=bench_data/market/$(date +%F)_megacap_tech bash scripts/submit_all.sh bench_data/real/megacap_tech
+
+squeue -u $USER                                      # progress; figures land in figs/<data>/ when the report job runs
+```
+
+One model by hand: `sbatch -J a6 scripts/pace_model.sbatch pure_diffusion bench_data/A`.
+Plumbing check before a big run: `QUICK=1 bash scripts/run_model.sh <model> bench_data/A` on an interactive node.
