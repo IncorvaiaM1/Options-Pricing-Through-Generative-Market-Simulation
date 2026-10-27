@@ -1,0 +1,111 @@
+---------------------------------------
+Begin Slurm Prolog: Oct-26-2026 16:21:10
+Job ID:    6618029
+User ID:   mincorvaia3
+Account:   ece
+Job name:  ardiff_train
+Partition: coe-gpu
+QOS:       coe-ice
+---------------------------------------
+
+CondaError: Run 'conda init' before 'conda deactivate'
+
+name, memory.total [MiB]
+NVIDIA H100 80GB HBM3, 81559 MiB
+devices: [CudaDevice(id=0)]
+train (20000, 84)  scale(daily std)=0.01241  max|x|=28.4 std units
+params: 837,504
+step      1  train 6.0830  val 6.0855     30.9s
+step    250  train 5.5408  val 5.5405     32.0s
+step    500  train 5.5033  val 5.5048     33.0s
+step    750  train 5.4954  val 5.5010     34.0s
+step   1000  train 5.5003  val 5.5011     35.0s
+step   1250  train 5.4930  val 5.5019     36.1s
+step   1500  train 5.4941  val 5.4956     37.1s
+step   1750  train 5.4860  val 5.5009     38.1s
+step   2000  train 5.5065  val 5.4901     39.1s
+step   2250  train 5.4901  val 5.4936     40.2s
+step   2500  train 5.4926  val 5.4908     41.2s
+step   2750  train 5.4909  val 5.5045     42.2s
+step   3000  train 5.4979  val 5.5067     43.2s
+step   3250  train 5.4781  val 5.5009     44.3s
+step   3500  train 5.4870  val 5.5051     45.3s
+step   3750  train 5.4673  val 5.5069     46.3s
+step   4000  train 5.4813  val 5.5147     47.3s
+step   4250  train 5.4650  val 5.5255     48.4s
+step   4500  train 5.4653  val 5.5291     49.4s
+step   4750  train 5.4460  val 5.5334     50.4s
+step   5000  train 5.4371  val 5.5463     51.4s
+step   5250  train 5.4177  val 5.5616     52.4s
+step   5500  train 5.3845  val 5.5693     53.5s
+step   5750  train 5.3797  val 5.5816     54.5s
+step   6000  train 5.3685  val 5.5939     55.5s
+step   6250  train 5.3476  val 5.6156     56.5s
+step   6500  train 5.3383  val 5.6292     57.6s
+step   6750  train 5.2975  val 5.6191     58.6s
+step   7000  train 5.3046  val 5.6636     59.6s
+step   7250  train 5.2868  val 5.6513     60.6s
+step   7500  train 5.2609  val 5.6737     61.7s
+step   7750  train 5.2664  val 5.7016     62.7s
+step   8000  train 5.2643  val 5.6984     63.7s
+step   8250  train 5.2165  val 5.7287     64.7s
+step   8500  train 5.2392  val 5.7418     65.8s
+step   8750  train 5.1926  val 5.7444     66.8s
+step   9000  train 5.1908  val 5.7444     67.8s
+step   9250  train 5.2060  val 5.7608     68.8s
+step   9500  train 5.1735  val 5.7694     69.9s
+step   9750  train 5.1926  val 5.7892     70.9s
+step  10000  train 5.1616  val 5.7931     71.9s
+step  10250  train 5.1559  val 5.7956     72.9s
+step  10500  train 5.1519  val 5.8138     74.0s
+step  10750  train 5.1323  val 5.8279     75.0s
+step  11000  train 5.1576  val 5.8175     76.0s
+step  11250  train 5.1568  val 5.8311     77.0s
+step  11500  train 5.1457  val 5.8513     78.1s
+step  11750  train 5.0687  val 5.8487     79.1s
+step  12000  train 5.1102  val 5.8523     80.1s
+step  12250  train 5.1122  val 5.8755     81.1s
+step  12500  train 5.0682  val 5.8696     82.2s
+step  12750  train 5.0437  val 5.8779     83.2s
+step  13000  train 5.0883  val 5.8930     84.2s
+step  13250  train 5.0985  val 5.8983     85.2s
+step  13500  train 5.0990  val 5.8957     86.3s
+step  13750  train 5.0846  val 5.9154     87.3s
+step  14000  train 5.0426  val 5.9086     88.3s
+step  14250  train 5.0609  val 5.9246     89.3s
+step  14500  train 5.0551  val 5.9302     90.4s
+step  14750  train 5.0428  val 5.9362     91.4s
+step  15000  train 5.0326  val 5.9481     92.4s
+step  15250  train 5.0578  val 5.9223     93.4s
+step  15500  train 5.0387  val 5.9278     94.5s
+step  15750  train 4.9810  val 5.9567     95.5s
+step  16000  train 5.0853  val 5.9370     96.5s
+step  16250  train 4.9538  val 5.9683     97.5s
+step  16500  train 5.0465  val 5.9132     98.6s
+step  16750  train 5.0109  val 5.9385     99.6s
+step  17000  train 4.9873  val 5.9943    100.6s
+step  17250  train 4.9794  val 5.9708    101.6s
+step  17500  train 4.9977  val 5.9492    102.7s
+step  17750  train 4.9987  val 5.9458    103.7s
+step  18000  train 5.0389  val 5.9702    104.7s
+step  18250  train 5.0461  val 5.9629    105.7s
+step  18500  train 5.0215  val 5.9673    106.8s
+step  18750  train 5.0610  val 5.9726    107.8s
+step  19000  train 5.0111  val 5.9902    108.8s
+step  19250  train 5.0310  val 5.9878    109.8s
+step  19500  train 5.0279  val 5.9933    110.9s
+step  19750  train 4.9836  val 5.9860    111.9s
+step  20000  train 4.9743  val 5.9764    112.9s
+saved runs/v0_tok256q/ckpt.pkl
+---------------------------------------
+Begin Slurm Epilog: Oct-26-2026 16:23:29
+Job ID:        6618029
+User ID:       mincorvaia3
+Account:       ece
+Job name:      ardiff_train
+Resources:     cpu=4,gres/gpu:h100=1,mem=32G,node=1
+Rsrc Used:     cput=00:09:16,vmem=0,walltime=00:02:19,mem=3960824K,energy_used=0
+Partition:     coe-gpu
+QOS:           coe-ice
+Nodes:         atl1-1-03-013-13-0
+---------------------------------------

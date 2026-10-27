@@ -1,0 +1,99 @@
+---------------------------------------
+Begin Slurm Prolog: Oct-26-2026 16:14:28
+Job ID:    6617918
+User ID:   mincorvaia3
+Account:   ece
+Job name:  rnade_sanity
+Partition: pace-cpu
+QOS:       coe-ice
+---------------------------------------
+
+CondaError: Run 'conda init' before 'conda deactivate'
+
+device: cpu  torch 2.14.1+cu130
+
+=== dataset: toy ===
+  epoch      0  nll/path = 496.0349
+  epoch   1000  nll/path = 45.3039
+  epoch   2000  nll/path = 33.9916
+  epoch   3000  nll/path = 17.8275
+  epoch   4000  nll/path = 10.1331
+  epoch   5000  nll/path = 3.5787
+  epoch   6000  nll/path = -1.7822
+  epoch   7000  nll/path = -9.0358
+  epoch   8000  nll/path = -19.9027
+  epoch   9000  nll/path = -24.7427
+  epoch   9999  nll/path = -25.3549
+  trained in 132.0s; truth = MC on true generator (2,000,000 paths)
+                 truth  train-set     RNADE    +-se  RNADE@500  rel err
+  call         67.1442    71.2199   71.5304  0.2201    67.1084     6.5%
+  put          25.2287    23.9026   23.8677  0.0660    26.6182    -5.4%
+  straddle     92.3728    95.1225   95.3981  0.1890    93.7267     3.3%
+  train_mean_move         0.3110
+  gen_mean_move           0.3248
+  train_std_move          6.0292
+  gen_std_move            6.0324
+  train_lag1_autocorr     1.0000
+  gen_lag1_autocorr       0.9998
+
+=== dataset: iid ===
+  epoch      0  nll/path = 499.9507
+  epoch   1000  nll/path = 54.0081
+  epoch   2000  nll/path = 48.0291
+  epoch   3000  nll/path = 47.2807
+  epoch   4000  nll/path = 47.0447
+  epoch   5000  nll/path = 46.5553
+  epoch   6000  nll/path = 45.8026
+  epoch   7000  nll/path = 44.8496
+  epoch   8000  nll/path = 44.1191
+  epoch   9000  nll/path = 43.3985
+  epoch   9999  nll/path = 42.7583
+  trained in 123.8s; truth = MC on true generator (2,000,000 paths)
+                 truth  train-set     RNADE    +-se  RNADE@500  rel err
+  call          9.3624    10.0569   10.0671  0.0362    11.2363     7.5%
+  put           9.3798     8.8925    9.0798  0.0269     8.7523    -3.2%
+  straddle     18.7423    18.9494   19.1469  0.0334    19.9886     2.2%
+  train_mean_move         0.0727
+  gen_mean_move           0.0589
+  train_std_move          6.0601
+  gen_std_move            6.0355
+  train_lag1_autocorr    -0.0037
+  gen_lag1_autocorr       0.0005
+
+=== dataset: gbm ===
+  epoch      0  nll/path = 31.2007
+  epoch   1000  nll/path = 24.6818
+  epoch   2000  nll/path = 24.3001
+  epoch   3000  nll/path = 23.1889
+  epoch   4000  nll/path = 21.7738
+  epoch   5000  nll/path = 20.4966
+  epoch   6000  nll/path = 19.5703
+  epoch   7000  nll/path = 18.9092
+  epoch   8000  nll/path = 18.3858
+  epoch   9000  nll/path = 17.9657
+  epoch   9999  nll/path = 17.6783
+  trained in 124.8s; truth = black-scholes closed form
+                 truth  train-set     RNADE    +-se  RNADE@500  rel err
+  call          1.9464     1.9062    1.9478  0.0067     2.0677     0.1%
+  put           1.9464     2.0623    2.1201  0.0067     2.0290     8.9%
+  straddle      3.8929     3.9685    4.0679  0.0070     4.0967     4.5%
+  train_mean_move        -0.0104
+  gen_mean_move          -0.0115
+  train_std_move          1.2671
+  gen_std_move            1.3279
+  train_lag1_autocorr    -0.0091
+  gen_lag1_autocorr      -0.0074
+
+saved results/rnade_sanity_all_20261026-162108.json
+---------------------------------------
+Begin Slurm Epilog: Oct-26-2026 16:21:09
+Job ID:        6617918
+User ID:       mincorvaia3
+Account:       ece
+Job name:      rnade_sanity
+Resources:     cpu=4,mem=16G,node=1
+Rsrc Used:     cput=00:26:40,vmem=0,walltime=00:06:40,mem=1158304K,energy_used=0
+Partition:     pace-cpu
+QOS:           coe-ice
+Nodes:         atl1-1-01-005-4-1
+---------------------------------------

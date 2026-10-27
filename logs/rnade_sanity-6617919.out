@@ -1,0 +1,61 @@
+---------------------------------------
+Begin Slurm Prolog: Oct-26-2026 16:14:28
+Job ID:    6617919
+User ID:   mincorvaia3
+Account:   ece
+Job name:  rnade_sanity
+Partition: pace-cpu
+QOS:       coe-ice
+---------------------------------------
+
+CondaError: Run 'conda init' before 'conda deactivate'
+
+device: cpu  torch 2.14.1+cu130
+
+=== dataset: gbm ===
+  epoch      0  nll/path = 31.1068
+  epoch   1000  nll/path = 24.5948
+  epoch   2000  nll/path = 23.3503
+  epoch   3000  nll/path = 20.5111
+  epoch   4000  nll/path = 17.9691
+  epoch   5000  nll/path = 16.1456
+  epoch   6000  nll/path = 14.6895
+  epoch   7000  nll/path = 13.3233
+  epoch   8000  nll/path = 12.2673
+  epoch   9000  nll/path = 11.6283
+  epoch  10000  nll/path = 11.1463
+  epoch  11000  nll/path = 10.7473
+  epoch  12000  nll/path = 10.4272
+  epoch  13000  nll/path = 10.1698
+  epoch  14000  nll/path = 9.9308
+  epoch  15000  nll/path = 9.7413
+  epoch  16000  nll/path = 9.5878
+  epoch  17000  nll/path = 9.4562
+  epoch  18000  nll/path = 9.3431
+  epoch  19000  nll/path = 9.2386
+  epoch  19999  nll/path = 9.1364
+  trained in 312.4s; truth = black-scholes closed form
+                 truth  train-set     RNADE    +-se  RNADE@500  rel err
+  call          1.9464     1.9062    2.3529  0.0084     2.2169    20.9%
+  put           1.9464     2.0623    2.5039  0.0083     2.7600    28.6%
+  straddle      3.8929     3.9685    4.8568  0.0089     4.9769    24.8%
+  train_mean_move        -0.0104
+  gen_mean_move          -0.0100
+  train_std_move          1.2671
+  gen_std_move            1.6327
+  train_lag1_autocorr    -0.0091
+  gen_lag1_autocorr      -0.0027
+
+saved results/rnade_sanity_gbm_20261026-161958.json
+---------------------------------------
+Begin Slurm Epilog: Oct-26-2026 16:20:02
+Job ID:        6617919
+User ID:       mincorvaia3
+Account:       ece
+Job name:      rnade_sanity
+Resources:     cpu=4,mem=16G,node=1
+Rsrc Used:     cput=00:22:16,vmem=0,walltime=00:05:34,mem=1165948K,energy_used=0
+Partition:     pace-cpu
+QOS:           coe-ice
+Nodes:         atl1-1-01-005-4-1
+---------------------------------------
