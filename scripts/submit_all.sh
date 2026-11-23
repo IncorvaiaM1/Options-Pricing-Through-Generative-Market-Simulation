@@ -3,11 +3,16 @@
 #   bash scripts/submit_all.sh bench_data/A
 #   MARKET=bench_data/market/2026-10-27_megacap_tech bash scripts/submit_all.sh bench_data/real/megacap_tech
 #   MODELS="pure_diffusion path_flow" bash scripts/submit_all.sh bench_data/A     # a subset
+#   RUN_TAG=full1 bash scripts/submit_all.sh bench_data/A    # name the run; default is today's date
+# Every run is archived (logs, loss curves, scores, tables, figures) in archive/$RUN_TAG/<data name>/ when the report
+# job finishes; see bench/archive.py. Reuse a tag to add reruns of single models to the same archive.
 set -e
 cd "$(dirname "$0")/.."
 DATA=$1; NAME=$(basename "$DATA")
 MODELS=${MODELS:-"bsm bootstrap garch ar_diffusion ar_token rnade gan sde_gan pure_diffusion path_flow path_flow_t"}
 mkdir -p logs
+export RUN_TAG=${RUN_TAG:-$(date +%F)}
+python -m bench.archive start --tag "$RUN_TAG" --data "$DATA" --models "$MODELS"
 ids=""
 for m in $MODELS; do
   id=$(sbatch --parsable --export=ALL -J ${m}_${NAME} scripts/pace_model.sbatch $m $DATA)
@@ -15,4 +20,4 @@ for m in $MODELS; do
 done
 rid=$(sbatch --parsable --dependency=afterany$ids -J report_${NAME} -t 00:30:00 \
       --wrap "module load anaconda3; conda activate gdl; bash scripts/report.sh $DATA" -o logs/report_${NAME}-%j.out)
-echo "report job $rid (runs when all finish): figs/$NAME/"
+echo "report job $rid (runs when all finish): figs/$NAME/ and archive/$RUN_TAG/$NAME/README.md"

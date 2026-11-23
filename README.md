@@ -73,6 +73,23 @@ bash scripts/report.sh bench_data/A                                             
 `scripts/report.sh` writes leaderboard tables and figures to `figs/<data>/`: IV error by strike, smiles vs truth,
 terminal-return densities (tails), backtest summary and PIT histograms, market smiles. Setup details: `PACE.md`.
 
+## Archived runs
+
+Every full run is kept in `archive/<RUN_TAG>/<data name>/`, so the next run can't overwrite it:
+
+```bash
+RUN_TAG=full1 bash scripts/submit_all.sh bench_data/A                 # tag defaults to today's date
+RUN_TAG=full1 MODELS="gan" bash scripts/submit_all.sh bench_data/A    # a rerun joins the same archive
+RUN_TAG=full1 bash scripts/report.sh bench_data/A                     # re-collect by hand
+```
+
+Each folder has a `README.md` with a status line per model (ok / failed with its last error / missing), the leaderboard
+and every figure, plus the full log of each model, loss curves (`loss/*.json`, `figs/loss_*.png`), score jsons, run
+metadata, the data config, and at the top level the git hash, `git.diff` and `pip freeze`. Only files written after the
+run started are archived, and the tables and figures are rebuilt from those, so stale results can't sneak in.
+`KEEP_SAMPLES=1` also copies `samples.npy`. In the notebook: `nb.start_run("full1")` before running, and `nb.report(DATA)`
+collects. Every model's log also lands in `logs/models/<data>/<model>.log` however it was launched.
+
 ## Hedging metric (fatnarwhal-quant)
 
 The Black-Scholes, Greeks and implied vol behind FatNarwhal's site tools ship as a small library,

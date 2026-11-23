@@ -5,6 +5,7 @@ Everything here calls the same command-line entry points as the shell scripts (s
 starters, bench.plots), so a notebook run and a PACE batch run produce identical files:
   logs/notebook/<data name>/<model>.log    full stdout/stderr of each run
   runs/, results/, figs/                   exactly as scripts/run_model.sh and scripts/report.sh write them
+  archive/<tag>/<data name>/               snapshot of a whole run after start_run(tag) ... report(data); see bench/archive.py
 
 Two modes:
   local  run_trackA / run_trackB execute inside the notebook's own session (an OnDemand Jupyter on a GPU node).
@@ -468,6 +469,34 @@ def show_figs(data, pattern="*.png"):
     for f in sorted(glob.glob(os.path.join(ROOT, "figs", _name(data), pattern))):
         if display:
             display(Markdown(f"`{os.path.relpath(f, ROOT)}`")); display(Image(filename=f, width=900))
+
+
+# ------------------------------------------------------------------------------------------------ archive
+def start_run(tag=None, data=("bench_data/A",), models=None, reset=False):
+    """Name this run and start its clock. Everything run afterwards (local or slurm) is archived by report(data)
+    in archive/<tag>/<data name>/ (logs, loss curves, scores, tables, figures). Default tag: today's date."""
+    tag = tag or time.strftime("%Y-%m-%d")
+    os.environ["RUN_TAG"] = tag
+    data = [data] if isinstance(data, str) else list(data)
+    cmd = [sys.executable, "-m", "bench.archive", "start", "--tag", tag, "--data"] + data
+    if models:
+        cmd += ["--models", " ".join(_expand(models))]
+    if reset:
+        cmd += ["--reset"]
+    print(subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True).stdout)
+    return tag
+
+
+def archive(data, tag=None):
+    """(Re)collect archive/<tag>/<data name>/ now and show its status table. report(data) already does this."""
+    tag = tag or os.environ.get("RUN_TAG")
+    if not tag:
+        print("no run tag: call start_run(tag) first"); return
+    sh(f"{sys.executable} -m bench.archive collect --tag {tag} --data {data}", f"archive {tag}/{_name(data)}")
+    readme = os.path.join(ROOT, "archive", tag, _name(data), "README.md")
+    if display and os.path.exists(readme):
+        txt = open(readme).read()
+        display(Markdown(txt.split("## Comparison")[0].split("## Training curves")[0]))
 
 
 # ------------------------------------------------------------------------------------------------ slurm

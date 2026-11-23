@@ -24,6 +24,19 @@ ALSO=""; if [ -n "$MARKET" ]; then ALSO="--also_eval $MARKET"; fi
 Q=""
 if [ -n "$QUICK" ]; then N=256; fi
 
+# Full stdout/stderr of this model always lands in logs/models/<data name>/<model>.log (overwritten by the next run of
+# the same model; python -m bench.archive copies it into archive/<RUN_TAG>/ so nothing is lost).
+mkdir -p logs/models/$NAME
+LOG=logs/models/$NAME/$MODEL.log
+exec > >(tee "$LOG") 2>&1
+echo "# run_model.sh $MODEL $DATA $*"
+echo "# start $(date -Is)  host $(hostname)  git $(git rev-parse --short HEAD 2>/dev/null)$(git diff --quiet HEAD 2>/dev/null || echo ' (dirty)')  RUN_TAG=${RUN_TAG:-none}"
+echo "# env QUICK=${QUICK:-} N_PATHS=$N MARKET=${MARKET:-}  data $(python -c "import json;c=json.load(open('$DATA/config.json'));print({k:c[k] for k in ('kind','n_train','n_eval','n_hedge_paths','tickers') if k in c})" 2>/dev/null)"
+nvidia-smi --query-gpu=name,memory.total --format=csv,noheader 2>/dev/null | sed 's/^/# gpu /' || true
+trap 'rc=$?; echo "# end $(date -Is) exit $rc elapsed ${SECONDS}s"' EXIT
+# stale outputs of this model would otherwise end up in the report figures if this run fails
+rm -f $OUT/samples.npy $OUT/meta.json
+
 case $MODEL in
   bsm|bootstrap|garch)
     python -m starters.a0_baselines --method $MODEL --data $DATA --out $OUT --n_paths $N "$@"
