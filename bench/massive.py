@@ -10,15 +10,21 @@ bid/ask on Starter, so the market price is the day's last trade (close). bench.m
 volume and a minimum price instead of on the spread, and the spot is backed out of the options by put-call parity
 (the real export uses dividend-adjusted closes, which are off from the traded price by up to about a percent).
 
+Keys: keep them in ~/.massive/keys on PACE (outside the repo, chmod 600), one per line:
+        MASSIVE_API_KEY=...
+        MASSIVE_S3_ACCESS_KEY=...      (optional, flat files)
+        MASSIVE_S3_SECRET_KEY=...
+   This module reads that file when the variables are not already set (MASSIVE_KEY_FILE points elsewhere), so the
+   key is never in the code, the repo, a notebook or your shell history. Set it up once:
+        mkdir -p ~/.massive && chmod 700 ~/.massive && nano ~/.massive/keys && chmod 600 ~/.massive/keys
+
 1) download (needs internet: PACE login node or laptop), either way; both write the same files:
-   a) flat files (fast: one file per date), with the S3 keys from the Massive dashboard (not the API key):
-        export MASSIVE_S3_ACCESS_KEY=...   MASSIVE_S3_SECRET_KEY=...
-   b) REST, with the plain API key (slower: one request per option contract, cached so reruns resume):
-        export MASSIVE_API_KEY=...
+   a) flat files (fast: one file per date), with the S3 keys from the Massive dashboard (not the API key)
+   b) REST, with the plain API key (slower: one request per option contract, cached so reruns resume)
    then
         python -m bench.massive download --export bench_data/real/megacap_tech --out bench_data/massive_raw
-   It uses the flat files when the S3 keys are set and REST otherwise (force with --source rest|s3). Keys go in
-   ~/.bashrc, never in the repo. Dates already on disk are skipped, so it is safe to rerun.
+   It uses the flat files when the S3 keys are set and REST otherwise (force with --source rest|s3). Dates already
+   on disk are skipped, so it is safe to rerun.
 
 2) build (anywhere, no internet):
      python -m bench.massive build --export bench_data/real/megacap_tech --raw bench_data/massive_raw \
@@ -55,6 +61,23 @@ PREFIX = "us_options_opra/day_aggs_v1"
 _REST = re.compile(r"^(\d{6})([CP])(\d{8})$")  # after "O:<root>": YYMMDD, C/P, strike * 1000
 
 
+def load_keys():
+    """Fill MASSIVE_* variables from ~/.massive/keys (KEY=value lines) when they are not already set."""
+    path = os.path.expanduser(os.environ.get("MASSIVE_KEY_FILE", "~/.massive/keys"))
+    if not os.path.exists(path):
+        return
+    if os.name == "posix" and os.stat(path).st_mode & 0o077:
+        print(f"WARNING: {path} is readable by other users; run  chmod 600 {path}")
+    for line in open(path):
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        k, v = k.strip().removeprefix("export ").strip(), v.strip().strip("'\"")
+        if k.startswith("MASSIVE_") and v and not os.environ.get(k):
+            os.environ[k] = v
+
+
 def _client():
     try:
         import boto3
@@ -64,7 +87,7 @@ def _client():
     key, sec = os.environ.get("MASSIVE_S3_ACCESS_KEY"), os.environ.get("MASSIVE_S3_SECRET_KEY")
     if not key or not sec:
         raise SystemExit("set MASSIVE_S3_ACCESS_KEY and MASSIVE_S3_SECRET_KEY (Massive dashboard, Flat Files / S3 keys; "
-                         "not the REST API key). Put them in ~/.bashrc, never in the repo.")
+                         "not the REST API key) in ~/.massive/keys, never in the repo.")
     return boto3.client("s3", endpoint_url=ENDPOINT, aws_access_key_id=key, aws_secret_access_key=sec,
                         config=Config(signature_version="s3v4", retries=dict(max_attempts=5)))
 
@@ -116,6 +139,7 @@ def download_s3(a, dates, tickers):
 
 
 def download(a):
+    load_keys()
     meta = json.load(open(os.path.join(a.export, "eval_meta.json")))
     tickers = sorted(set(m["ticker"] for m in meta))
     today = dt.date.today()
@@ -177,7 +201,7 @@ def download_rest(a, meta, dates, tickers):
     import requests
     key = os.environ.get("MASSIVE_API_KEY")
     if not key:
-        raise SystemExit("set MASSIVE_API_KEY (or the S3 keys for flat files); put it in ~/.bashrc, never in the repo")
+        raise SystemExit("no MASSIVE_API_KEY: put it in ~/.massive/keys (see the top of bench/massive.py), never in the repo")
     cfg = json.load(open(os.path.join(a.export, "config.json")))
     H = cfg["horizon"]
     sess = requests.Session()
