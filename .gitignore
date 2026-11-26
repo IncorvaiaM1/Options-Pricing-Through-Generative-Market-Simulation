@@ -12,3 +12,12 @@ smoke_results/
 docs/_pitch_image1.png
 smoke_*/
 archive/**/samples.npy
+# keep archived runs complete (the patterns above would drop their logs/results/runs folders)
+!archive/**/logs/
+!archive/**/results/
+!archive/**/runs/
+# secrets: never commit (keys live in ~/.massive/keys)
+.env
+*.env
+*.key
+keys

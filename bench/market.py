@@ -1,6 +1,7 @@
 """Compare model prices with CURRENT market option prices (the pitch's "current marketplace values").
 
-yfinance only serves today's option chains (no history), so this is a snapshot comparison.
+yfinance only serves today's option chains (no history), so this is a snapshot comparison. For many historical dates
+use bench/massive.py, which builds the same kind of folder from Massive flat files; compare handles both.
 
 1) snapshot (needs internet; PACE login node or laptop). Uses a real export for the model settings (L, H, scale):
      python -m bench.market snapshot --export bench_data/real/megacap_tech --out bench_data/market/2026-10-27
@@ -100,6 +101,7 @@ def compare(args):
     label = args.label or (json.load(open(mp)).get("label") if os.path.exists(mp) else None) or os.path.basename(os.path.dirname(args.samples))
     out = dict(label=label, tickers={})
     allerr, allerr_P, allerr_bsm = [], [], []
+    bins = {}  # log moneyness in context-vol std units, rounded to 0.5 -> [(|err| Q, |err| P, |err| BSM, signed err Q)]
     for i, q in enumerate(quotes):
         H = smp.shape[2]
         h = min(q["trading_days"], H)
@@ -111,7 +113,11 @@ def compare(args):
         G = np.exp(smp[i, :, :h].sum(-1))
         Gq = G * math.exp(r * T) / G.mean()
         sig = math.sqrt(np.mean(ctx[i] ** 2) * 252)
-        rows = [o for o in q["options"] if o["bid"] > 0 and o["ask"] > o["bid"] and (o["ask"] - o["bid"]) / o["mid"] < args.max_rel_spread]
+        def usable(o):
+            if o.get("bid") is None:  # day close only (bench/massive.py, Starter plan): no spread, so filter on trading
+                return o["volume"] >= args.min_volume and o["mid"] >= args.min_price
+            return o["bid"] > 0 and o["ask"] > o["bid"] and (o["ask"] - o["bid"]) / o["mid"] < args.max_rel_spread
+        rows = [o for o in q["options"] if usable(o)]
         rows = [o for o in rows if abs(math.log(o["strike"] / F)) <= args.max_std * sig * math.sqrt(T)]
         if not rows:
             continue
@@ -127,17 +133,27 @@ def compare(args):
         iv_P = implied_vol(model_price(G * math.exp(r * T)), x, T)  # real-world paths, discounted at r
         e, eP, eb = np.abs(iv_Q - iv_mkt) * 100, np.abs(iv_P - iv_mkt) * 100, np.abs(sig - iv_mkt) * 100
         allerr += list(e[np.isfinite(e)]); allerr_P += list(eP[np.isfinite(eP)]); allerr_bsm += list(eb[np.isfinite(eb)])
-        out["tickers"][q["ticker"]] = dict(expiry=q["expiry"], trading_days=q["trading_days"], ctx_vol=sig,
-                                           log_moneyness=x.tolist(), iv_market=iv_mkt.tolist(), iv_model_Q=iv_Q.tolist(),
-                                           iv_model_P=iv_P.tolist(), mean_abs_iv_err_Q=float(np.nanmean(e)))
+        kstd = x / (sig * math.sqrt(T))
+        key = f"{q['ticker']} {q['date']}" if "date" in q else q["ticker"]
+        out["tickers"][key] = dict(ticker=q["ticker"], date=q.get("date"), expiry=q["expiry"], trading_days=q["trading_days"],
+                                   ctx_vol=sig, log_moneyness=x.tolist(), k_std=kstd.tolist(), iv_market=iv_mkt.tolist(),
+                                   iv_model_Q=iv_Q.tolist(), iv_model_P=iv_P.tolist(), mean_abs_iv_err_Q=float(np.nanmean(e)))
+        for kk, a_, b_, c_, sq in zip(kstd, e, eP, eb, (iv_Q - iv_mkt) * 100):
+            if np.isfinite(a_) and np.isfinite(kk):
+                bins.setdefault(float(np.clip(np.round(kk * 2) / 2, -2.5, 2.5)), []).append((a_, b_, c_, sq))
         print(f"  {q['ticker']}: {len(rows)} quotes; |IV err| model {np.nanmean(e):.2f}  (real-world paths {np.nanmean(eP):.2f}, "
               f"BSM at ctx vol {np.nanmean(eb):.2f}) vol pts")
     out["mean_abs_iv_err_Q"] = float(np.mean(allerr)) if allerr else None
     out["mean_abs_iv_err_P"] = float(np.mean(allerr_P)) if allerr_P else None
     out["mean_abs_iv_err_bsm_ctxvol"] = float(np.mean(allerr_bsm)) if allerr_bsm else None
+    out["n_quotes"] = len(allerr)
+    out["n_contexts"] = len(out["tickers"])
+    out["by_k"] = {f"{k:+.1f}": dict(n=len(v), abs_err_Q=float(np.nanmean([t[0] for t in v])),
+                                     abs_err_P=float(np.nanmean([t[1] for t in v])), abs_err_bsm=float(np.nanmean([t[2] for t in v])),
+                                     signed_err_Q=float(np.nanmean([t[3] for t in v]))) for k, v in sorted(bins.items())}
     os.makedirs(args.out, exist_ok=True)
     json.dump(out, open(os.path.join(args.out, f"{label}.json"), "w"), indent=1)
-    print(f"[{label}] mean |IV error| vs market: {out['mean_abs_iv_err_Q']}  (real-world: {out['mean_abs_iv_err_P']}, "
+    print(f"[{label}] {out['n_quotes']} quotes over {out['n_contexts']} contexts; mean |IV error| vs market: {out['mean_abs_iv_err_Q']}  (real-world: {out['mean_abs_iv_err_P']}, "
           f"BSM at ctx vol: {out['mean_abs_iv_err_bsm_ctxvol']})")
 
 
@@ -151,6 +167,8 @@ def main(argv=None):
     c.add_argument("--market", required=True); c.add_argument("--samples", required=True)
     c.add_argument("--label"); c.add_argument("--out", default="results/market")
     c.add_argument("--max_rel_spread", type=float, default=0.5); c.add_argument("--max_std", type=float, default=2.5)
+    c.add_argument("--min_volume", type=float, default=5, help="close-only data: contracts traded that day")
+    c.add_argument("--min_price", type=float, default=0.05, help="close-only data: drop sub-nickel prints (IV is noise there)")
     a = ap.parse_args(argv)
     snapshot(a) if a.cmd == "snapshot" else compare(a)
 

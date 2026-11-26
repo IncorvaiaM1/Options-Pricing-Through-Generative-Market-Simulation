@@ -113,6 +113,13 @@ def score(args):
         iv_err_atm=float(np.nanmean(ive[:, np.abs(ks) <= 1])), iv_err_wings=float(np.nanmean(ive[:, wing])),
         iv_err_wings_stressed=float(np.nanmean(ive[stressed][:, wing])),
         iv_nan_frac=float(np.isnan(iv).mean()),
+        # cells where the model price is below what its paths can resolve (no path past the strike) give NaN IV and
+        # drop out of the nanmeans above; report how often, and keep every cell so the table can compare models on
+        # the cells where all of them are defined
+        iv_nan_frac_wings=float(np.isnan(iv[:, wing]).mean()),
+        iv_nan_frac_wings_stressed=float(np.isnan(iv[stressed][:, wing]).mean()),
+        iv_abs_err_cells=[[None if not np.isfinite(v) else float(v) for v in row] for row in ive],
+        stressed_mask=stressed.astype(int).tolist(),
         terminal_q_abs_err=np.mean(np.abs(st["terminal_q"] - tr["terminal_q"]), 0).tolist(),
         asian_rel_err=float(np.mean(np.abs(st["asian_atm"] - tr["asian_atm"]) / tr["asian_atm"])),
         upout_rel_err=float(np.mean(np.abs(st["upout_110"] - tr["upout_110"]) / np.maximum(tr["upout_110"], 1e-12))),
@@ -169,9 +176,29 @@ def hedging_block(data, tr, ks, sd_H, H, model_px, model_iv, stressed):
                 hedge_oracle_std_bps_by_k=o["all_std"].tolist())
 
 
+def _common_wing_err(rows, max_nan=0.25):
+    """Wing |IV error| on the cells every (non-broken) model prices, so no model is rewarded for empty tails."""
+    ok = [r for r in rows if r.get("iv_abs_err_cells") is not None and r.get("iv_nan_frac_wings", 1) <= max_nan]
+    if len(ok) < 2:
+        return
+    ks = np.array(ok[0]["ks"]); wing = np.abs(ks) >= 2
+    cells = [np.array([[np.nan if v is None else v for v in row] for row in r["iv_abs_err_cells"]]) for r in ok]
+    if len({c.shape for c in cells}) > 1:
+        return
+    common = np.all([np.isfinite(c) for c in cells], 0) & wing[None, :]
+    st = np.array(ok[0].get("stressed_mask", [0] * cells[0].shape[0]), bool)[:, None]
+    for r, c in zip(ok, cells):
+        r["iv_err_wings_common"] = float(c[common].mean()) if common.any() else None
+        r["iv_err_wings_stressed_common"] = float(c[common & st].mean()) if (common & st).any() else None
+    print(f"(common cells: {int(common.sum())} of {int(wing.sum() * cells[0].shape[0])} wing cells, "
+          f"{len(ok)} models with <= {max_nan:.0%} empty wing cells)\n")
+
+
 def table(paths):
     rows = [json.load(open(p)) for g in paths for p in glob.glob(g)]
-    cols = ["iv_err_atm", "iv_err_wings", "iv_err_wings_stressed", "hedge_std_ratio_wings", "hedge_abs_mean_minus_oracle_bps_wings",
+    _common_wing_err(rows)
+    cols = ["iv_err_atm", "iv_err_wings", "iv_err_wings_stressed", "iv_nan_frac_wings", "iv_err_wings_common",
+            "iv_err_wings_stressed_common", "hedge_std_ratio_wings", "hedge_abs_mean_minus_oracle_bps_wings",
             "asian_rel_err", "acf_abs_lag1_model", "explosive_rate", "gen_seconds"]
     print("| model | " + " | ".join(cols) + " |"); print("|---|" + "---|" * len(cols))
     for r in sorted(rows, key=lambda r: r["iv_err_wings"]):

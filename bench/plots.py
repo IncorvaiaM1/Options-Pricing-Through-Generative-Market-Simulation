@@ -62,6 +62,8 @@ def ls_for(label):
     for k, (_, ls, _) in BASELINES.items():
         if label.startswith(k):
             return ls
+    if label.endswith("_gauss"):  # same family color as the Student-t flow, told apart by dashes
+        return "--"
     return "-"
 
 
@@ -286,6 +288,16 @@ def plot_market(a):
     tick = sorted(set(t for r in rows for t in r["tickers"]))
     if not tick:
         print("no market results"); return
+    if any(r.get("by_k") for r in rows):
+        plot_market_by_k(rows, a.out)
+    if len(tick) > 9:  # many dates (bench/massive.py): smiles for the latest date of each ticker
+        latest = {}
+        for t in tick:
+            d = rows[0]["tickers"].get(t) or next(r["tickers"][t] for r in rows if t in r["tickers"])
+            tk = d.get("ticker", t.split()[0])
+            if tk not in latest or t > latest[tk]:
+                latest[tk] = t
+        tick = sorted(latest.values())
     cols_n = min(3, len(tick)); rws = math.ceil(len(tick) / cols_n)
     fig, axes = plt.subplots(rws, cols_n, figsize=(4.4 * cols_n, 3.3 * rws), squeeze=False)
     for ax, t in zip(axes.ravel(), tick):
@@ -306,6 +318,33 @@ def plot_market(a):
         ax.axis("off")
     os.makedirs(a.out, exist_ok=True)
     f = os.path.join(a.out, "market_smiles.png"); fig.savefig(f); plt.close(fig); print("saved", f)
+
+
+def plot_market_by_k(rows, out):
+    """Mean |IV error| vs the market by log moneyness (context-vol std units), every model, BSM at context vol."""
+    fig, ax = plt.subplots(1, 2, figsize=(10, 3.4))
+    bsm = None
+    for r in sorted(rows, key=lambda r: r["label"]):
+        bk = r.get("by_k") or {}
+        if not bk:
+            continue
+        k = np.array([float(x) for x in bk]); o = np.argsort(k)
+        q = np.array([v["abs_err_Q"] for v in bk.values()]); sg = np.array([v["signed_err_Q"] for v in bk.values()])
+        ax[0].plot(k[o], q[o], color=color_for(r["label"]), ls=ls_for(r["label"]), lw=1.6, marker="o", ms=3, label=r["label"])
+        ax[1].plot(k[o], sg[o], color=color_for(r["label"]), ls=ls_for(r["label"]), lw=1.6, marker="o", ms=3)
+        bsm = bsm or (k[o], np.array([v["abs_err_bsm"] for v in bk.values()])[o],
+                      sum(v["n"] for v in bk.values()), r.get("n_contexts"))
+    if bsm is None:
+        plt.close(fig); return
+    ax[0].plot(bsm[0], bsm[1], color=INK2, ls=":", lw=1.4, label="BSM at context vol")
+    ax[1].axhline(0, color=INK2, lw=0.8)
+    ax[0].set_title(f"mean |IV error| vs market ({bsm[2]} quotes, {bsm[3]} contexts)"); ax[0].set_ylabel("vol points")
+    ax[1].set_title("mean signed IV error (model - market)"); ax[1].set_ylabel("vol points")
+    for x in ax:
+        x.set_xlabel("log(K / F) in context-vol std units  (< 0 puts, > 0 calls)")
+    ax[0].legend(fontsize=7)
+    os.makedirs(out, exist_ok=True)
+    f = os.path.join(out, "market_by_moneyness.png"); fig.savefig(f); plt.close(fig); print("saved", f)
 
 
 # ---------------------------------------------------------------- Track B

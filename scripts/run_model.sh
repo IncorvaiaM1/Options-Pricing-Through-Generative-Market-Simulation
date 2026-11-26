@@ -9,6 +9,7 @@
 #          gan | sde_gan | pure_diffusion | path_flow | path_flow_t     A4 A5 A6 A7 (JAX)
 # data_dir: a synthetic export (bench.trackA export) or a real one (bench.real export).
 # Optional env:  MARKET=bench_data/market/2026-10-27_megacap_tech   also price that market snapshot (bench.market compare)
+#                SEED=1   pass --seed 1 and keep this run apart: runs/<data>/<model>_s1, label <label>_s1, log <model>_s1.log
 #                N_PATHS=8192   QUICK=1 (tiny settings for a plumbing check)
 #
 # Outputs: runs/<data name>/<model>/samples.npy, results/<data name>/{trackA|backtest|market}/<label>.json,
@@ -17,7 +18,8 @@ set -e
 cd "$(dirname "$0")/.."
 MODEL=$1; DATA=$2; shift 2 || { echo "usage: bash scripts/run_model.sh <model> <data_dir> [args]"; exit 1; }
 NAME=$(basename "$DATA")
-OUT=runs/$NAME/$MODEL
+SFX=""; if [ -n "$SEED" ]; then SFX=_s$SEED; set -- "$@" --seed "$SEED"; fi
+OUT=runs/$NAME/$MODEL$SFX
 N=${N_PATHS:-8192}
 KIND=$(python -c "import json;print(json.load(open('$DATA/config.json')).get('kind','synthetic'))")
 ALSO=""; if [ -n "$MARKET" ]; then ALSO="--also_eval $MARKET"; fi
@@ -27,7 +29,7 @@ if [ -n "$QUICK" ]; then N=256; fi
 # Full stdout/stderr of this model always lands in logs/models/<data name>/<model>.log (overwritten by the next run of
 # the same model; python -m bench.archive copies it into archive/<RUN_TAG>/ so nothing is lost).
 mkdir -p logs/models/$NAME
-LOG=logs/models/$NAME/$MODEL.log
+LOG=logs/models/$NAME/$MODEL$SFX.log
 exec > >(tee "$LOG") 2>&1
 echo "# run_model.sh $MODEL $DATA $*"
 echo "# start $(date -Is)  host $(hostname)  git $(git rev-parse --short HEAD 2>/dev/null)$(git diff --quiet HEAD 2>/dev/null || echo ' (dirty)')  RUN_TAG=${RUN_TAG:-none}"
@@ -70,6 +72,11 @@ case $MODEL in
   *) echo "unknown model $MODEL"; exit 1 ;;
 esac
 
+if [ -n "$SFX" ]; then  # seed suffix on the label, so scores and figures of different seeds don't overwrite each other
+  for mj in $OUT/meta.json $OUT/also_*/meta.json; do
+    [ -f "$mj" ] && python -c "import json,sys;p,s=sys.argv[1:];m=json.load(open(p));l=m.get('label','$MODEL');m['label']=l if l.endswith(s) else l+s;json.dump(m,open(p,'w'),indent=1)" "$mj" "$SFX"
+  done
+fi
 if [ "$KIND" = "real" ]; then
   python -m bench.backtest --data $DATA --samples $OUT/samples.npy --out results/$NAME/backtest
 else

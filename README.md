@@ -38,12 +38,27 @@ Track B (option-implied models, outside the pitch, kept for now): see `starters/
 Every script runs either way from the repo root: `python -m starters.b4_schrodinger_bridge` or
 `python starters/b4_schrodinger_bridge.py`. Track B scripts need `python -m bench.surfaces --out bench_data/D2` first.
 
+- **Historical option prices (Massive, Starter plan):** `bench/massive.py` turns the day-aggregate flat files into a
+  market folder with one entry per (ticker, evaluation date), for the last 2 years. No bid/ask on Starter, so prices are
+  the day's last trade, filtered on volume (`--min_volume`, default 5) and price (`--min_price`, $0.05); spot comes from
+  put-call parity. Uses the flat-file S3 keys if set, otherwise the REST API key (slower, cached so it resumes).
+  Keys live only in `~/.massive/keys` on your PACE account (one `MASSIVE_API_KEY=...` line; never in the repo),
+  which `bench/massive.py` reads itself:
+  ```bash
+  mkdir -p ~/.massive && chmod 700 ~/.massive && nano ~/.massive/keys && chmod 600 ~/.massive/keys   # once
+  python -m bench.massive download --export bench_data/real/megacap_tech              # login node (internet)
+  python -m bench.massive build --export bench_data/real/megacap_tech --out bench_data/market/massive_megacap_tech
+  MARKET=bench_data/market/massive_megacap_tech bash scripts/run_model.sh garch bench_data/real/megacap_tech
+  ```
+  Results gain `by_k` (IV error by moneyness) and a `market_by_moneyness.png` figure.
+
 ## Run one model
 
 ```bash
 bash scripts/run_model.sh <model> <data_dir>                        # e.g. pure_diffusion bench_data/A
 MARKET=bench_data/market/2026-10-27_megacap_tech bash scripts/run_model.sh path_flow bench_data/real/megacap_tech
 QUICK=1 bash scripts/run_model.sh rnade bench_data/A                  # tiny settings, plumbing check
+SEED=1 bash scripts/run_model.sh ar_diffusion bench_data/A           # another seed, kept apart as ar_diffusion_s1
 ```
 
 Each run trains, generates 8192 paths per evaluation context, scores, and plots:
