@@ -1,0 +1,112 @@
+[
+ {
+  "model": "bsm",
+  "status": "ok",
+  "minutes": 0.1,
+  "label": "baseline_bsm",
+  "n_params": 0,
+  "train_s": 0.0,
+  "gen_s": 0.09220027923583984,
+  "error": ""
+ },
+ {
+  "model": "bootstrap",
+  "status": "ok",
+  "minutes": 0.1,
+  "label": "baseline_bootstrap",
+  "n_params": 0,
+  "train_s": 0.0,
+  "gen_s": 0.07804703712463379,
+  "error": ""
+ },
+ {
+  "model": "garch",
+  "status": "ok",
+  "minutes": 0.1,
+  "label": "baseline_garch",
+  "n_params": 4,
+  "train_s": 0.0,
+  "gen_s": 1.720618486404419,
+  "error": ""
+ },
+ {
+  "model": "ar_diffusion",
+  "status": "ok",
+  "minutes": 6.8,
+  "label": "ar_diffusion",
+  "n_params": 2088321,
+  "train_s": 274.18827176094055,
+  "gen_s": 43.2273063659668,
+  "error": ""
+ },
+ {
+  "model": "ar_token",
+  "status": "ok",
+  "minutes": 2.4,
+  "label": "ar_token256q_mean",
+  "n_params": 837504,
+  "train_s": 97.57893204689026,
+  "gen_s": 23.955440044403076,
+  "error": ""
+ },
+ {
+  "model": "rnade",
+  "status": "ok",
+  "minutes": 53.6,
+  "label": "a3_rnade",
+  "n_params": 87340,
+  "train_s": 3037.7476303577423,
+  "gen_s": 3.0538086891174316,
+  "error": ""
+ },
+ {
+  "model": "gan",
+  "status": "ok",
+  "minutes": 7.1,
+  "label": "a4_gan",
+  "n_params": 293908,
+  "train_s": 274.09861946105957,
+  "gen_s": 1.6914587020874023,
+  "error": ""
+ },
+ {
+  "model": "sde_gan",
+  "status": "ok",
+  "minutes": 8.4,
+  "label": "a5_sde_gan",
+  "n_params": 194657,
+  "train_s": 466.30942463874817,
+  "gen_s": 12.217381954193115,
+  "error": ""
+ },
+ {
+  "model": "pure_diffusion",
+  "status": "ok",
+  "minutes": 1.4,
+  "label": "a6_pure_diffusion",
+  "n_params": 3916052,
+  "train_s": 61.46354341506958,
+  "gen_s": 7.031827211380005,
+  "error": ""
+ },
+ {
+  "model": "path_flow",
+  "status": "ok",
+  "minutes": 1.2,
+  "label": "a7_path_flow_gauss",
+  "n_params": 938944,
+  "train_s": 54.524818897247314,
+  "gen_s": 1.835569143295288,
+  "error": ""
+ },
+ {
+  "model": "path_flow_t",
+  "status": "ok",
+  "minutes": 1.2,
+  "label": "a7_path_flow_t",
+  "n_params": 938944,
+  "train_s": 54.1159393787384,
+  "gen_s": 2.56198787689209,
+  "error": ""
+ }
+]

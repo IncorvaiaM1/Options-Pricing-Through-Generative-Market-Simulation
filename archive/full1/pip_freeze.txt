@@ -1,0 +1,154 @@
+absl-py==2.5.1
+aiofiles==25.1.0
+asttokens @ file:///home/task_179302517483105/croot/asttokens_1793025202439/work
+attrs==26.1.0
+autograd==1.9.1
+beautifulsoup4==4.15.0
+bleach==6.4.0
+certifi==2026.10.23
+cffi==2.1.1
+charset-normalizer==3.5.2
+cloudpickle==3.1.2
+comm @ file:///home/task_176311912799921/conda-bld/comm_1763119155507/work
+contourpy==1.3.3
+cuda-bindings==13.4.4
+cuda-pathfinder==1.8.4
+cuda-toolkit==13.0.3.0
+curl_cffi==0.17.0
+cycler==0.12.1
+Cython==3.3.1
+debugpy @ file:///home/task_dKgtRgWRQZSeL_0/croot/debugpy_1783354456902/work
+defusedxml==0.7.1
+escnn==1.0.11
+etils==1.14.0
+executing @ file:///home/task_178782611865427/croot/executing_1787826148018/work
+fastjsonschema==2.22.3
+filelock==4.2.4
+flax==0.12.8
+fonttools==4.67.0
+fsspec==2026.9.0
+humanize==4.16.0
+idna==3.20
+ipykernel @ file:///home/task_H1MthScOQF6Nl_0/croot/ipykernel_1785763743238/work
+ipython @ file:///home/task_179015607281332/croot/ipython_1790156100951/work
+ipython_pygments_lexers @ file:///croot/ipython_pygments_lexers_1744753235686/work
+ipywidgets==8.1.9
+jax==0.10.2
+jax-cuda12-pjrt==0.10.2
+jax-cuda12-plugin==0.10.2
+jaxlib==0.10.2
+jedi @ file:///home/task_177868175557798/croot/jedi_1778681790901/work
+Jinja2==3.1.6
+joblib==1.6.0
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+jupyter_client @ file:///home/task_178885793263104/croot/jupyter_client_1788857975482/work
+jupyter_core @ file:///home/task_176458817296442/conda-bld/jupyter_core_1764588286514/work
+jupyterlab_pygments==0.3.0
+jupyterlab_widgets==3.0.17
+kiwisolver==1.5.1
+lie_learn==0.0.2
+lxml==6.1.3
+markdown-it-py==4.2.0
+MarkupSafe==3.0.4
+matplotlib==3.11.2
+matplotlib-inline @ file:///home/task_LRcWyU_2ThOCI_0/croot/matplotlib-inline_1784795246818/work
+mdurl==0.1.2
+mistune==3.4.0
+ml_dtypes==0.6.0
+mpmath==1.3.0
+msgpack==1.2.4
+multitasking==0.0.13
+narwhals==2.27.1
+nbclient==0.11.0
+nbconvert==7.17.2
+nbformat==5.11.1
+nest-asyncio2 @ file:///home/task_I3tk57cDQW-Gl_0/croot/nest-asyncio2_1785322362245/work
+networkx==3.6.1
+numpy==2.4.6
+nvidia-cublas==13.1.1.3
+nvidia-cublas-cu12==12.9.2.10
+nvidia-cuda-cccl-cu12==12.9.27
+nvidia-cuda-cupti==13.0.85
+nvidia-cuda-cupti-cu12==12.9.79
+nvidia-cuda-nvcc-cu12==12.9.86
+nvidia-cuda-nvrtc==13.0.88
+nvidia-cuda-nvrtc-cu12==12.9.86
+nvidia-cuda-runtime==13.0.96
+nvidia-cuda-runtime-cu12==12.9.79
+nvidia-cudnn-cu12==9.27.0.42
+nvidia-cudnn-cu13==9.24.0.43
+nvidia-cufft==12.0.0.61
+nvidia-cufft-cu12==11.4.1.4
+nvidia-cufile==1.15.1.6
+nvidia-curand==10.4.0.35
+nvidia-cusolver==12.0.4.66
+nvidia-cusolver-cu12==11.7.5.82
+nvidia-cusparse==12.6.3.3
+nvidia-cusparse-cu12==12.5.10.65
+nvidia-cusparselt-cu13==0.8.1
+nvidia-nccl-cu12==2.32.3
+nvidia-nccl-cu13==2.30.7
+nvidia-nvjitlink==13.4.92
+nvidia-nvjitlink-cu12==12.9.86
+nvidia-nvshmem-cu12==3.8.0
+nvidia-nvshmem-cu13==3.4.5
+nvidia-nvtx==13.0.85
+opt_einsum==3.4.0
+optax==0.2.8
+orbax-checkpoint==0.12.8
+packaging==26.3
+pandas==3.1.0
+pandocfilters==1.5.1
+parso @ file:///home/task_177867368583180/croot/parso_1778674006702/work
+peewee==4.5.3
+pexpect @ file:///home/task_176253519276066/conda-bld/pexpect_1762535937040/work
+pillow==13.0.0
+platformdirs==4.13.6
+prometheus_client==0.26.0
+prompt_toolkit @ file:///home/task_edvgynYsTvqJP_0/croot/prompt-toolkit-split_1785325201646/work
+protobuf==7.36.2
+psutil @ file:///home/task_frrR-Q35RaO0Z_0/croot/psutil_1784875230532/work
+ptyprocess @ file:///opt/miniconda3/conda-bld/ptyprocess_1762424170819/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl#sha256=3470be7f810474c8a2ecfcd6e02acc6aea8483ab595417fa4e336362a349933e
+pure_eval @ file:///home/task_179120849570878/croot/pure_eval_1791208529288/work
+py3nj==0.2.1
+pycparser==3.12
+Pygments @ file:///home/task_179034397651613/croot/pygments_1790344003009/work
+pymanopt==2.2.1
+pyparsing==3.3.3
+python-dateutil @ file:///croot/python-dateutil_1716495738603/work
+pytz==2026.5
+PyYAML==6.0.3
+pyzmq @ file:///home/task_178939051333869/croot/pyzmq_1789390539470/work
+referencing==0.37.0
+requests==2.34.2
+rich==15.0.0
+rpds-py==2026.9.1
+scikit-learn==1.9.1
+scipy==1.17.1
+seaborn==0.13.2
+simplejson==4.2.0
+six @ file:///croot/six_1744271502820/work
+soupsieve==3.0.4
+stack_data @ file:///home/task_175706683579810/conda-bld/stack_data_1757067036897/work
+sympy==1.14.0
+tensorstore==0.1.86
+threadpoolctl==3.7.0
+tinycss2==1.5.1
+torch==2.14.1
+torchvision==0.29.1
+tornado @ file:///home/task_179085220952379/croot/tornado_1790852254344/work
+tqdm==4.70.1
+traitlets @ file:///home/task_179301283074796/croot/traitlets_1793012859572/work
+treescope==0.1.10
+triton==3.8.0
+typing_extensions @ file:///home/task_CtU_auItQoiq2_0/croot/typing_extensions_1784100989412/work
+tzdata==2026.5
+urllib3==2.8.0
+uvloop==0.23.0
+wcwidth @ file:///home/task_179249375220888/croot/wcwidth_1792493776891/work
+webencodings==0.6.1
+websockets==17.3
+widgetsnbextension==4.0.16
+yfinance==1.7.0
+zipp==4.1.2
