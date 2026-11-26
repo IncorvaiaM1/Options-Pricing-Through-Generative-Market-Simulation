@@ -1,0 +1,10 @@
+# run_model.sh bsm bench_data/A 
+# start 2026-11-26T11:58:06-05:00  host atl1-1-03-010-30-0.pace.gatech.edu  git 411e423  RUN_TAG=full1
+# env QUICK= N_PATHS=8192 MARKET=  data {'kind': 'synthetic', 'n_train': 200000, 'n_eval': 32}
+# gpu NVIDIA H100 80GB HBM3, 81559 MiB
+wrote runs/A/bsm/samples.npy (32, 8192, 20)
+fatnarwhal-quant not installed: skipping the hedging metric (pip install fatnarwhal-quant)
+[baseline_bsm] IV err ATM 3.08  wings 5.74  wings|stressed 6.95 vol pts; asian rel err 15.3%; ACF|r| -0.000 (true 0.118); explosive 0.00e+00
+saved figs/A/paths_baseline_bsm.png
+done: bsm on A
+# end 2026-11-26T11:58:12-05:00 exit 0 elapsed 6s

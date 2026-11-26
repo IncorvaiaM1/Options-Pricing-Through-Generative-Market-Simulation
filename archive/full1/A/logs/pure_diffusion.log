@@ -1,0 +1,52 @@
+# run_model.sh pure_diffusion bench_data/A 
+# start 2026-11-26T13:16:41-05:00  host atl1-1-03-010-30-0.pace.gatech.edu  git 411e423 (dirty)  RUN_TAG=full1
+# env QUICK= N_PATHS=8192 MARKET=  data {'kind': 'synthetic', 'n_train': 200000, 'n_eval': 32}
+# gpu NVIDIA H100 80GB HBM3, 81559 MiB
+A6 pure diffusion: 3,916,052 params; train (200000, 84)
+step      1 train 0.9892 val 1.0147 13s
+step    500 train 0.2416 val 0.2350 14s
+step   1000 train 0.2194 val 0.2190 16s
+step   1500 train 0.2248 val 0.2444 17s
+step   2000 train 0.1948 val 0.2324 18s
+step   2500 train 0.2566 val 0.1989 19s
+step   3000 train 0.2529 val 0.2285 21s
+step   3500 train 0.2254 val 0.2149 22s
+step   4000 train 0.2001 val 0.2158 23s
+step   4500 train 0.2305 val 0.2068 24s
+step   5000 train 0.2097 val 0.2149 25s
+step   5500 train 0.2362 val 0.2072 27s
+step   6000 train 0.2133 val 0.2236 28s
+step   6500 train 0.2051 val 0.2047 29s
+step   7000 train 0.1859 val 0.2123 30s
+step   7500 train 0.1862 val 0.2379 31s
+step   8000 train 0.1952 val 0.2274 33s
+step   8500 train 0.1717 val 0.1976 34s
+step   9000 train 0.2519 val 0.2291 35s
+step   9500 train 0.2641 val 0.2150 36s
+step  10000 train 0.1961 val 0.2089 37s
+step  10500 train 0.2322 val 0.2064 39s
+step  11000 train 0.2276 val 0.2047 40s
+step  11500 train 0.2163 val 0.2084 41s
+step  12000 train 0.2139 val 0.2097 42s
+step  12500 train 0.2198 val 0.1994 43s
+step  13000 train 0.2243 val 0.2366 45s
+step  13500 train 0.2230 val 0.2179 46s
+step  14000 train 0.1916 val 0.2226 47s
+step  14500 train 0.2190 val 0.2087 48s
+step  15000 train 0.2173 val 0.2209 49s
+step  15500 train 0.2277 val 0.2041 51s
+step  16000 train 0.2164 val 0.2241 52s
+step  16500 train 0.2127 val 0.2065 53s
+step  17000 train 0.2194 val 0.2321 54s
+step  17500 train 0.2184 val 0.2100 55s
+step  18000 train 0.1995 val 0.2111 57s
+step  18500 train 0.2372 val 0.2153 58s
+step  19000 train 0.2232 val 0.2197 59s
+step  19500 train 0.2065 val 0.2220 60s
+step  20000 train 0.1927 val 0.2168 61s
+wrote runs/A/pure_diffusion/samples.npy (32, 8192, 20)
+fatnarwhal-quant not installed: skipping the hedging metric (pip install fatnarwhal-quant)
+[a6_pure_diffusion] IV err ATM 9.45  wings 8.74  wings|stressed 23.00 vol pts; asian rel err 27.8%; ACF|r| 0.053 (true 0.118); explosive 2.21e-04
+saved figs/A/paths_a6_pure_diffusion.png
+done: pure_diffusion on A
+# end 2026-11-26T13:18:05-05:00 exit 0 elapsed 84s

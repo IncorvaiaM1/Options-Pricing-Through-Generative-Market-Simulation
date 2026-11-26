@@ -1,0 +1,7 @@
+{
+ "label": "a7_path_flow_t",
+ "n_params": 938944,
+ "train_seconds": 54.1159393787384,
+ "gen_seconds": 2.56198787689209,
+ "val_nll_per_day_normalized": 1.2679523229599
+}

@@ -1,0 +1,11 @@
+# run_model.sh garch bench_data/A 
+# start 2026-11-26T11:58:16-05:00  host atl1-1-03-010-30-0.pace.gatech.edu  git 411e423 (dirty)  RUN_TAG=full1
+# env QUICK= N_PATHS=8192 MARKET=  data {'kind': 'synthetic', 'n_train': 200000, 'n_eval': 32}
+# gpu NVIDIA H100 80GB HBM3, 81559 MiB
+fitted GARCH-t: {'omega': 3e-06, 'alpha': 0.09903, 'beta': 0.883873, 'nu': 4.66307, 'nll': -3.13333}
+wrote runs/A/garch/samples.npy (32, 8192, 20)
+fatnarwhal-quant not installed: skipping the hedging metric (pip install fatnarwhal-quant)
+[baseline_garch] IV err ATM 0.62  wings 1.45  wings|stressed 1.94 vol pts; asian rel err 2.5%; ACF|r| 0.151 (true 0.118); explosive 4.58e-06
+saved figs/A/paths_baseline_garch.png
+done: garch on A
+# end 2026-11-26T11:58:21-05:00 exit 0 elapsed 5s

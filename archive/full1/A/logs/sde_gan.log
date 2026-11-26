@@ -1,0 +1,52 @@
+# run_model.sh sde_gan bench_data/A 
+# start 2026-11-26T13:08:16-05:00  host atl1-1-03-010-30-0.pace.gatech.edu  git 411e423 (dirty)  RUN_TAG=full1
+# env QUICK= N_PATHS=8192 MARKET=  data {'kind': 'synthetic', 'n_train': 200000, 'n_eval': 32}
+# gpu NVIDIA H100 80GB HBM3, 81559 MiB
+A5 SDE-GAN: G 194,657 params, D 125,185 params; jumps=False
+step      1  W-dist est -0.0995  gen std 2.161 (real 0.970)  gen max|r| 12.5  36s
+step    250  W-dist est 0.3182  gen std 0.961 (real 0.970)  gen max|r| 7.9  47s
+step    500  W-dist est 0.1863  gen std 0.995 (real 0.970)  gen max|r| 8.6  57s
+step    750  W-dist est 0.1443  gen std 0.959 (real 0.970)  gen max|r| 9.6  68s
+step   1000  W-dist est 0.1485  gen std 0.985 (real 0.970)  gen max|r| 9.7  79s
+step   1250  W-dist est 0.2779  gen std 0.968 (real 0.970)  gen max|r| 12.1  90s
+step   1500  W-dist est 0.2095  gen std 1.026 (real 0.970)  gen max|r| 12.4  100s
+step   1750  W-dist est 0.0968  gen std 1.073 (real 0.970)  gen max|r| 12.0  111s
+step   2000  W-dist est 0.1509  gen std 0.961 (real 0.970)  gen max|r| 9.8  122s
+step   2250  W-dist est 0.1618  gen std 1.023 (real 0.970)  gen max|r| 13.1  133s
+step   2500  W-dist est 0.2592  gen std 1.070 (real 0.970)  gen max|r| 15.0  143s
+step   2750  W-dist est -0.0110  gen std 0.969 (real 0.970)  gen max|r| 12.0  154s
+step   3000  W-dist est 0.1597  gen std 0.940 (real 0.970)  gen max|r| 9.1  165s
+step   3250  W-dist est 0.2734  gen std 0.949 (real 0.970)  gen max|r| 9.3  176s
+step   3500  W-dist est 0.1271  gen std 0.993 (real 0.970)  gen max|r| 12.6  186s
+step   3750  W-dist est 0.0709  gen std 1.048 (real 0.970)  gen max|r| 12.2  197s
+step   4000  W-dist est 0.4522  gen std 1.044 (real 0.970)  gen max|r| 17.2  208s
+step   4250  W-dist est 0.0820  gen std 1.021 (real 0.970)  gen max|r| 10.5  219s
+step   4500  W-dist est 0.4203  gen std 0.992 (real 0.970)  gen max|r| 12.0  229s
+step   4750  W-dist est 0.3209  gen std 1.016 (real 0.970)  gen max|r| 10.7  240s
+step   5000  W-dist est 0.3971  gen std 0.970 (real 0.970)  gen max|r| 9.4  251s
+step   5250  W-dist est 0.1573  gen std 0.934 (real 0.970)  gen max|r| 9.4  262s
+step   5500  W-dist est 0.1371  gen std 1.049 (real 0.970)  gen max|r| 15.2  273s
+step   5750  W-dist est 0.2264  gen std 0.930 (real 0.970)  gen max|r| 8.3  283s
+step   6000  W-dist est 0.3461  gen std 1.016 (real 0.970)  gen max|r| 22.8  294s
+step   6250  W-dist est 0.2111  gen std 1.048 (real 0.970)  gen max|r| 12.9  305s
+step   6500  W-dist est 0.3702  gen std 0.961 (real 0.970)  gen max|r| 8.6  316s
+step   6750  W-dist est 0.3481  gen std 1.013 (real 0.970)  gen max|r| 10.1  326s
+step   7000  W-dist est 0.4696  gen std 1.054 (real 0.970)  gen max|r| 9.5  337s
+step   7250  W-dist est 0.3091  gen std 0.996 (real 0.970)  gen max|r| 17.5  348s
+step   7500  W-dist est 0.4435  gen std 1.010 (real 0.970)  gen max|r| 11.4  359s
+step   7750  W-dist est 0.2987  gen std 1.027 (real 0.970)  gen max|r| 11.4  369s
+step   8000  W-dist est 0.5065  gen std 1.020 (real 0.970)  gen max|r| 12.5  380s
+step   8250  W-dist est 0.5696  gen std 1.041 (real 0.970)  gen max|r| 13.0  391s
+step   8500  W-dist est 0.4520  gen std 0.913 (real 0.970)  gen max|r| 8.2  402s
+step   8750  W-dist est 0.4344  gen std 0.943 (real 0.970)  gen max|r| 9.7  412s
+step   9000  W-dist est 0.3135  gen std 1.037 (real 0.970)  gen max|r| 8.6  423s
+step   9250  W-dist est 0.2699  gen std 1.010 (real 0.970)  gen max|r| 12.1  434s
+step   9500  W-dist est 0.3196  gen std 0.951 (real 0.970)  gen max|r| 9.3  445s
+step   9750  W-dist est 0.3666  gen std 0.994 (real 0.970)  gen max|r| 11.9  456s
+step  10000  W-dist est 0.3677  gen std 1.063 (real 0.970)  gen max|r| 15.9  466s
+wrote runs/A/sde_gan/samples.npy (32, 8192, 20)
+fatnarwhal-quant not installed: skipping the hedging metric (pip install fatnarwhal-quant)
+[a5_sde_gan] IV err ATM 1.93  wings 2.07  wings|stressed 3.51 vol pts; asian rel err 11.6%; ACF|r| 0.157 (true 0.118); explosive 0.00e+00
+saved figs/A/paths_a5_sde_gan.png
+done: sde_gan on A
+# end 2026-11-26T13:16:41-05:00 exit 0 elapsed 505s

@@ -1,0 +1,54 @@
+# run_model.sh path_flow bench_data/A 
+# start 2026-11-26T13:18:05-05:00  host atl1-1-03-010-30-0.pace.gatech.edu  git 411e423 (dirty)  RUN_TAG=full1
+# env QUICK= N_PATHS=8192 MARKET=  data {'kind': 'synthetic', 'n_train': 200000, 'n_eval': 32}
+# gpu NVIDIA H100 80GB HBM3, 81559 MiB
+A7 path flow (gauss base): 938,944 params
+step      1 train NLL/day 1.4109  val NLL/day 1.4545  6s
+step    500 train NLL/day 1.2537  val NLL/day 1.2699  8s
+step   1000 train NLL/day 1.2314  val NLL/day 1.2642  9s
+step   1500 train NLL/day 1.2675  val NLL/day 1.2638  10s
+step   2000 train NLL/day 1.2605  val NLL/day 1.2631  11s
+step   2500 train NLL/day 1.2068  val NLL/day 1.2616  13s
+step   3000 train NLL/day 1.2434  val NLL/day 1.2605  14s
+step   3500 train NLL/day 1.2610  val NLL/day 1.2612  15s
+step   4000 train NLL/day 1.2348  val NLL/day 1.2614  16s
+step   4500 train NLL/day 1.2593  val NLL/day 1.2607  17s
+step   5000 train NLL/day 1.2351  val NLL/day 1.2608  19s
+step   5500 train NLL/day 1.2752  val NLL/day 1.2606  20s
+step   6000 train NLL/day 1.2144  val NLL/day 1.2602  21s
+step   6500 train NLL/day 1.2087  val NLL/day 1.2603  22s
+step   7000 train NLL/day 1.2165  val NLL/day 1.2600  23s
+step   7500 train NLL/day 1.2618  val NLL/day 1.2596  25s
+step   8000 train NLL/day 1.2701  val NLL/day 1.2589  26s
+step   8500 train NLL/day 1.2202  val NLL/day 1.2591  27s
+step   9000 train NLL/day 1.1780  val NLL/day 1.2597  28s
+step   9500 train NLL/day 1.1606  val NLL/day 1.2594  29s
+step  10000 train NLL/day 1.2235  val NLL/day 1.2596  31s
+step  10500 train NLL/day 1.2787  val NLL/day 1.2589  32s
+step  11000 train NLL/day 1.2248  val NLL/day 1.2590  33s
+step  11500 train NLL/day 1.2343  val NLL/day 1.2595  34s
+step  12000 train NLL/day 1.2360  val NLL/day 1.2598  35s
+step  12500 train NLL/day 1.2580  val NLL/day 1.2604  37s
+step  13000 train NLL/day 1.2372  val NLL/day 1.2603  38s
+step  13500 train NLL/day 1.2241  val NLL/day 1.2603  39s
+step  14000 train NLL/day 1.2043  val NLL/day 1.2604  40s
+step  14500 train NLL/day 1.2493  val NLL/day 1.2602  41s
+step  15000 train NLL/day 1.2299  val NLL/day 1.2601  43s
+step  15500 train NLL/day 1.2312  val NLL/day 1.2604  44s
+step  16000 train NLL/day 1.2362  val NLL/day 1.2603  45s
+step  16500 train NLL/day 1.2559  val NLL/day 1.2609  46s
+step  17000 train NLL/day 1.2249  val NLL/day 1.2611  47s
+step  17500 train NLL/day 1.2230  val NLL/day 1.2608  49s
+step  18000 train NLL/day 1.2318  val NLL/day 1.2611  50s
+step  18500 train NLL/day 1.2186  val NLL/day 1.2611  51s
+step  19000 train NLL/day 1.2244  val NLL/day 1.2614  52s
+step  19500 train NLL/day 1.2125  val NLL/day 1.2614  53s
+step  20000 train NLL/day 1.1996  val NLL/day 1.2613  55s
+wrote runs/A/path_flow/samples.npy (32, 8192, 20)
+fatnarwhal-quant not installed: skipping the hedging metric (pip install fatnarwhal-quant)
+[a7_path_flow_gauss] IV err ATM 39.59  wings 32.85  wings|stressed 88.34 vol pts; asian rel err inf%; ACF|r| 0.139 (true 0.118); explosive 1.76e-04
+/storage/ice1/0/0/mincorvaia3/Options-Pricing-Through-Generative-Market-Simulation/bench/plots.py:124: RuntimeWarning: overflow encountered in exp
+  P = 100 * np.exp(np.cumsum(smp[e], -1))
+saved figs/A/paths_a7_path_flow_gauss.png
+done: path_flow on A
+# end 2026-11-26T13:19:16-05:00 exit 0 elapsed 71s

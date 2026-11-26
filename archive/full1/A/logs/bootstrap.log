@@ -1,0 +1,10 @@
+# run_model.sh bootstrap bench_data/A 
+# start 2026-11-26T11:58:12-05:00  host atl1-1-03-010-30-0.pace.gatech.edu  git 411e423 (dirty)  RUN_TAG=full1
+# env QUICK= N_PATHS=8192 MARKET=  data {'kind': 'synthetic', 'n_train': 200000, 'n_eval': 32}
+# gpu NVIDIA H100 80GB HBM3, 81559 MiB
+wrote runs/A/bootstrap/samples.npy (32, 8192, 20)
+fatnarwhal-quant not installed: skipping the hedging metric (pip install fatnarwhal-quant)
+[baseline_bootstrap] IV err ATM 5.89  wings 8.09  wings|stressed 11.93 vol pts; asian rel err 50.5%; ACF|r| -0.001 (true 0.118); explosive 0.00e+00
+saved figs/A/paths_baseline_bootstrap.png
+done: bootstrap on A
+# end 2026-11-26T11:58:16-05:00 exit 0 elapsed 4s
