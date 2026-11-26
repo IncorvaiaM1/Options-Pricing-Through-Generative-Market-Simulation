@@ -1,0 +1,52 @@
+# run_model.sh gan bench_data/A128 
+# start 2026-11-26T15:58:42-05:00  host atl1-1-03-010-30-0.pace.gatech.edu  git f021316  RUN_TAG=full2
+# env QUICK= N_PATHS=16384 MARKET=  data {'kind': 'synthetic', 'n_train': 200000, 'n_eval': 128}
+# gpu NVIDIA H100 80GB HBM3, 81559 MiB
+A4 GAN: G 293,908, D 125,185 params
+step      1  W-dist est 0.0599  gen std 0.060 (real 0.970) 16s
+step    250  W-dist est 2.1533  gen std 1.024 (real 0.970) 22s
+step    500  W-dist est 1.2199  gen std 1.011 (real 0.970) 29s
+step    750  W-dist est 0.9596  gen std 0.980 (real 0.970) 35s
+step   1000  W-dist est 0.9325  gen std 0.978 (real 0.970) 42s
+step   1250  W-dist est 0.7283  gen std 0.912 (real 0.970) 48s
+step   1500  W-dist est 0.6606  gen std 1.020 (real 0.970) 55s
+step   1750  W-dist est 0.3934  gen std 0.994 (real 0.970) 61s
+step   2000  W-dist est 0.3433  gen std 1.026 (real 0.970) 68s
+step   2250  W-dist est 0.5504  gen std 0.984 (real 0.970) 74s
+step   2500  W-dist est 0.1822  gen std 0.944 (real 0.970) 81s
+step   2750  W-dist est 0.3115  gen std 1.068 (real 0.970) 87s
+step   3000  W-dist est 0.4179  gen std 0.958 (real 0.970) 94s
+step   3250  W-dist est 0.3859  gen std 1.003 (real 0.970) 100s
+step   3500  W-dist est 0.2388  gen std 1.004 (real 0.970) 107s
+step   3750  W-dist est 0.3483  gen std 0.951 (real 0.970) 113s
+step   4000  W-dist est 0.3313  gen std 1.026 (real 0.970) 120s
+step   4250  W-dist est 0.3975  gen std 1.033 (real 0.970) 126s
+step   4500  W-dist est 0.3855  gen std 1.011 (real 0.970) 133s
+step   4750  W-dist est 0.3791  gen std 1.004 (real 0.970) 139s
+step   5000  W-dist est 0.5304  gen std 1.026 (real 0.970) 146s
+step   5250  W-dist est 0.3553  gen std 0.941 (real 0.970) 152s
+step   5500  W-dist est 0.1402  gen std 1.031 (real 0.970) 159s
+step   5750  W-dist est 0.3245  gen std 0.995 (real 0.970) 166s
+step   6000  W-dist est 0.3899  gen std 0.972 (real 0.970) 172s
+step   6250  W-dist est 0.3787  gen std 0.962 (real 0.970) 179s
+step   6500  W-dist est 0.4235  gen std 1.048 (real 0.970) 185s
+step   6750  W-dist est 0.2152  gen std 1.021 (real 0.970) 192s
+step   7000  W-dist est 0.3329  gen std 0.969 (real 0.970) 198s
+step   7250  W-dist est 0.3102  gen std 1.004 (real 0.970) 205s
+step   7500  W-dist est 0.3794  gen std 0.986 (real 0.970) 211s
+step   7750  W-dist est 0.4607  gen std 1.002 (real 0.970) 218s
+step   8000  W-dist est 0.2647  gen std 0.967 (real 0.970) 224s
+step   8250  W-dist est 0.3208  gen std 1.005 (real 0.970) 231s
+step   8500  W-dist est 0.4163  gen std 0.976 (real 0.970) 237s
+step   8750  W-dist est 0.3599  gen std 1.154 (real 0.970) 244s
+step   9000  W-dist est 0.3886  gen std 1.016 (real 0.970) 250s
+step   9250  W-dist est 0.2413  gen std 0.951 (real 0.970) 257s
+step   9500  W-dist est 0.2331  gen std 0.965 (real 0.970) 263s
+step   9750  W-dist est 0.2614  gen std 1.015 (real 0.970) 270s
+step  10000  W-dist est 0.1632  gen std 1.019 (real 0.970) 276s
+wrote runs/A128/gan/samples.npy (128, 16384, 20)
+fatnarwhal-quant not installed: skipping the hedging metric (pip install fatnarwhal-quant)
+[a4_gan] IV err ATM 2.02  wings 2.58  wings|stressed 4.47 vol pts; asian rel err 15.0%; ACF|r| 0.068 (true 0.118); explosive 4.48e-06
+saved figs/A128/paths_a4_gan.png
+done: gan on A128
+# end 2026-11-26T16:05:41-05:00 exit 0 elapsed 419s

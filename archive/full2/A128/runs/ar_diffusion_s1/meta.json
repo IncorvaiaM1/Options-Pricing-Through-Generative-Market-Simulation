@@ -1,0 +1,6 @@
+{
+ "label": "ar_diffusion_s1",
+ "n_params": 2088321,
+ "train_seconds": 274.3690838813782,
+ "gen_seconds": 313.6322112083435
+}

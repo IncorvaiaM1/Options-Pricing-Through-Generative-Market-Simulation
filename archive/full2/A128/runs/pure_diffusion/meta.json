@@ -1,0 +1,6 @@
+{
+ "label": "a6_pure_diffusion",
+ "n_params": 3916052,
+ "train_seconds": 60.93201684951782,
+ "gen_seconds": 36.307353496551514
+}

@@ -1,0 +1,95 @@
+# run_model.sh ar_token bench_data/A128 --seed 2
+# start 2026-11-26T16:43:57-05:00  host atl1-1-03-010-30-0.pace.gatech.edu  git f021316  RUN_TAG=full2
+# env QUICK= N_PATHS=16384 MARKET=  data {'kind': 'synthetic', 'n_train': 200000, 'n_eval': 128}
+# gpu NVIDIA H100 80GB HBM3, 81559 MiB
+devices: [CudaDevice(id=0)]
+train (200000, 84)  scale(daily std)=0.01259  max|x|=111.6 std units
+params: 837,504
+step      1  train 5.9932  val 5.9754     14.7s
+step    250  train 5.5314  val 5.5243     15.7s
+step    500  train 5.4870  val 5.4953     16.7s
+step    750  train 5.5052  val 5.4963     17.8s
+step   1000  train 5.5008  val 5.4989     18.8s
+step   1250  train 5.4902  val 5.4911     19.8s
+step   1500  train 5.4929  val 5.4835     20.9s
+step   1750  train 5.4995  val 5.4936     21.9s
+step   2000  train 5.5028  val 5.4983     23.0s
+step   2250  train 5.4960  val 5.4951     24.0s
+step   2500  train 5.5025  val 5.4853     25.0s
+step   2750  train 5.4900  val 5.4848     26.1s
+step   3000  train 5.4831  val 5.4949     27.1s
+step   3250  train 5.4917  val 5.4806     28.1s
+step   3500  train 5.4928  val 5.4883     29.2s
+step   3750  train 5.4911  val 5.4919     30.2s
+step   4000  train 5.4938  val 5.4941     31.3s
+step   4250  train 5.4980  val 5.4873     32.3s
+step   4500  train 5.4913  val 5.4921     33.3s
+step   4750  train 5.5002  val 5.4997     34.4s
+step   5000  train 5.4906  val 5.4895     35.4s
+step   5250  train 5.4889  val 5.4767     36.5s
+step   5500  train 5.4823  val 5.4908     37.5s
+step   5750  train 5.4954  val 5.4738     38.5s
+step   6000  train 5.4997  val 5.4984     39.6s
+step   6250  train 5.4857  val 5.4701     40.6s
+step   6500  train 5.4959  val 5.4956     41.7s
+step   6750  train 5.5057  val 5.4851     42.7s
+step   7000  train 5.4850  val 5.4715     43.8s
+step   7250  train 5.4871  val 5.4988     44.8s
+step   7500  train 5.4910  val 5.4771     45.8s
+step   7750  train 5.4789  val 5.4954     46.9s
+step   8000  train 5.4772  val 5.4888     47.9s
+step   8250  train 5.4927  val 5.4938     49.0s
+step   8500  train 5.5017  val 5.4866     50.0s
+step   8750  train 5.4856  val 5.4895     51.0s
+step   9000  train 5.4944  val 5.4857     52.1s
+step   9250  train 5.4943  val 5.4825     53.1s
+step   9500  train 5.4996  val 5.4813     54.2s
+step   9750  train 5.4873  val 5.4898     55.2s
+step  10000  train 5.4917  val 5.4883     56.2s
+step  10250  train 5.4728  val 5.4945     57.3s
+step  10500  train 5.4934  val 5.4926     58.3s
+step  10750  train 5.4884  val 5.4807     59.4s
+step  11000  train 5.5005  val 5.4947     60.4s
+step  11250  train 5.4981  val 5.4888     61.4s
+step  11500  train 5.4826  val 5.4850     62.5s
+step  11750  train 5.5015  val 5.4840     63.5s
+step  12000  train 5.4853  val 5.4879     64.6s
+step  12250  train 5.4754  val 5.4810     65.6s
+step  12500  train 5.4902  val 5.4755     66.7s
+step  12750  train 5.4859  val 5.4861     67.7s
+step  13000  train 5.4794  val 5.4979     68.7s
+step  13250  train 5.4938  val 5.4872     69.8s
+step  13500  train 5.4925  val 5.4982     70.8s
+step  13750  train 5.5021  val 5.4816     71.9s
+step  14000  train 5.4714  val 5.4951     72.9s
+step  14250  train 5.4990  val 5.4937     73.9s
+step  14500  train 5.4826  val 5.4766     75.0s
+step  14750  train 5.4924  val 5.4945     76.0s
+step  15000  train 5.4909  val 5.4794     77.1s
+step  15250  train 5.4830  val 5.4804     78.1s
+step  15500  train 5.4837  val 5.4919     79.1s
+step  15750  train 5.4943  val 5.4738     80.2s
+step  16000  train 5.4956  val 5.4853     81.2s
+step  16250  train 5.4979  val 5.4966     82.3s
+step  16500  train 5.4894  val 5.4857     83.3s
+step  16750  train 5.4894  val 5.4962     84.3s
+step  17000  train 5.4886  val 5.4886     85.4s
+step  17250  train 5.4959  val 5.4951     86.4s
+step  17500  train 5.4921  val 5.4754     87.5s
+step  17750  train 5.5059  val 5.4888     88.5s
+step  18000  train 5.4972  val 5.4817     89.6s
+step  18250  train 5.4900  val 5.4805     90.6s
+step  18500  train 5.4976  val 5.4802     91.6s
+step  18750  train 5.5010  val 5.4939     92.7s
+step  19000  train 5.4890  val 5.5025     93.7s
+step  19250  train 5.4939  val 5.4883     94.8s
+step  19500  train 5.5029  val 5.4841     95.8s
+step  19750  train 5.4905  val 5.4763     96.8s
+step  20000  train 5.4920  val 5.4945     97.9s
+saved runs/A128/ar_token_s2/ckpt.pkl
+wrote runs/A128/ar_token_s2/samples.npy (128, 16384, 20) in 171.5s
+fatnarwhal-quant not installed: skipping the hedging metric (pip install fatnarwhal-quant)
+[ar_token256q_mean_s2] IV err ATM 0.44  wings 0.99  wings|stressed 1.53 vol pts; asian rel err 1.8%; ACF|r| 0.118 (true 0.118); explosive 0.00e+00
+saved figs/A128/paths_ar_token256q_mean_s2.png
+done: ar_token on A128
+# end 2026-11-26T16:48:51-05:00 exit 0 elapsed 294s

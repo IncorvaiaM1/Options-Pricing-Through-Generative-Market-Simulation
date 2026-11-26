@@ -1,0 +1,52 @@
+# run_model.sh rnade bench_data/A128 
+# start 2026-11-26T15:30:17-05:00  host atl1-1-03-010-30-0.pace.gatech.edu  git f021316  RUN_TAG=full2
+# env QUICK= N_PATHS=16384 MARKET=  data {'kind': 'synthetic', 'n_train': 200000, 'n_eval': 128}
+# gpu NVIDIA H100 80GB HBM3, 81559 MiB
+A3 RNADE on cuda: 87,340 params, D=84
+step      1  train NLL/dim 1.4873  val NLL/dim 1.5475  10s
+step    500  train NLL/dim 1.2914  val NLL/dim 1.3097  47s
+step   1000  train NLL/dim 1.3187  val NLL/dim 1.3086  84s
+step   1500  train NLL/dim 1.2924  val NLL/dim 1.3084  122s
+step   2000  train NLL/dim 1.3043  val NLL/dim 1.3080  160s
+step   2500  train NLL/dim 1.2842  val NLL/dim 1.3082  198s
+step   3000  train NLL/dim 1.3136  val NLL/dim 1.3078  235s
+step   3500  train NLL/dim 1.2925  val NLL/dim 1.3078  273s
+step   4000  train NLL/dim 1.3172  val NLL/dim 1.3075  311s
+step   4500  train NLL/dim 1.2736  val NLL/dim 1.3031  348s
+step   5000  train NLL/dim 1.2593  val NLL/dim 1.2863  386s
+step   5500  train NLL/dim 1.2724  val NLL/dim 1.2735  424s
+step   6000  train NLL/dim 1.2490  val NLL/dim 1.2676  462s
+step   6500  train NLL/dim 1.2744  val NLL/dim 1.2646  499s
+step   7000  train NLL/dim 1.2454  val NLL/dim 1.2624  538s
+step   7500  train NLL/dim 1.2515  val NLL/dim 1.2605  575s
+step   8000  train NLL/dim 1.2282  val NLL/dim 1.2593  613s
+step   8500  train NLL/dim 1.2485  val NLL/dim 1.2584  651s
+step   9000  train NLL/dim 1.2536  val NLL/dim 1.2575  689s
+step   9500  train NLL/dim 1.2333  val NLL/dim 1.2570  726s
+step  10000  train NLL/dim 1.2485  val NLL/dim 1.2566  763s
+step  10500  train NLL/dim 1.2350  val NLL/dim 1.2561  800s
+step  11000  train NLL/dim 1.2381  val NLL/dim 1.2558  836s
+step  11500  train NLL/dim 1.2437  val NLL/dim 1.2556  873s
+step  12000  train NLL/dim 1.2748  val NLL/dim 1.2553  910s
+step  12500  train NLL/dim 1.2443  val NLL/dim 1.2551  947s
+step  13000  train NLL/dim 1.2390  val NLL/dim 1.2549  984s
+step  13500  train NLL/dim 1.2399  val NLL/dim 1.2549  1021s
+step  14000  train NLL/dim 1.2489  val NLL/dim 1.2547  1058s
+step  14500  train NLL/dim 1.2615  val NLL/dim 1.2547  1095s
+step  15000  train NLL/dim 1.2429  val NLL/dim 1.2546  1132s
+step  15500  train NLL/dim 1.2670  val NLL/dim 1.2544  1170s
+step  16000  train NLL/dim 1.2447  val NLL/dim 1.2544  1207s
+step  16500  train NLL/dim 1.2473  val NLL/dim 1.2544  1244s
+step  17000  train NLL/dim 1.2692  val NLL/dim 1.2543  1282s
+step  17500  train NLL/dim 1.2286  val NLL/dim 1.2542  1319s
+step  18000  train NLL/dim 1.2410  val NLL/dim 1.2542  1356s
+step  18500  train NLL/dim 1.2480  val NLL/dim 1.2542  1393s
+step  19000  train NLL/dim 1.2435  val NLL/dim 1.2542  1436s
+step  19500  train NLL/dim 1.2467  val NLL/dim 1.2542  1473s
+step  20000  train NLL/dim 1.2344  val NLL/dim 1.2541  1511s
+wrote runs/A128/rnade/samples.npy (128, 16384, 20)
+fatnarwhal-quant not installed: skipping the hedging metric (pip install fatnarwhal-quant)
+[a3_rnade] IV err ATM 1.46  wings 1.78  wings|stressed 2.75 vol pts; asian rel err 7.4%; ACF|r| 0.084 (true 0.118); explosive 0.00e+00
+saved figs/A128/paths_a3_rnade.png
+done: rnade on A128
+# end 2026-11-26T15:58:42-05:00 exit 0 elapsed 1705s
