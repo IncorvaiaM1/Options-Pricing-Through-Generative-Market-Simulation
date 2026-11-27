@@ -62,6 +62,9 @@ def get_args(argv=None):
     ap.add_argument("--wd", type=float, default=0.01)
     ap.add_argument("--log_every", type=int, default=250)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--keep_best", type=int, default=1, help="1: save the parameters with the lowest validation loss "
+                    "(fixed validation set and noise, checked every --log_every steps) instead of the last step")
+    ap.add_argument("--n_val_eval", type=int, default=2048, help="validation windows used for that check")
     return ap.parse_args(argv)
 
 
@@ -131,26 +134,43 @@ def main(argv=None):
     def val_loss(params, xb, key):
         return loss_fn(params, xb, key, False)
 
+    # validation on a FIXED set with FIXED noise, so successive values are comparable and the best one can be kept
+    vset = val[:min(args.n_val_eval, val.shape[0])]
+    vkey = jax.random.PRNGKey(args.seed + 12345)
+
+    def full_val(params):
+        tot, n = 0.0, 0
+        for c, s0 in enumerate(range(0, vset.shape[0], args.batch)):  # batch-sized chunks (memory)
+            xb = vset[s0:s0 + args.batch]
+            tot += float(val_loss(params, xb, jax.random.fold_in(vkey, c))) * xb.shape[0]; n += xb.shape[0]
+        return tot / n
+
     hist = []
+    best = (float("inf"), 0, params)
     t0 = time.time()
     for step in range(1, args.steps + 1):
         key, kb, ks = jax.random.split(key, 3)
         idx = jax.random.randint(kb, (args.batch,), 0, train.shape[0])
         params, opt_state, loss = train_step(params, opt_state, train[idx], ks)
         if step % args.log_every == 0 or step == 1 or step == args.steps:
-            key, kv1, kv2 = jax.random.split(key, 3)
-            vidx = jax.random.randint(kv1, (min(args.batch, val.shape[0]),), 0, val.shape[0])  # same size as a training batch (memory)
-            vl = float(val_loss(params, val[vidx], kv2))
+            vl = full_val(params)
             el = time.time() - t0
             print(f"step {step:6d}  train {float(loss):.4f}  val {vl:.4f}  {el:7.1f}s", flush=True)
             hist.append(dict(step=step, train=float(loss), val=vl, sec=el))
+            if step > 1 and vl < best[0]:
+                best = (vl, step, params)
+    last_step = args.steps
+    if args.keep_best and best[1] > 0:
+        params = best[2]
+        print(f"keeping step {best[1]} (best val {best[0]:.4f}); last step {last_step} had val {hist[-1]['val']:.4f}", flush=True)
 
     ckpt = dict(cfg=cfg, params=jax.device_get(params), bins=None if bins is None else jax.device_get(bins),
-                scale=scale, garch=garch.to_dict(), n_params=n_params, train_seconds=time.time() - t0, hist=hist)
+                scale=scale, garch=garch.to_dict(), n_params=n_params, train_seconds=time.time() - t0, hist=hist,
+                kept_step=best[1] if args.keep_best else last_step)
     with open(os.path.join(args.out, "ckpt.pkl"), "wb") as f:
         pickle.dump(ckpt, f)
     with open(os.path.join(args.out, "train_log.json"), "w") as f:
-        json.dump(dict(cfg=cfg, n_params=n_params, hist=hist), f, indent=2)
+        json.dump(dict(cfg=cfg, n_params=n_params, hist=hist, kept_step=ckpt["kept_step"]), f, indent=2)
     print(f"saved {args.out}/ckpt.pkl", flush=True)
 
 

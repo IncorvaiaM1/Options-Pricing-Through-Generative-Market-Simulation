@@ -70,6 +70,7 @@ def main(argv=None):
     ap.add_argument("--var_type", default="large", choices=["large", "small"], help="reverse-step variance; see ardiff/diffusion.py")
     ap.add_argument("--clip_mult", type=float, default=1.5, help="clip x0_hat at this x max|train| (<=0 disables)")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--keep_best", type=int, default=1, help="1: keep the lowest-validation-loss parameters, not the last")
     add_also_eval_arg(ap)
     args = ap.parse_args(argv)
 
@@ -102,16 +103,24 @@ def main(argv=None):
     fwd = jnp.arcsinh if args.transform == "asinh" else (lambda x: x)
     inv = np.sinh if args.transform == "asinh" else (lambda x: x)
     tr = jnp.asarray(train); va = jnp.asarray(val)
+    vset = va[:min(2048, va.shape[0])]  # fixed validation set + fixed noise: comparable values, best one kept
+    vkey = jax.random.PRNGKey(args.seed + 12345)
+    val_fn = jax.jit(lambda p: loss_fn(p, vset[:, :L], fwd(vset[:, L:]), vkey))
+    best = (float("inf"), 0, params)
     clock = Timer()
     for i in range(1, args.steps + 1):
         key, kb, ks = jax.random.split(key, 3)
         b = tr[jax.random.randint(kb, (args.batch,), 0, tr.shape[0])]
         params, st, l = step(params, st, b[:, :L], fwd(b[:, L:]), ks)
-        if i % args.log_every == 0 or i == 1:
-            key, kv, kl = jax.random.split(key, 3)
-            vb = va[jax.random.randint(kv, (512,), 0, va.shape[0])]
-            print(f"step {i:6d} train {float(l):.4f} val {float(loss_fn(params, vb[:, :L], fwd(vb[:, L:]), kl)):.4f} {clock():.0f}s", flush=True)
+        if i % args.log_every == 0 or i == 1 or i == args.steps:
+            vl = float(val_fn(params))
+            print(f"step {i:6d} train {float(l):.4f} val {vl:.4f} {clock():.0f}s", flush=True)
+            if i > 1 and vl < best[0]:
+                best = (vl, i, params)
     train_s = clock()
+    if args.keep_best and best[1] > 0:
+        print(f"keeping step {best[1]} (best val {best[0]:.4f})", flush=True)
+        params = best[2]
 
     @jax.jit
     def sample(ctx, k):
@@ -144,7 +153,7 @@ def main(argv=None):
     gen_s = clock()
     fut = inv(np.concatenate(outs)).reshape(ctx_eval.shape[0], args.n_paths, H) * cfg["scale"]
     meta = dict(label="a6_pure_diffusion", n_params=n_params(params),
-                                      train_seconds=train_s, gen_seconds=gen_s)
+                                      train_seconds=train_s, gen_seconds=gen_s, kept_step=best[1] if args.keep_best else args.steps)
     write_samples(args.out, fut, meta)
     also_eval(args, cfg, lambda c, k: inv(np.asarray(sample(c, k))), key, meta)
 

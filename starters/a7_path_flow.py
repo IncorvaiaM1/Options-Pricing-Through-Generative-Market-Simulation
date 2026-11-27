@@ -98,6 +98,7 @@ def main(argv=None):
     ap.add_argument("--chunk", type=int, default=16384)
     ap.add_argument("--log_every", type=int, default=500)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--keep_best", type=int, default=1, help="1: keep the lowest-validation-loss parameters, not the last")
     add_also_eval_arg(ap)
     args = ap.parse_args(argv)
 
@@ -131,13 +132,20 @@ def main(argv=None):
 
     tr = jnp.asarray(train); va = jnp.asarray(val[:2048])
     val_nll = jax.jit(nll)
+    best = (float("inf"), 0, params)
     clock = Timer()
     for i in range(1, args.steps + 1):
         key, kb = jax.random.split(key)
         params, st, l = step(params, st, tr[jax.random.randint(kb, (args.batch,), 0, tr.shape[0])])
-        if i % args.log_every == 0 or i == 1:
-            print(f"step {i:6d} train NLL/day {float(l):.4f}  val NLL/day {float(val_nll(params, va)):.4f}  {clock():.0f}s", flush=True)
+        if i % args.log_every == 0 or i == 1 or i == args.steps:
+            vl = float(val_nll(params, va))
+            print(f"step {i:6d} train NLL/day {float(l):.4f}  val NLL/day {vl:.4f}  {clock():.0f}s", flush=True)
+            if i > 1 and vl < best[0]:
+                best = (vl, i, params)
     train_s = clock()
+    if args.keep_best and best[1] > 0:
+        print(f"keeping step {best[1]} (best val NLL/day {best[0]:.4f})", flush=True)
+        params = best[2]
     final_val = float(val_nll(params, va))
 
     @jax.jit
@@ -159,7 +167,8 @@ def main(argv=None):
     gen_s = clock()
     fut = np.concatenate(outs).reshape(ctx_eval.shape[0], args.n_paths, H) * cfg["scale"]
     meta = dict(label=f"a7_path_flow_{args.base}", n_params=n_params(params), train_seconds=train_s,
-                                      gen_seconds=gen_s, val_nll_per_day_normalized=final_val)
+                                      gen_seconds=gen_s, val_nll_per_day_normalized=final_val,
+                                      kept_step=best[1] if args.keep_best else args.steps)
     write_samples(args.out, fut, meta)
     also_eval(args, cfg, sample, key, meta)
 
