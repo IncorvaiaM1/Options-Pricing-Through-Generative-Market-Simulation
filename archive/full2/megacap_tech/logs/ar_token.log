@@ -1,0 +1,643 @@
+# run_model.sh ar_token bench_data/real/megacap_tech 
+# start 2026-11-26T18:07:57-05:00  host atl1-1-03-010-30-0.pace.gatech.edu  git 67d602e (dirty)  RUN_TAG=full2
+# env QUICK= N_PATHS=8192 MARKET=bench_data/market/massive_megacap_tech  data {'kind': 'real', 'n_train': 17023, 'n_eval': 978, 'tickers': ['AAPL', 'AMZN', 'GOOGL', 'META', 'MSFT', 'NVDA']}
+# gpu NVIDIA H100 80GB HBM3, 81559 MiB
+devices: [CudaDevice(id=0)]
+train (17023, 84)  scale(daily std)=0.02001  max|x|=13.0 std units
+params: 837,504
+step      1  train 6.0616  val 6.0764     14.8s
+step    250  train 5.4776  val 5.5104     15.8s
+step    500  train 5.2926  val 5.5621     16.9s
+step    750  train 4.8519  val 5.8162     17.9s
+step   1000  train 4.3484  val 6.0263     18.9s
+step   1250  train 3.8777  val 6.2479     20.0s
+step   1500  train 3.5348  val 6.4441     21.0s
+step   1750  train 3.0595  val 6.6483     22.0s
+step   2000  train 2.6717  val 6.8866     23.1s
+step   2250  train 2.1970  val 7.1989     24.1s
+step   2500  train 2.0037  val 7.5002     25.1s
+step   2750  train 1.6189  val 7.8114     26.2s
+step   3000  train 1.4474  val 8.1513     27.2s
+step   3250  train 1.2616  val 8.4882     28.2s
+step   3500  train 1.1467  val 8.8523     29.3s
+step   3750  train 0.9853  val 9.2363     30.3s
+step   4000  train 0.8986  val 9.6207     31.3s
+step   4250  train 0.8189  val 10.0263     32.4s
+step   4500  train 0.7143  val 10.3937     33.4s
+step   4750  train 0.6502  val 10.8915     34.4s
+step   5000  train 0.5986  val 11.2391     35.5s
+step   5250  train 0.5641  val 11.6935     36.5s
+step   5500  train 0.5351  val 12.1446     37.5s
+step   5750  train 0.4803  val 12.5552     38.6s
+step   6000  train 0.4433  val 12.9700     39.6s
+step   6250  train 0.4182  val 13.4347     40.6s
+step   6500  train 0.4042  val 13.7640     41.6s
+step   6750  train 0.3836  val 14.2096     42.7s
+step   7000  train 0.3543  val 14.4494     43.7s
+step   7250  train 0.3323  val 14.8422     44.7s
+step   7500  train 0.3270  val 15.1655     45.8s
+step   7750  train 0.3254  val 15.6135     46.8s
+step   8000  train 0.3040  val 15.7962     47.8s
+step   8250  train 0.3015  val 16.0766     48.9s
+step   8500  train 0.2921  val 16.3280     49.9s
+step   8750  train 0.2789  val 16.6262     50.9s
+step   9000  train 0.2770  val 16.9417     52.0s
+step   9250  train 0.2496  val 17.1932     53.0s
+step   9500  train 0.2489  val 17.3049     54.0s
+step   9750  train 0.2444  val 17.6147     55.1s
+step  10000  train 0.2370  val 17.7705     56.1s
+step  10250  train 0.2293  val 18.0427     57.1s
+step  10500  train 0.2256  val 18.2613     58.2s
+step  10750  train 0.2267  val 18.3992     59.2s
+step  11000  train 0.2208  val 18.5287     60.2s
+step  11250  train 0.2205  val 18.6188     61.3s
+step  11500  train 0.2135  val 18.8643     62.3s
+step  11750  train 0.2111  val 18.9255     63.3s
+step  12000  train 0.2052  val 19.0321     64.4s
+step  12250  train 0.2005  val 19.3091     65.4s
+step  12500  train 0.1977  val 19.4229     66.4s
+step  12750  train 0.1900  val 19.5565     67.5s
+step  13000  train 0.1941  val 19.6118     68.5s
+step  13250  train 0.1908  val 19.6350     69.5s
+step  13500  train 0.1864  val 19.8885     70.6s
+step  13750  train 0.1891  val 19.7823     71.6s
+step  14000  train 0.1862  val 19.8900     72.6s
+step  14250  train 0.1814  val 19.9430     73.7s
+step  14500  train 0.1853  val 20.1503     74.7s
+step  14750  train 0.1786  val 20.1245     75.7s
+step  15000  train 0.1787  val 20.2745     76.8s
+step  15250  train 0.1727  val 20.4149     77.8s
+step  15500  train 0.1732  val 20.3120     78.8s
+step  15750  train 0.1728  val 20.4154     79.9s
+step  16000  train 0.1696  val 20.4919     80.9s
+step  16250  train 0.1673  val 20.5735     81.9s
+step  16500  train 0.1690  val 20.5930     83.0s
+step  16750  train 0.1660  val 20.5959     84.0s
+step  17000  train 0.1656  val 20.5708     85.0s
+step  17250  train 0.1626  val 20.6098     86.1s
+step  17500  train 0.1659  val 20.6958     87.1s
+step  17750  train 0.1619  val 20.6978     88.1s
+step  18000  train 0.1654  val 20.7172     89.2s
+step  18250  train 0.1610  val 20.7597     90.2s
+step  18500  train 0.1642  val 20.7344     91.2s
+step  18750  train 0.1614  val 20.7345     92.3s
+step  19000  train 0.1588  val 20.8324     93.3s
+step  19250  train 0.1593  val 20.8844     94.3s
+step  19500  train 0.1623  val 20.7436     95.4s
+step  19750  train 0.1546  val 20.9074     96.4s
+step  20000  train 0.1624  val 20.8506     97.4s
+saved runs/megacap_tech/ar_token/ckpt.pkl
+wrote runs/megacap_tech/ar_token/samples.npy (978, 8192, 20) in 644.4s
+wrote runs/megacap_tech/ar_token/also_massive_megacap_tech/samples.npy (546, 8192, 20) in 360.2s
+[ar_token256q_mean] CRPS 0.04911  cov90 0.88  exceed 1%/5% 0.010/0.071  QLIKE -3.924
+    payoff bias t-stats by k: -2.0:+3.3  -1.5:+2.1  -1.0:+1.3  -0.5:+0.4  +0.0:+1.6  +0.5:+2.0  +1.0:+2.2  +1.5:+2.0  +2.0:+2.4
+  AAPL: 11 quotes; |IV err| model 2.66  (real-world paths 2.95, BSM at ctx vol 2.69) vol pts
+  AAPL: 13 quotes; |IV err| model 2.43  (real-world paths 5.85, BSM at ctx vol 2.64) vol pts
+  AAPL: 12 quotes; |IV err| model 1.49  (real-world paths 3.73, BSM at ctx vol 3.04) vol pts
+  AAPL: 23 quotes; |IV err| model 2.46  (real-world paths 5.62, BSM at ctx vol 2.61) vol pts
+  AAPL: 12 quotes; |IV err| model 1.22  (real-world paths 18.67, BSM at ctx vol 6.72) vol pts
+  AAPL: 11 quotes; |IV err| model 2.18  (real-world paths 20.34, BSM at ctx vol 9.99) vol pts
+  AAPL: 12 quotes; |IV err| model 3.76  (real-world paths 4.06, BSM at ctx vol 9.46) vol pts
+  AAPL: 24 quotes; |IV err| model 2.33  (real-world paths 3.18, BSM at ctx vol 8.83) vol pts
+  AAPL: 14 quotes; |IV err| model 4.20  (real-world paths 15.29, BSM at ctx vol 2.21) vol pts
+  AAPL: 15 quotes; |IV err| model 6.29  (real-world paths 23.71, BSM at ctx vol 2.54) vol pts
+  AAPL: 13 quotes; |IV err| model 6.93  (real-world paths 6.89, BSM at ctx vol 3.16) vol pts
+  AAPL: 25 quotes; |IV err| model 3.61  (real-world paths 11.18, BSM at ctx vol 2.84) vol pts
+  AAPL: 15 quotes; |IV err| model 5.14  (real-world paths 13.12, BSM at ctx vol 4.06) vol pts
+  AAPL: 15 quotes; |IV err| model 10.41  (real-world paths 10.32, BSM at ctx vol 6.71) vol pts
+  AAPL: 15 quotes; |IV err| model 2.52  (real-world paths 11.24, BSM at ctx vol 3.14) vol pts
+  AAPL: 24 quotes; |IV err| model 3.59  (real-world paths 9.89, BSM at ctx vol 3.85) vol pts
+  AAPL: 15 quotes; |IV err| model 3.85  (real-world paths 10.57, BSM at ctx vol 4.74) vol pts
+  AAPL: 24 quotes; |IV err| model 10.00  (real-world paths 11.82, BSM at ctx vol 7.40) vol pts
+  AAPL: 24 quotes; |IV err| model 9.01  (real-world paths 9.29, BSM at ctx vol 8.53) vol pts
+  AAPL: 35 quotes; |IV err| model 5.70  (real-world paths 4.63, BSM at ctx vol 10.31) vol pts
+  AAPL: 23 quotes; |IV err| model 4.72  (real-world paths 5.02, BSM at ctx vol 10.85) vol pts
+  AAPL: 22 quotes; |IV err| model 8.49  (real-world paths 8.34, BSM at ctx vol 13.00) vol pts
+  AAPL: 21 quotes; |IV err| model 3.64  (real-world paths 12.42, BSM at ctx vol 18.20) vol pts
+  AAPL: 21 quotes; |IV err| model 3.91  (real-world paths 6.00, BSM at ctx vol 14.38) vol pts
+  AAPL: 22 quotes; |IV err| model 8.82  (real-world paths 10.03, BSM at ctx vol 15.83) vol pts
+  AAPL: 21 quotes; |IV err| model 5.61  (real-world paths 5.41, BSM at ctx vol 18.12) vol pts
+  AAPL: 21 quotes; |IV err| model 6.15  (real-world paths 8.62, BSM at ctx vol 15.92) vol pts
+  AAPL: 31 quotes; |IV err| model 4.31  (real-world paths 6.07, BSM at ctx vol 20.35) vol pts
+  AAPL: 22 quotes; |IV err| model 3.94  (real-world paths 4.62, BSM at ctx vol 17.97) vol pts
+  AAPL: 20 quotes; |IV err| model 8.93  (real-world paths 8.99, BSM at ctx vol 12.04) vol pts
+  AAPL: 16 quotes; |IV err| model 5.51  (real-world paths 15.59, BSM at ctx vol 3.12) vol pts
+  AAPL: 24 quotes; |IV err| model 5.63  (real-world paths 5.13, BSM at ctx vol 5.71) vol pts
+  AAPL: 13 quotes; |IV err| model 10.71  (real-world paths 10.50, BSM at ctx vol 8.08) vol pts
+  AAPL: 12 quotes; |IV err| model 0.79  (real-world paths 4.77, BSM at ctx vol 5.57) vol pts
+  AAPL: 16 quotes; |IV err| model 4.05  (real-world paths 7.49, BSM at ctx vol 2.81) vol pts
+  AAPL: 14 quotes; |IV err| model 2.90  (real-world paths 6.23, BSM at ctx vol 2.96) vol pts
+  AAPL: 24 quotes; |IV err| model 1.31  (real-world paths 1.52, BSM at ctx vol 3.38) vol pts
+  AAPL: 14 quotes; |IV err| model 2.94  (real-world paths 12.75, BSM at ctx vol 2.59) vol pts
+  AAPL: 13 quotes; |IV err| model 13.27  (real-world paths 20.23, BSM at ctx vol 2.58) vol pts
+  AAPL: 14 quotes; |IV err| model 2.15  (real-world paths 11.32, BSM at ctx vol 2.35) vol pts
+  AAPL: 26 quotes; |IV err| model 7.85  (real-world paths 10.73, BSM at ctx vol 2.83) vol pts
+  AAPL: 17 quotes; |IV err| model 7.99  (real-world paths 24.52, BSM at ctx vol 2.31) vol pts
+  AAPL: 16 quotes; |IV err| model 3.23  (real-world paths 3.26, BSM at ctx vol 4.09) vol pts
+  AAPL: 16 quotes; |IV err| model 10.41  (real-world paths 11.03, BSM at ctx vol 6.62) vol pts
+  AAPL: 18 quotes; |IV err| model 8.23  (real-world paths 7.66, BSM at ctx vol 3.79) vol pts
+  AAPL: 29 quotes; |IV err| model 9.38  (real-world paths 13.67, BSM at ctx vol 2.64) vol pts
+  AAPL: 17 quotes; |IV err| model 34.70  (real-world paths 32.03, BSM at ctx vol 2.72) vol pts
+  AAPL: 15 quotes; |IV err| model 1.04  (real-world paths 4.41, BSM at ctx vol 1.85) vol pts
+  AAPL: 16 quotes; |IV err| model 3.19  (real-world paths 5.20, BSM at ctx vol 2.80) vol pts
+  AAPL: 26 quotes; |IV err| model 2.21  (real-world paths 3.60, BSM at ctx vol 2.79) vol pts
+  AAPL: 16 quotes; |IV err| model 3.52  (real-world paths 4.48, BSM at ctx vol 2.83) vol pts
+  AAPL: 14 quotes; |IV err| model 8.25  (real-world paths 11.17, BSM at ctx vol 2.88) vol pts
+  AAPL: 14 quotes; |IV err| model 2.78  (real-world paths 15.66, BSM at ctx vol 2.21) vol pts
+  AAPL: 13 quotes; |IV err| model 9.86  (real-world paths 9.87, BSM at ctx vol 1.66) vol pts
+  AAPL: 13 quotes; |IV err| model 2.50  (real-world paths 2.50, BSM at ctx vol 6.65) vol pts
+  AAPL: 12 quotes; |IV err| model 8.75  (real-world paths 8.68, BSM at ctx vol 9.52) vol pts
+  AAPL: 12 quotes; |IV err| model 8.34  (real-world paths 7.86, BSM at ctx vol 15.11) vol pts
+  AAPL: 21 quotes; |IV err| model 7.14  (real-world paths 9.92, BSM at ctx vol 11.80) vol pts
+  AAPL: 12 quotes; |IV err| model 2.83  (real-world paths 4.29, BSM at ctx vol 6.03) vol pts
+  AAPL: 14 quotes; |IV err| model 3.39  (real-world paths 8.26, BSM at ctx vol 4.60) vol pts
+  AAPL: 15 quotes; |IV err| model 3.17  (real-world paths 8.08, BSM at ctx vol 4.47) vol pts
+  AAPL: 26 quotes; |IV err| model 3.97  (real-world paths 10.43, BSM at ctx vol 3.94) vol pts
+  AAPL: 16 quotes; |IV err| model 4.73  (real-world paths 11.41, BSM at ctx vol 4.96) vol pts
+  AAPL: 15 quotes; |IV err| model 5.84  (real-world paths 12.66, BSM at ctx vol 5.15) vol pts
+  AAPL: 16 quotes; |IV err| model 7.26  (real-world paths 19.35, BSM at ctx vol 4.76) vol pts
+  AAPL: 25 quotes; |IV err| model 6.09  (real-world paths 12.84, BSM at ctx vol 5.09) vol pts
+  AAPL: 17 quotes; |IV err| model 3.91  (real-world paths 3.05, BSM at ctx vol 4.23) vol pts
+  AAPL: 17 quotes; |IV err| model 6.74  (real-world paths 6.50, BSM at ctx vol 5.57) vol pts
+  AAPL: 17 quotes; |IV err| model 3.49  (real-world paths 9.32, BSM at ctx vol 5.49) vol pts
+  AAPL: 28 quotes; |IV err| model 2.74  (real-world paths 4.67, BSM at ctx vol 3.13) vol pts
+  AAPL: 17 quotes; |IV err| model 5.12  (real-world paths 11.14, BSM at ctx vol 6.18) vol pts
+  AAPL: 18 quotes; |IV err| model 4.84  (real-world paths 10.18, BSM at ctx vol 2.46) vol pts
+  AAPL: 18 quotes; |IV err| model 3.75  (real-world paths 11.26, BSM at ctx vol 2.69) vol pts
+  AAPL: 29 quotes; |IV err| model 2.58  (real-world paths 13.10, BSM at ctx vol 2.10) vol pts
+  AAPL: 18 quotes; |IV err| model 1.86  (real-world paths 5.35, BSM at ctx vol 2.00) vol pts
+  AAPL: 18 quotes; |IV err| model 0.89  (real-world paths 18.07, BSM at ctx vol 4.75) vol pts
+  AAPL: 19 quotes; |IV err| model 3.18  (real-world paths 7.89, BSM at ctx vol 2.41) vol pts
+  AAPL: 29 quotes; |IV err| model 6.40  (real-world paths 8.98, BSM at ctx vol 1.60) vol pts
+  AAPL: 20 quotes; |IV err| model 4.54  (real-world paths 11.33, BSM at ctx vol 2.65) vol pts
+  AAPL: 23 quotes; |IV err| model 6.28  (real-world paths 9.60, BSM at ctx vol 2.43) vol pts
+  AAPL: 22 quotes; |IV err| model 4.52  (real-world paths 11.17, BSM at ctx vol 2.22) vol pts
+  AAPL: 22 quotes; |IV err| model 5.15  (real-world paths 25.02, BSM at ctx vol 2.30) vol pts
+  AAPL: 36 quotes; |IV err| model 5.06  (real-world paths 8.43, BSM at ctx vol 2.30) vol pts
+  AAPL: 26 quotes; |IV err| model 1.87  (real-world paths 10.03, BSM at ctx vol 4.56) vol pts
+  AAPL: 24 quotes; |IV err| model 3.74  (real-world paths 10.76, BSM at ctx vol 6.54) vol pts
+  AAPL: 24 quotes; |IV err| model 2.04  (real-world paths 5.83, BSM at ctx vol 5.92) vol pts
+  AAPL: 35 quotes; |IV err| model 0.61  (real-world paths 7.78, BSM at ctx vol 6.46) vol pts
+  AAPL: 25 quotes; |IV err| model 1.59  (real-world paths 11.28, BSM at ctx vol 6.06) vol pts
+  AAPL: 23 quotes; |IV err| model 3.30  (real-world paths 13.02, BSM at ctx vol 4.29) vol pts
+  AAPL: 22 quotes; |IV err| model 3.51  (real-world paths 17.02, BSM at ctx vol 5.91) vol pts
+  AAPL: 33 quotes; |IV err| model 9.68  (real-world paths 15.60, BSM at ctx vol 7.57) vol pts
+  AMZN: 17 quotes; |IV err| model 2.86  (real-world paths 2.54, BSM at ctx vol 4.26) vol pts
+  AMZN: 17 quotes; |IV err| model 5.67  (real-world paths 13.00, BSM at ctx vol 2.90) vol pts
+  AMZN: 17 quotes; |IV err| model 7.09  (real-world paths 9.29, BSM at ctx vol 3.02) vol pts
+  AMZN: 28 quotes; |IV err| model 1.31  (real-world paths 5.56, BSM at ctx vol 4.79) vol pts
+  AMZN: 18 quotes; |IV err| model 5.46  (real-world paths 9.43, BSM at ctx vol 2.83) vol pts
+  AMZN: 18 quotes; |IV err| model 13.29  (real-world paths 12.81, BSM at ctx vol 10.11) vol pts
+  AMZN: 19 quotes; |IV err| model 6.83  (real-world paths 8.18, BSM at ctx vol 6.94) vol pts
+  AMZN: 29 quotes; |IV err| model 7.20  (real-world paths 14.45, BSM at ctx vol 9.55) vol pts
+  AMZN: 20 quotes; |IV err| model 10.81  (real-world paths 9.97, BSM at ctx vol 9.42) vol pts
+  AMZN: 17 quotes; |IV err| model 5.27  (real-world paths 5.97, BSM at ctx vol 3.04) vol pts
+  AMZN: 16 quotes; |IV err| model 1.42  (real-world paths 6.50, BSM at ctx vol 2.04) vol pts
+  AMZN: 24 quotes; |IV err| model 3.59  (real-world paths 9.80, BSM at ctx vol 4.18) vol pts
+  AMZN: 14 quotes; |IV err| model 3.56  (real-world paths 3.62, BSM at ctx vol 6.05) vol pts
+  AMZN: 14 quotes; |IV err| model 5.51  (real-world paths 5.12, BSM at ctx vol 8.90) vol pts
+  AMZN: 14 quotes; |IV err| model 3.96  (real-world paths 22.90, BSM at ctx vol 4.85) vol pts
+  AMZN: 23 quotes; |IV err| model 2.84  (real-world paths 10.70, BSM at ctx vol 3.87) vol pts
+  AMZN: 15 quotes; |IV err| model 5.29  (real-world paths 10.04, BSM at ctx vol 5.66) vol pts
+  AMZN: 21 quotes; |IV err| model 2.73  (real-world paths 11.21, BSM at ctx vol 6.29) vol pts
+  AMZN: 20 quotes; |IV err| model 6.23  (real-world paths 6.74, BSM at ctx vol 8.24) vol pts
+  AMZN: 34 quotes; |IV err| model 7.91  (real-world paths 22.39, BSM at ctx vol 5.32) vol pts
+  AMZN: 22 quotes; |IV err| model 8.27  (real-world paths 13.68, BSM at ctx vol 3.18) vol pts
+  AMZN: 21 quotes; |IV err| model 30.79  (real-world paths 204.85, BSM at ctx vol 10.32) vol pts
+  AMZN: 19 quotes; |IV err| model 3.62  (real-world paths 6.32, BSM at ctx vol 13.98) vol pts
+  AMZN: 19 quotes; |IV err| model 2.78  (real-world paths 13.85, BSM at ctx vol 13.75) vol pts
+  AMZN: 22 quotes; |IV err| model 10.96  (real-world paths 15.44, BSM at ctx vol 14.08) vol pts
+  AMZN: 17 quotes; |IV err| model 4.26  (real-world paths 11.63, BSM at ctx vol 15.74) vol pts
+  AMZN: 20 quotes; |IV err| model 9.82  (real-world paths 8.55, BSM at ctx vol 13.54) vol pts
+  AMZN: 30 quotes; |IV err| model 5.20  (real-world paths 4.73, BSM at ctx vol 15.73) vol pts
+  AMZN: 20 quotes; |IV err| model 3.78  (real-world paths 17.17, BSM at ctx vol 14.43) vol pts
+  AMZN: 23 quotes; |IV err| model 10.93  (real-world paths 10.28, BSM at ctx vol 4.09) vol pts
+  AMZN: 17 quotes; |IV err| model 14.11  (real-world paths 13.55, BSM at ctx vol 5.82) vol pts
+  AMZN: 28 quotes; |IV err| model 11.47  (real-world paths 11.47, BSM at ctx vol 5.59) vol pts
+  AMZN: 15 quotes; |IV err| model 6.20  (real-world paths 18.90, BSM at ctx vol 7.38) vol pts
+  AMZN: 18 quotes; |IV err| model 2.66  (real-world paths 4.78, BSM at ctx vol 3.88) vol pts
+  AMZN: 17 quotes; |IV err| model 2.30  (real-world paths 4.64, BSM at ctx vol 5.83) vol pts
+  AMZN: 15 quotes; |IV err| model 2.06  (real-world paths 1.72, BSM at ctx vol 3.54) vol pts
+  AMZN: 27 quotes; |IV err| model 7.08  (real-world paths 14.00, BSM at ctx vol 3.85) vol pts
+  AMZN: 16 quotes; |IV err| model 2.46  (real-world paths 8.49, BSM at ctx vol 3.97) vol pts
+  AMZN: 17 quotes; |IV err| model 0.81  (real-world paths 6.77, BSM at ctx vol 3.07) vol pts
+  AMZN: 17 quotes; |IV err| model 1.90  (real-world paths 3.52, BSM at ctx vol 2.50) vol pts
+  AMZN: 27 quotes; |IV err| model 3.63  (real-world paths 17.26, BSM at ctx vol 2.58) vol pts
+  AMZN: 17 quotes; |IV err| model 1.97  (real-world paths 16.26, BSM at ctx vol 2.68) vol pts
+  AMZN: 17 quotes; |IV err| model 10.56  (real-world paths 14.84, BSM at ctx vol 13.67) vol pts
+  AMZN: 17 quotes; |IV err| model 22.12  (real-world paths 19.04, BSM at ctx vol 17.01) vol pts
+  AMZN: 18 quotes; |IV err| model 14.26  (real-world paths 13.04, BSM at ctx vol 14.28) vol pts
+  AMZN: 29 quotes; |IV err| model 16.75  (real-world paths 17.38, BSM at ctx vol 13.93) vol pts
+  AMZN: 20 quotes; |IV err| model 1.30  (real-world paths 1.35, BSM at ctx vol 3.17) vol pts
+  AMZN: 20 quotes; |IV err| model 1.44  (real-world paths 6.87, BSM at ctx vol 3.33) vol pts
+  AMZN: 20 quotes; |IV err| model 11.17  (real-world paths 10.96, BSM at ctx vol 4.29) vol pts
+  AMZN: 30 quotes; |IV err| model 1.99  (real-world paths 4.61, BSM at ctx vol 3.51) vol pts
+  AMZN: 19 quotes; |IV err| model 2.17  (real-world paths 5.74, BSM at ctx vol 3.70) vol pts
+  AMZN: 19 quotes; |IV err| model 3.78  (real-world paths 7.43, BSM at ctx vol 4.75) vol pts
+  AMZN: 19 quotes; |IV err| model 3.77  (real-world paths 15.07, BSM at ctx vol 4.95) vol pts
+  AMZN: 19 quotes; |IV err| model 3.11  (real-world paths 2.93, BSM at ctx vol 6.67) vol pts
+  AMZN: 20 quotes; |IV err| model 2.65  (real-world paths 9.72, BSM at ctx vol 5.36) vol pts
+  AMZN: 22 quotes; |IV err| model 9.21  (real-world paths 8.69, BSM at ctx vol 4.95) vol pts
+  AMZN: 20 quotes; |IV err| model 11.52  (real-world paths 20.36, BSM at ctx vol 10.81) vol pts
+  AMZN: 31 quotes; |IV err| model 17.97  (real-world paths 16.49, BSM at ctx vol 10.72) vol pts
+  AMZN: 21 quotes; |IV err| model 15.30  (real-world paths 14.69, BSM at ctx vol 14.11) vol pts
+  AMZN: 16 quotes; |IV err| model 1.58  (real-world paths 13.15, BSM at ctx vol 4.71) vol pts
+  AMZN: 15 quotes; |IV err| model 7.28  (real-world paths 16.17, BSM at ctx vol 5.03) vol pts
+  AMZN: 25 quotes; |IV err| model 4.05  (real-world paths 23.33, BSM at ctx vol 4.67) vol pts
+  AMZN: 16 quotes; |IV err| model 8.03  (real-world paths 17.67, BSM at ctx vol 4.81) vol pts
+  AMZN: 15 quotes; |IV err| model 5.98  (real-world paths 10.30, BSM at ctx vol 5.86) vol pts
+  AMZN: 16 quotes; |IV err| model 6.39  (real-world paths 11.52, BSM at ctx vol 5.31) vol pts
+  AMZN: 25 quotes; |IV err| model 5.94  (real-world paths 8.88, BSM at ctx vol 4.50) vol pts
+  AMZN: 17 quotes; |IV err| model 3.82  (real-world paths 5.98, BSM at ctx vol 4.15) vol pts
+  AMZN: 19 quotes; |IV err| model 7.97  (real-world paths 7.65, BSM at ctx vol 12.42) vol pts
+  AMZN: 21 quotes; |IV err| model 13.64  (real-world paths 12.23, BSM at ctx vol 10.77) vol pts
+  AMZN: 31 quotes; |IV err| model 18.94  (real-world paths 16.49, BSM at ctx vol 11.98) vol pts
+  AMZN: 21 quotes; |IV err| model 6.76  (real-world paths 7.03, BSM at ctx vol 2.88) vol pts
+  AMZN: 20 quotes; |IV err| model 2.35  (real-world paths 4.64, BSM at ctx vol 3.69) vol pts
+  AMZN: 20 quotes; |IV err| model 0.63  (real-world paths 25.45, BSM at ctx vol 2.17) vol pts
+  AMZN: 33 quotes; |IV err| model 2.12  (real-world paths 1.94, BSM at ctx vol 1.79) vol pts
+  AMZN: 21 quotes; |IV err| model 2.61  (real-world paths 7.32, BSM at ctx vol 2.50) vol pts
+  AMZN: 20 quotes; |IV err| model 7.68  (real-world paths 15.77, BSM at ctx vol 5.91) vol pts
+  AMZN: 21 quotes; |IV err| model 3.85  (real-world paths 16.12, BSM at ctx vol 3.98) vol pts
+  AMZN: 31 quotes; |IV err| model 1.37  (real-world paths 8.44, BSM at ctx vol 1.71) vol pts
+  AMZN: 22 quotes; |IV err| model 3.06  (real-world paths 2.81, BSM at ctx vol 2.44) vol pts
+  AMZN: 19 quotes; |IV err| model 12.09  (real-world paths 11.03, BSM at ctx vol 11.39) vol pts
+  AMZN: 19 quotes; |IV err| model 11.65  (real-world paths 11.62, BSM at ctx vol 16.59) vol pts
+  AMZN: 19 quotes; |IV err| model 16.60  (real-world paths 12.99, BSM at ctx vol 15.60) vol pts
+  AMZN: 31 quotes; |IV err| model 3.04  (real-world paths 17.32, BSM at ctx vol 14.71) vol pts
+  AMZN: 28 quotes; |IV err| model 12.69  (real-world paths 12.68, BSM at ctx vol 7.31) vol pts
+  AMZN: 25 quotes; |IV err| model 1.47  (real-world paths 1.90, BSM at ctx vol 10.78) vol pts
+  AMZN: 22 quotes; |IV err| model 3.52  (real-world paths 11.35, BSM at ctx vol 12.46) vol pts
+  AMZN: 36 quotes; |IV err| model 4.77  (real-world paths 12.46, BSM at ctx vol 11.84) vol pts
+  AMZN: 26 quotes; |IV err| model 6.20  (real-world paths 8.41, BSM at ctx vol 11.52) vol pts
+  AMZN: 24 quotes; |IV err| model 6.92  (real-world paths 7.09, BSM at ctx vol 9.08) vol pts
+  AMZN: 24 quotes; |IV err| model 5.78  (real-world paths 5.61, BSM at ctx vol 8.61) vol pts
+  AMZN: 36 quotes; |IV err| model 3.43  (real-world paths 12.00, BSM at ctx vol 8.51) vol pts
+  GOOGL: 11 quotes; |IV err| model 11.78  (real-world paths 23.74, BSM at ctx vol 2.75) vol pts
+  GOOGL: 14 quotes; |IV err| model 2.52  (real-world paths 2.12, BSM at ctx vol 4.49) vol pts
+  GOOGL: 14 quotes; |IV err| model 5.58  (real-world paths 6.95, BSM at ctx vol 3.63) vol pts
+  GOOGL: 25 quotes; |IV err| model 2.76  (real-world paths 10.87, BSM at ctx vol 4.27) vol pts
+  GOOGL: 15 quotes; |IV err| model 3.96  (real-world paths 10.41, BSM at ctx vol 3.23) vol pts
+  GOOGL: 14 quotes; |IV err| model 10.81  (real-world paths 10.61, BSM at ctx vol 7.48) vol pts
+  GOOGL: 16 quotes; |IV err| model 9.97  (real-world paths 8.63, BSM at ctx vol 6.49) vol pts
+  GOOGL: 27 quotes; |IV err| model 13.41  (real-world paths 12.46, BSM at ctx vol 8.20) vol pts
+  GOOGL: 18 quotes; |IV err| model 7.96  (real-world paths 7.85, BSM at ctx vol 7.44) vol pts
+  GOOGL: 15 quotes; |IV err| model 8.15  (real-world paths 35.31, BSM at ctx vol 6.47) vol pts
+  GOOGL: 17 quotes; |IV err| model 3.87  (real-world paths 7.75, BSM at ctx vol 5.47) vol pts
+  GOOGL: 24 quotes; |IV err| model 2.30  (real-world paths 27.30, BSM at ctx vol 4.10) vol pts
+  GOOGL: 14 quotes; |IV err| model 4.63  (real-world paths 9.87, BSM at ctx vol 2.91) vol pts
+  GOOGL: 13 quotes; |IV err| model 4.93  (real-world paths 9.75, BSM at ctx vol 3.04) vol pts
+  GOOGL: 14 quotes; |IV err| model 3.82  (real-world paths 24.49, BSM at ctx vol 3.16) vol pts
+  GOOGL: 21 quotes; |IV err| model 5.55  (real-world paths 9.02, BSM at ctx vol 3.33) vol pts
+  GOOGL: 13 quotes; |IV err| model 3.58  (real-world paths 5.21, BSM at ctx vol 3.61) vol pts
+  GOOGL: 16 quotes; |IV err| model 3.14  (real-world paths 3.06, BSM at ctx vol 7.30) vol pts
+  GOOGL: 14 quotes; |IV err| model 7.98  (real-world paths 26.60, BSM at ctx vol 7.50) vol pts
+  GOOGL: 34 quotes; |IV err| model 9.69  (real-world paths 8.70, BSM at ctx vol 5.66) vol pts
+  GOOGL: 14 quotes; |IV err| model 5.51  (real-world paths 9.10, BSM at ctx vol 7.07) vol pts
+  GOOGL: 15 quotes; |IV err| model 3.32  (real-world paths 4.60, BSM at ctx vol 5.79) vol pts
+  GOOGL: 15 quotes; |IV err| model 5.07  (real-world paths 6.67, BSM at ctx vol 6.67) vol pts
+  GOOGL: 16 quotes; |IV err| model 6.10  (real-world paths 17.42, BSM at ctx vol 5.79) vol pts
+  GOOGL: 16 quotes; |IV err| model 3.89  (real-world paths 32.92, BSM at ctx vol 8.61) vol pts
+  GOOGL: 15 quotes; |IV err| model 5.92  (real-world paths 14.61, BSM at ctx vol 9.83) vol pts
+  GOOGL: 15 quotes; |IV err| model 4.73  (real-world paths 8.76, BSM at ctx vol 9.29) vol pts
+  GOOGL: 27 quotes; |IV err| model 3.21  (real-world paths 4.76, BSM at ctx vol 9.15) vol pts
+  GOOGL: 19 quotes; |IV err| model 5.61  (real-world paths 5.84, BSM at ctx vol 4.56) vol pts
+  GOOGL: 16 quotes; |IV err| model 4.49  (real-world paths 13.38, BSM at ctx vol 2.68) vol pts
+  GOOGL: 15 quotes; |IV err| model 7.77  (real-world paths 7.86, BSM at ctx vol 7.51) vol pts
+  GOOGL: 25 quotes; |IV err| model 12.92  (real-world paths 12.85, BSM at ctx vol 9.08) vol pts
+  GOOGL: 15 quotes; |IV err| model 2.70  (real-world paths 4.54, BSM at ctx vol 2.03) vol pts
+  GOOGL: 15 quotes; |IV err| model 4.55  (real-world paths 4.55, BSM at ctx vol 2.58) vol pts
+  GOOGL: 14 quotes; |IV err| model 5.43  (real-world paths 16.77, BSM at ctx vol 6.32) vol pts
+  GOOGL: 13 quotes; |IV err| model 9.56  (real-world paths 9.59, BSM at ctx vol 8.14) vol pts
+  GOOGL: 23 quotes; |IV err| model 6.30  (real-world paths 9.97, BSM at ctx vol 8.76) vol pts
+  GOOGL: 17 quotes; |IV err| model 5.53  (real-world paths 12.50, BSM at ctx vol 2.72) vol pts
+  GOOGL: 16 quotes; |IV err| model 2.46  (real-world paths 10.97, BSM at ctx vol 2.54) vol pts
+  GOOGL: 18 quotes; |IV err| model 3.17  (real-world paths 3.26, BSM at ctx vol 3.08) vol pts
+  GOOGL: 28 quotes; |IV err| model 1.87  (real-world paths 10.44, BSM at ctx vol 3.02) vol pts
+  GOOGL: 17 quotes; |IV err| model 9.65  (real-world paths 10.71, BSM at ctx vol 7.02) vol pts
+  GOOGL: 17 quotes; |IV err| model 19.07  (real-world paths 18.59, BSM at ctx vol 14.50) vol pts
+  GOOGL: 19 quotes; |IV err| model 22.84  (real-world paths 22.19, BSM at ctx vol 17.83) vol pts
+  GOOGL: 18 quotes; |IV err| model 22.26  (real-world paths 20.35, BSM at ctx vol 17.25) vol pts
+  GOOGL: 31 quotes; |IV err| model 21.03  (real-world paths 21.77, BSM at ctx vol 15.61) vol pts
+  GOOGL: 22 quotes; |IV err| model 4.28  (real-world paths 13.82, BSM at ctx vol 2.53) vol pts
+  GOOGL: 22 quotes; |IV err| model 3.15  (real-world paths 6.66, BSM at ctx vol 1.92) vol pts
+  GOOGL: 25 quotes; |IV err| model 6.42  (real-world paths 14.33, BSM at ctx vol 5.91) vol pts
+  GOOGL: 52 quotes; |IV err| model 6.56  (real-world paths 10.94, BSM at ctx vol 2.24) vol pts
+  GOOGL: 24 quotes; |IV err| model 1.92  (real-world paths 2.92, BSM at ctx vol 2.32) vol pts
+  GOOGL: 23 quotes; |IV err| model 1.97  (real-world paths 6.33, BSM at ctx vol 2.40) vol pts
+  GOOGL: 23 quotes; |IV err| model 2.27  (real-world paths 17.96, BSM at ctx vol 2.95) vol pts
+  GOOGL: 21 quotes; |IV err| model 4.67  (real-world paths 25.34, BSM at ctx vol 4.20) vol pts
+  GOOGL: 25 quotes; |IV err| model 2.87  (real-world paths 12.18, BSM at ctx vol 3.22) vol pts
+  GOOGL: 26 quotes; |IV err| model 12.98  (real-world paths 12.62, BSM at ctx vol 7.93) vol pts
+  GOOGL: 24 quotes; |IV err| model 16.30  (real-world paths 14.19, BSM at ctx vol 10.30) vol pts
+  GOOGL: 36 quotes; |IV err| model 17.09  (real-world paths 15.81, BSM at ctx vol 9.85) vol pts
+  GOOGL: 24 quotes; |IV err| model 17.48  (real-world paths 17.21, BSM at ctx vol 13.72) vol pts
+  GOOGL: 23 quotes; |IV err| model 4.55  (real-world paths 10.69, BSM at ctx vol 3.48) vol pts
+  GOOGL: 20 quotes; |IV err| model 2.30  (real-world paths 8.26, BSM at ctx vol 5.93) vol pts
+  GOOGL: 31 quotes; |IV err| model 5.13  (real-world paths 10.29, BSM at ctx vol 6.59) vol pts
+  GOOGL: 17 quotes; |IV err| model 6.31  (real-world paths 10.82, BSM at ctx vol 11.17) vol pts
+  GOOGL: 18 quotes; |IV err| model 5.52  (real-world paths 8.81, BSM at ctx vol 9.26) vol pts
+  GOOGL: 17 quotes; |IV err| model 7.56  (real-world paths 8.81, BSM at ctx vol 8.14) vol pts
+  GOOGL: 27 quotes; |IV err| model 2.74  (real-world paths 8.12, BSM at ctx vol 8.38) vol pts
+  GOOGL: 20 quotes; |IV err| model 2.92  (real-world paths 6.89, BSM at ctx vol 6.72) vol pts
+  GOOGL: 21 quotes; |IV err| model 9.97  (real-world paths 9.17, BSM at ctx vol 11.31) vol pts
+  GOOGL: 24 quotes; |IV err| model 9.07  (real-world paths 8.37, BSM at ctx vol 11.25) vol pts
+  GOOGL: 33 quotes; |IV err| model 7.82  (real-world paths 18.59, BSM at ctx vol 10.09) vol pts
+  GOOGL: 28 quotes; |IV err| model 3.77  (real-world paths 7.21, BSM at ctx vol 2.24) vol pts
+  GOOGL: 25 quotes; |IV err| model 6.21  (real-world paths 5.61, BSM at ctx vol 3.01) vol pts
+  GOOGL: 30 quotes; |IV err| model 7.74  (real-world paths 11.52, BSM at ctx vol 2.45) vol pts
+  GOOGL: 46 quotes; |IV err| model 1.94  (real-world paths 2.21, BSM at ctx vol 3.72) vol pts
+  GOOGL: 34 quotes; |IV err| model 5.61  (real-world paths 15.72, BSM at ctx vol 3.22) vol pts
+  GOOGL: 27 quotes; |IV err| model 19.68  (real-world paths 17.79, BSM at ctx vol 1.96) vol pts
+  GOOGL: 27 quotes; |IV err| model 2.88  (real-world paths 9.51, BSM at ctx vol 3.08) vol pts
+  GOOGL: 46 quotes; |IV err| model 3.19  (real-world paths 10.48, BSM at ctx vol 4.07) vol pts
+  GOOGL: 28 quotes; |IV err| model 4.23  (real-world paths 15.94, BSM at ctx vol 2.25) vol pts
+  GOOGL: 27 quotes; |IV err| model 12.21  (real-world paths 10.69, BSM at ctx vol 6.14) vol pts
+  GOOGL: 29 quotes; |IV err| model 9.39  (real-world paths 9.33, BSM at ctx vol 6.99) vol pts
+  GOOGL: 28 quotes; |IV err| model 10.56  (real-world paths 15.76, BSM at ctx vol 5.01) vol pts
+  GOOGL: 49 quotes; |IV err| model 1.53  (real-world paths 4.45, BSM at ctx vol 5.84) vol pts
+  GOOGL: 30 quotes; |IV err| model 5.24  (real-world paths 6.47, BSM at ctx vol 3.23) vol pts
+  GOOGL: 30 quotes; |IV err| model 1.75  (real-world paths 4.48, BSM at ctx vol 7.17) vol pts
+  GOOGL: 28 quotes; |IV err| model 2.31  (real-world paths 4.43, BSM at ctx vol 7.83) vol pts
+  GOOGL: 44 quotes; |IV err| model 1.11  (real-world paths 1.34, BSM at ctx vol 7.44) vol pts
+  GOOGL: 28 quotes; |IV err| model 2.16  (real-world paths 11.49, BSM at ctx vol 7.74) vol pts
+  GOOGL: 28 quotes; |IV err| model 4.99  (real-world paths 8.30, BSM at ctx vol 4.61) vol pts
+  GOOGL: 23 quotes; |IV err| model 1.94  (real-world paths 13.39, BSM at ctx vol 5.08) vol pts
+  GOOGL: 41 quotes; |IV err| model 4.12  (real-world paths 5.04, BSM at ctx vol 3.19) vol pts
+  META: 34 quotes; |IV err| model 1.77  (real-world paths 3.46, BSM at ctx vol 1.76) vol pts
+  META: 35 quotes; |IV err| model 2.92  (real-world paths 2.98, BSM at ctx vol 2.33) vol pts
+  META: 35 quotes; |IV err| model 6.27  (real-world paths 13.02, BSM at ctx vol 7.24) vol pts
+  META: 42 quotes; |IV err| model 2.95  (real-world paths 8.88, BSM at ctx vol 4.37) vol pts
+  META: 42 quotes; |IV err| model 12.70  (real-world paths 11.73, BSM at ctx vol 14.33) vol pts
+  META: 42 quotes; |IV err| model 15.62  (real-world paths 14.26, BSM at ctx vol 20.29) vol pts
+  META: 40 quotes; |IV err| model 9.05  (real-world paths 8.04, BSM at ctx vol 16.10) vol pts
+  META: 61 quotes; |IV err| model 15.56  (real-world paths 14.88, BSM at ctx vol 15.89) vol pts
+  META: 43 quotes; |IV err| model 1.32  (real-world paths 9.43, BSM at ctx vol 2.41) vol pts
+  META: 42 quotes; |IV err| model 2.66  (real-world paths 3.67, BSM at ctx vol 2.37) vol pts
+  META: 44 quotes; |IV err| model 2.70  (real-world paths 10.07, BSM at ctx vol 2.23) vol pts
+  META: 50 quotes; |IV err| model 6.74  (real-world paths 6.86, BSM at ctx vol 6.61) vol pts
+  META: 42 quotes; |IV err| model 4.80  (real-world paths 12.62, BSM at ctx vol 7.31) vol pts
+  META: 43 quotes; |IV err| model 10.94  (real-world paths 11.14, BSM at ctx vol 10.40) vol pts
+  META: 45 quotes; |IV err| model 6.34  (real-world paths 18.12, BSM at ctx vol 5.33) vol pts
+  META: 60 quotes; |IV err| model 3.89  (real-world paths 8.71, BSM at ctx vol 3.13) vol pts
+  META: 49 quotes; |IV err| model 7.87  (real-world paths 8.80, BSM at ctx vol 4.43) vol pts
+  META: 64 quotes; |IV err| model 12.23  (real-world paths 13.92, BSM at ctx vol 9.54) vol pts
+  META: 53 quotes; |IV err| model 10.05  (real-world paths 10.26, BSM at ctx vol 7.79) vol pts
+  META: 79 quotes; |IV err| model 7.89  (real-world paths 15.51, BSM at ctx vol 5.85) vol pts
+  META: 62 quotes; |IV err| model 4.26  (real-world paths 4.38, BSM at ctx vol 11.44) vol pts
+  META: 58 quotes; |IV err| model 5.49  (real-world paths 11.04, BSM at ctx vol 15.03) vol pts
+  META: 58 quotes; |IV err| model 5.63  (real-world paths 6.66, BSM at ctx vol 20.18) vol pts
+  META: 47 quotes; |IV err| model 9.49  (real-world paths 9.02, BSM at ctx vol 20.22) vol pts
+  META: 48 quotes; |IV err| model 6.10  (real-world paths 11.36, BSM at ctx vol 21.87) vol pts
+  META: 47 quotes; |IV err| model 5.36  (real-world paths 9.22, BSM at ctx vol 21.80) vol pts
+  META: 43 quotes; |IV err| model 3.37  (real-world paths 7.72, BSM at ctx vol 20.46) vol pts
+  META: 80 quotes; |IV err| model 4.33  (real-world paths 3.86, BSM at ctx vol 19.20) vol pts
+  META: 54 quotes; |IV err| model 3.71  (real-world paths 5.58, BSM at ctx vol 19.78) vol pts
+  META: 57 quotes; |IV err| model 15.96  (real-world paths 14.69, BSM at ctx vol 5.29) vol pts
+  META: 52 quotes; |IV err| model 10.20  (real-world paths 9.70, BSM at ctx vol 7.54) vol pts
+  META: 64 quotes; |IV err| model 6.49  (real-world paths 30.68, BSM at ctx vol 8.19) vol pts
+  META: 45 quotes; |IV err| model 10.71  (real-world paths 11.91, BSM at ctx vol 9.82) vol pts
+  META: 57 quotes; |IV err| model 2.66  (real-world paths 6.51, BSM at ctx vol 6.34) vol pts
+  META: 58 quotes; |IV err| model 1.81  (real-world paths 6.79, BSM at ctx vol 7.80) vol pts
+  META: 46 quotes; |IV err| model 3.15  (real-world paths 21.52, BSM at ctx vol 4.59) vol pts
+  META: 61 quotes; |IV err| model 4.82  (real-world paths 6.54, BSM at ctx vol 5.78) vol pts
+  META: 48 quotes; |IV err| model 7.06  (real-world paths 10.73, BSM at ctx vol 4.65) vol pts
+  META: 48 quotes; |IV err| model 4.14  (real-world paths 5.80, BSM at ctx vol 3.39) vol pts
+  META: 46 quotes; |IV err| model 5.99  (real-world paths 6.73, BSM at ctx vol 2.54) vol pts
+  META: 65 quotes; |IV err| model 2.60  (real-world paths 3.06, BSM at ctx vol 2.28) vol pts
+  META: 53 quotes; |IV err| model 8.87  (real-world paths 12.81, BSM at ctx vol 3.44) vol pts
+  META: 53 quotes; |IV err| model 21.17  (real-world paths 20.14, BSM at ctx vol 18.07) vol pts
+  META: 56 quotes; |IV err| model 14.54  (real-world paths 12.15, BSM at ctx vol 17.15) vol pts
+  META: 50 quotes; |IV err| model 17.46  (real-world paths 17.25, BSM at ctx vol 15.36) vol pts
+  META: 69 quotes; |IV err| model 16.73  (real-world paths 15.96, BSM at ctx vol 14.54) vol pts
+  META: 54 quotes; |IV err| model 4.64  (real-world paths 7.43, BSM at ctx vol 3.73) vol pts
+  META: 52 quotes; |IV err| model 3.88  (real-world paths 23.50, BSM at ctx vol 2.90) vol pts
+  META: 48 quotes; |IV err| model 8.98  (real-world paths 16.91, BSM at ctx vol 5.33) vol pts
+  META: 60 quotes; |IV err| model 2.21  (real-world paths 2.22, BSM at ctx vol 3.30) vol pts
+  META: 54 quotes; |IV err| model 2.00  (real-world paths 2.13, BSM at ctx vol 4.57) vol pts
+  META: 47 quotes; |IV err| model 15.32  (real-world paths 19.38, BSM at ctx vol 6.78) vol pts
+  META: 43 quotes; |IV err| model 4.69  (real-world paths 11.97, BSM at ctx vol 7.59) vol pts
+  META: 44 quotes; |IV err| model 3.62  (real-world paths 8.68, BSM at ctx vol 8.57) vol pts
+  META: 57 quotes; |IV err| model 11.96  (real-world paths 11.01, BSM at ctx vol 2.54) vol pts
+  META: 56 quotes; |IV err| model 13.17  (real-world paths 13.09, BSM at ctx vol 7.43) vol pts
+  META: 55 quotes; |IV err| model 10.61  (real-world paths 10.24, BSM at ctx vol 8.92) vol pts
+  META: 74 quotes; |IV err| model 13.53  (real-world paths 22.11, BSM at ctx vol 8.66) vol pts
+  META: 55 quotes; |IV err| model 2.86  (real-world paths 2.83, BSM at ctx vol 3.85) vol pts
+  META: 50 quotes; |IV err| model 6.40  (real-world paths 18.86, BSM at ctx vol 3.73) vol pts
+  META: 45 quotes; |IV err| model 3.62  (real-world paths 13.52, BSM at ctx vol 3.76) vol pts
+  META: 67 quotes; |IV err| model 2.12  (real-world paths 20.37, BSM at ctx vol 4.16) vol pts
+  META: 47 quotes; |IV err| model 6.35  (real-world paths 7.30, BSM at ctx vol 4.48) vol pts
+  META: 44 quotes; |IV err| model 6.78  (real-world paths 7.06, BSM at ctx vol 5.25) vol pts
+  META: 40 quotes; |IV err| model 5.17  (real-world paths 20.13, BSM at ctx vol 4.11) vol pts
+  META: 59 quotes; |IV err| model 4.11  (real-world paths 6.07, BSM at ctx vol 4.53) vol pts
+  META: 56 quotes; |IV err| model 4.28  (real-world paths 20.57, BSM at ctx vol 5.07) vol pts
+  META: 62 quotes; |IV err| model 15.23  (real-world paths 14.76, BSM at ctx vol 4.20) vol pts
+  META: 55 quotes; |IV err| model 16.77  (real-world paths 16.76, BSM at ctx vol 3.14) vol pts
+  META: 76 quotes; |IV err| model 13.81  (real-world paths 13.72, BSM at ctx vol 3.99) vol pts
+  META: 68 quotes; |IV err| model 9.00  (real-world paths 8.11, BSM at ctx vol 7.69) vol pts
+  META: 48 quotes; |IV err| model 6.02  (real-world paths 7.48, BSM at ctx vol 7.15) vol pts
+  META: 51 quotes; |IV err| model 9.55  (real-world paths 8.75, BSM at ctx vol 5.59) vol pts
+  META: 75 quotes; |IV err| model 6.61  (real-world paths 6.80, BSM at ctx vol 6.35) vol pts
+  META: 57 quotes; |IV err| model 6.04  (real-world paths 8.63, BSM at ctx vol 5.36) vol pts
+  META: 52 quotes; |IV err| model 6.13  (real-world paths 7.20, BSM at ctx vol 4.74) vol pts
+  META: 42 quotes; |IV err| model 2.69  (real-world paths 13.74, BSM at ctx vol 6.86) vol pts
+  META: 72 quotes; |IV err| model 7.47  (real-world paths 9.17, BSM at ctx vol 7.30) vol pts
+  META: 49 quotes; |IV err| model 5.72  (real-world paths 9.10, BSM at ctx vol 5.22) vol pts
+  META: 64 quotes; |IV err| model 14.63  (real-world paths 14.05, BSM at ctx vol 7.54) vol pts
+  META: 45 quotes; |IV err| model 23.23  (real-world paths 23.82, BSM at ctx vol 11.35) vol pts
+  META: 37 quotes; |IV err| model 11.85  (real-world paths 9.75, BSM at ctx vol 11.41) vol pts
+  META: 73 quotes; |IV err| model 22.40  (real-world paths 20.49, BSM at ctx vol 8.49) vol pts
+  META: 60 quotes; |IV err| model 9.03  (real-world paths 15.34, BSM at ctx vol 5.72) vol pts
+  META: 57 quotes; |IV err| model 4.34  (real-world paths 6.59, BSM at ctx vol 9.50) vol pts
+  META: 57 quotes; |IV err| model 4.72  (real-world paths 12.84, BSM at ctx vol 9.72) vol pts
+  META: 71 quotes; |IV err| model 7.01  (real-world paths 8.74, BSM at ctx vol 11.20) vol pts
+  META: 57 quotes; |IV err| model 6.12  (real-world paths 9.51, BSM at ctx vol 9.36) vol pts
+  META: 69 quotes; |IV err| model 13.38  (real-world paths 11.96, BSM at ctx vol 5.26) vol pts
+  META: 65 quotes; |IV err| model 11.48  (real-world paths 16.23, BSM at ctx vol 5.04) vol pts
+  META: 100 quotes; |IV err| model 17.01  (real-world paths 16.32, BSM at ctx vol 3.52) vol pts
+  MSFT: 24 quotes; |IV err| model 5.63  (real-world paths 8.74, BSM at ctx vol 2.80) vol pts
+  MSFT: 23 quotes; |IV err| model 3.76  (real-world paths 4.07, BSM at ctx vol 2.44) vol pts
+  MSFT: 24 quotes; |IV err| model 3.18  (real-world paths 10.14, BSM at ctx vol 2.76) vol pts
+  MSFT: 33 quotes; |IV err| model 6.20  (real-world paths 7.29, BSM at ctx vol 3.10) vol pts
+  MSFT: 24 quotes; |IV err| model 4.71  (real-world paths 6.43, BSM at ctx vol 4.64) vol pts
+  MSFT: 24 quotes; |IV err| model 3.55  (real-world paths 4.49, BSM at ctx vol 6.07) vol pts
+  MSFT: 22 quotes; |IV err| model 8.22  (real-world paths 13.94, BSM at ctx vol 4.01) vol pts
+  MSFT: 39 quotes; |IV err| model 2.04  (real-world paths 3.16, BSM at ctx vol 4.73) vol pts
+  MSFT: 28 quotes; |IV err| model 10.98  (real-world paths 12.54, BSM at ctx vol 4.53) vol pts
+  MSFT: 24 quotes; |IV err| model 11.51  (real-world paths 22.26, BSM at ctx vol 3.37) vol pts
+  MSFT: 24 quotes; |IV err| model 1.65  (real-world paths 6.89, BSM at ctx vol 2.43) vol pts
+  MSFT: 32 quotes; |IV err| model 2.93  (real-world paths 6.46, BSM at ctx vol 2.59) vol pts
+  MSFT: 24 quotes; |IV err| model 1.91  (real-world paths 30.26, BSM at ctx vol 3.35) vol pts
+  MSFT: 24 quotes; |IV err| model 3.66  (real-world paths 17.70, BSM at ctx vol 4.17) vol pts
+  MSFT: 25 quotes; |IV err| model 3.68  (real-world paths 20.80, BSM at ctx vol 3.97) vol pts
+  MSFT: 33 quotes; |IV err| model 11.91  (real-world paths 16.46, BSM at ctx vol 3.28) vol pts
+  MSFT: 23 quotes; |IV err| model 3.10  (real-world paths 9.79, BSM at ctx vol 3.05) vol pts
+  MSFT: 27 quotes; |IV err| model 5.94  (real-world paths 17.52, BSM at ctx vol 7.25) vol pts
+  MSFT: 29 quotes; |IV err| model 7.73  (real-world paths 13.30, BSM at ctx vol 6.88) vol pts
+  MSFT: 50 quotes; |IV err| model 8.84  (real-world paths 15.29, BSM at ctx vol 4.38) vol pts
+  MSFT: 31 quotes; |IV err| model 10.05  (real-world paths 10.24, BSM at ctx vol 10.08) vol pts
+  MSFT: 30 quotes; |IV err| model 4.80  (real-world paths 16.10, BSM at ctx vol 10.22) vol pts
+  MSFT: 29 quotes; |IV err| model 3.18  (real-world paths 4.51, BSM at ctx vol 11.88) vol pts
+  MSFT: 25 quotes; |IV err| model 5.35  (real-world paths 4.78, BSM at ctx vol 11.94) vol pts
+  MSFT: 29 quotes; |IV err| model 5.50  (real-world paths 8.95, BSM at ctx vol 11.70) vol pts
+  MSFT: 27 quotes; |IV err| model 9.82  (real-world paths 9.98, BSM at ctx vol 12.66) vol pts
+  MSFT: 26 quotes; |IV err| model 5.34  (real-world paths 6.92, BSM at ctx vol 10.37) vol pts
+  MSFT: 39 quotes; |IV err| model 7.36  (real-world paths 10.36, BSM at ctx vol 12.09) vol pts
+  MSFT: 28 quotes; |IV err| model 6.10  (real-world paths 11.82, BSM at ctx vol 11.56) vol pts
+  MSFT: 31 quotes; |IV err| model 4.60  (real-world paths 11.91, BSM at ctx vol 5.52) vol pts
+  MSFT: 26 quotes; |IV err| model 6.04  (real-world paths 5.73, BSM at ctx vol 3.13) vol pts
+  MSFT: 40 quotes; |IV err| model 3.60  (real-world paths 7.08, BSM at ctx vol 3.91) vol pts
+  MSFT: 26 quotes; |IV err| model 5.36  (real-world paths 5.16, BSM at ctx vol 5.58) vol pts
+  MSFT: 22 quotes; |IV err| model 8.34  (real-world paths 17.95, BSM at ctx vol 3.31) vol pts
+  MSFT: 22 quotes; |IV err| model 3.94  (real-world paths 4.95, BSM at ctx vol 2.38) vol pts
+  MSFT: 22 quotes; |IV err| model 6.85  (real-world paths 6.84, BSM at ctx vol 4.05) vol pts
+  MSFT: 29 quotes; |IV err| model 15.59  (real-world paths 20.15, BSM at ctx vol 3.13) vol pts
+  MSFT: 20 quotes; |IV err| model 2.00  (real-world paths 8.06, BSM at ctx vol 4.96) vol pts
+  MSFT: 21 quotes; |IV err| model 1.26  (real-world paths 18.87, BSM at ctx vol 4.76) vol pts
+  MSFT: 20 quotes; |IV err| model 2.34  (real-world paths 8.52, BSM at ctx vol 4.40) vol pts
+  MSFT: 27 quotes; |IV err| model 3.25  (real-world paths 7.21, BSM at ctx vol 4.32) vol pts
+  MSFT: 22 quotes; |IV err| model 2.29  (real-world paths 13.23, BSM at ctx vol 4.51) vol pts
+  MSFT: 22 quotes; |IV err| model 2.26  (real-world paths 2.20, BSM at ctx vol 13.41) vol pts
+  MSFT: 22 quotes; |IV err| model 12.78  (real-world paths 12.18, BSM at ctx vol 14.13) vol pts
+  MSFT: 23 quotes; |IV err| model 9.11  (real-world paths 8.37, BSM at ctx vol 13.56) vol pts
+  MSFT: 32 quotes; |IV err| model 13.55  (real-world paths 13.59, BSM at ctx vol 15.91) vol pts
+  MSFT: 21 quotes; |IV err| model 2.35  (real-world paths 3.22, BSM at ctx vol 6.91) vol pts
+  MSFT: 21 quotes; |IV err| model 0.94  (real-world paths 2.73, BSM at ctx vol 6.02) vol pts
+  MSFT: 22 quotes; |IV err| model 2.99  (real-world paths 3.13, BSM at ctx vol 8.68) vol pts
+  MSFT: 26 quotes; |IV err| model 6.87  (real-world paths 6.64, BSM at ctx vol 5.02) vol pts
+  MSFT: 23 quotes; |IV err| model 6.18  (real-world paths 6.86, BSM at ctx vol 3.67) vol pts
+  MSFT: 24 quotes; |IV err| model 4.64  (real-world paths 5.49, BSM at ctx vol 2.28) vol pts
+  MSFT: 22 quotes; |IV err| model 3.13  (real-world paths 6.02, BSM at ctx vol 2.07) vol pts
+  MSFT: 23 quotes; |IV err| model 2.31  (real-world paths 10.27, BSM at ctx vol 1.96) vol pts
+  MSFT: 25 quotes; |IV err| model 8.18  (real-world paths 7.36, BSM at ctx vol 8.79) vol pts
+  MSFT: 24 quotes; |IV err| model 9.59  (real-world paths 8.61, BSM at ctx vol 11.02) vol pts
+  MSFT: 23 quotes; |IV err| model 5.47  (real-world paths 9.09, BSM at ctx vol 13.38) vol pts
+  MSFT: 38 quotes; |IV err| model 5.83  (real-world paths 6.05, BSM at ctx vol 11.54) vol pts
+  MSFT: 33 quotes; |IV err| model 2.02  (real-world paths 13.92, BSM at ctx vol 3.05) vol pts
+  MSFT: 33 quotes; |IV err| model 3.51  (real-world paths 12.15, BSM at ctx vol 3.79) vol pts
+  MSFT: 31 quotes; |IV err| model 2.99  (real-world paths 9.96, BSM at ctx vol 3.41) vol pts
+  MSFT: 45 quotes; |IV err| model 2.71  (real-world paths 2.87, BSM at ctx vol 4.05) vol pts
+  MSFT: 34 quotes; |IV err| model 6.26  (real-world paths 8.32, BSM at ctx vol 3.86) vol pts
+  MSFT: 30 quotes; |IV err| model 6.69  (real-world paths 6.63, BSM at ctx vol 5.48) vol pts
+  MSFT: 28 quotes; |IV err| model 3.35  (real-world paths 13.01, BSM at ctx vol 4.98) vol pts
+  MSFT: 39 quotes; |IV err| model 3.82  (real-world paths 3.77, BSM at ctx vol 5.36) vol pts
+  MSFT: 30 quotes; |IV err| model 2.28  (real-world paths 6.62, BSM at ctx vol 4.78) vol pts
+  MSFT: 32 quotes; |IV err| model 16.15  (real-world paths 15.51, BSM at ctx vol 6.65) vol pts
+  MSFT: 37 quotes; |IV err| model 10.91  (real-world paths 10.72, BSM at ctx vol 6.97) vol pts
+  MSFT: 48 quotes; |IV err| model 9.31  (real-world paths 8.40, BSM at ctx vol 6.22) vol pts
+  MSFT: 37 quotes; |IV err| model 20.31  (real-world paths 26.89, BSM at ctx vol 4.63) vol pts
+  MSFT: 31 quotes; |IV err| model 5.85  (real-world paths 8.10, BSM at ctx vol 2.35) vol pts
+  MSFT: 27 quotes; |IV err| model 2.13  (real-world paths 4.43, BSM at ctx vol 4.38) vol pts
+  MSFT: 42 quotes; |IV err| model 2.18  (real-world paths 25.26, BSM at ctx vol 2.77) vol pts
+  MSFT: 37 quotes; |IV err| model 1.83  (real-world paths 2.29, BSM at ctx vol 3.43) vol pts
+  MSFT: 34 quotes; |IV err| model 6.59  (real-world paths 7.02, BSM at ctx vol 2.43) vol pts
+  MSFT: 33 quotes; |IV err| model 6.99  (real-world paths 28.23, BSM at ctx vol 2.57) vol pts
+  MSFT: 44 quotes; |IV err| model 4.25  (real-world paths 23.39, BSM at ctx vol 2.48) vol pts
+  MSFT: 34 quotes; |IV err| model 3.31  (real-world paths 11.77, BSM at ctx vol 3.08) vol pts
+  MSFT: 37 quotes; |IV err| model 11.53  (real-world paths 10.98, BSM at ctx vol 10.21) vol pts
+  MSFT: 33 quotes; |IV err| model 14.38  (real-world paths 19.45, BSM at ctx vol 12.34) vol pts
+  MSFT: 33 quotes; |IV err| model 19.29  (real-world paths 16.65, BSM at ctx vol 13.52) vol pts
+  MSFT: 46 quotes; |IV err| model 14.76  (real-world paths 13.65, BSM at ctx vol 12.54) vol pts
+  MSFT: 43 quotes; |IV err| model 3.78  (real-world paths 6.58, BSM at ctx vol 10.75) vol pts
+  MSFT: 36 quotes; |IV err| model 2.36  (real-world paths 4.63, BSM at ctx vol 15.70) vol pts
+  MSFT: 32 quotes; |IV err| model 2.52  (real-world paths 5.57, BSM at ctx vol 16.76) vol pts
+  MSFT: 56 quotes; |IV err| model 2.26  (real-world paths 2.15, BSM at ctx vol 16.39) vol pts
+  MSFT: 41 quotes; |IV err| model 2.49  (real-world paths 2.24, BSM at ctx vol 15.61) vol pts
+  MSFT: 29 quotes; |IV err| model 1.59  (real-world paths 2.49, BSM at ctx vol 15.19) vol pts
+  MSFT: 31 quotes; |IV err| model 3.81  (real-world paths 8.30, BSM at ctx vol 14.27) vol pts
+  MSFT: 50 quotes; |IV err| model 2.85  (real-world paths 9.64, BSM at ctx vol 13.08) vol pts
+  NVDA: 41 quotes; |IV err| model 3.66  (real-world paths 3.54, BSM at ctx vol 6.58) vol pts
+  NVDA: 39 quotes; |IV err| model 9.07  (real-world paths 8.98, BSM at ctx vol 1.72) vol pts
+  NVDA: 48 quotes; |IV err| model 18.78  (real-world paths 17.91, BSM at ctx vol 14.89) vol pts
+  NVDA: 61 quotes; |IV err| model 2.82  (real-world paths 10.49, BSM at ctx vol 4.85) vol pts
+  NVDA: 48 quotes; |IV err| model 11.26  (real-world paths 11.90, BSM at ctx vol 7.77) vol pts
+  NVDA: 40 quotes; |IV err| model 3.33  (real-world paths 10.50, BSM at ctx vol 4.42) vol pts
+  NVDA: 41 quotes; |IV err| model 5.26  (real-world paths 19.01, BSM at ctx vol 1.80) vol pts
+  NVDA: 88 quotes; |IV err| model 3.67  (real-world paths 15.27, BSM at ctx vol 8.12) vol pts
+  NVDA: 61 quotes; |IV err| model 20.43  (real-world paths 20.43, BSM at ctx vol 11.11) vol pts
+  NVDA: 67 quotes; |IV err| model 20.59  (real-world paths 20.42, BSM at ctx vol 3.91) vol pts
+  NVDA: 54 quotes; |IV err| model 11.81  (real-world paths 9.91, BSM at ctx vol 2.69) vol pts
+  NVDA: 74 quotes; |IV err| model 27.73  (real-world paths 27.07, BSM at ctx vol 7.70) vol pts
+  NVDA: 51 quotes; |IV err| model 17.15  (real-world paths 12.52, BSM at ctx vol 5.94) vol pts
+  NVDA: 55 quotes; |IV err| model 21.60  (real-world paths 23.02, BSM at ctx vol 7.71) vol pts
+  NVDA: 51 quotes; |IV err| model 8.55  (real-world paths 44.82, BSM at ctx vol 19.21) vol pts
+  NVDA: 36 quotes; |IV err| model 7.69  (real-world paths 7.24, BSM at ctx vol 21.19) vol pts
+  NVDA: 41 quotes; |IV err| model 12.50  (real-world paths 12.78, BSM at ctx vol 21.07) vol pts
+  NVDA: 61 quotes; |IV err| model 15.70  (real-world paths 16.86, BSM at ctx vol 18.15) vol pts
+  NVDA: 60 quotes; |IV err| model 11.95  (real-world paths 22.20, BSM at ctx vol 19.26) vol pts
+  NVDA: 39 quotes; |IV err| model 7.27  (real-world paths 15.18, BSM at ctx vol 27.83) vol pts
+  NVDA: 57 quotes; |IV err| model 2.44  (real-world paths 16.29, BSM at ctx vol 15.79) vol pts
+  NVDA: 54 quotes; |IV err| model 12.91  (real-world paths 11.82, BSM at ctx vol 8.20) vol pts
+  NVDA: 71 quotes; |IV err| model 15.91  (real-world paths 33.11, BSM at ctx vol 10.42) vol pts
+  NVDA: 55 quotes; |IV err| model 20.66  (real-world paths 19.44, BSM at ctx vol 12.71) vol pts
+  NVDA: 57 quotes; |IV err| model 6.90  (real-world paths 12.05, BSM at ctx vol 22.21) vol pts
+  NVDA: 48 quotes; |IV err| model 10.59  (real-world paths 10.72, BSM at ctx vol 21.73) vol pts
+  NVDA: 45 quotes; |IV err| model 10.83  (real-world paths 10.99, BSM at ctx vol 19.64) vol pts
+  NVDA: 38 quotes; |IV err| model 10.22  (real-world paths 10.16, BSM at ctx vol 22.71) vol pts
+  NVDA: 61 quotes; |IV err| model 9.98  (real-world paths 11.74, BSM at ctx vol 15.46) vol pts
+  NVDA: 42 quotes; |IV err| model 9.41  (real-world paths 9.82, BSM at ctx vol 15.28) vol pts
+  NVDA: 41 quotes; |IV err| model 7.77  (real-world paths 7.75, BSM at ctx vol 3.84) vol pts
+  NVDA: 42 quotes; |IV err| model 10.69  (real-world paths 11.96, BSM at ctx vol 5.01) vol pts
+  NVDA: 15 quotes; |IV err| model 10.23  (real-world paths 9.99, BSM at ctx vol 3.64) vol pts
+  NVDA: 16 quotes; |IV err| model 14.04  (real-world paths 13.40, BSM at ctx vol 15.00) vol pts
+  NVDA: 16 quotes; |IV err| model 14.44  (real-world paths 12.71, BSM at ctx vol 11.88) vol pts
+  NVDA: 13 quotes; |IV err| model 17.86  (real-world paths 15.43, BSM at ctx vol 17.49) vol pts
+  NVDA: 38 quotes; |IV err| model 17.37  (real-world paths 17.06, BSM at ctx vol 18.29) vol pts
+  NVDA: 12 quotes; |IV err| model 8.80  (real-world paths 8.81, BSM at ctx vol 9.31) vol pts
+  NVDA: 13 quotes; |IV err| model 5.02  (real-world paths 9.52, BSM at ctx vol 7.66) vol pts
+  NVDA: 12 quotes; |IV err| model 7.76  (real-world paths 7.59, BSM at ctx vol 8.94) vol pts
+  NVDA: 23 quotes; |IV err| model 2.28  (real-world paths 8.93, BSM at ctx vol 7.61) vol pts
+  NVDA: 13 quotes; |IV err| model 10.47  (real-world paths 9.40, BSM at ctx vol 9.25) vol pts
+  NVDA: 14 quotes; |IV err| model 12.91  (real-world paths 16.98, BSM at ctx vol 12.29) vol pts
+  NVDA: 14 quotes; |IV err| model 12.76  (real-world paths 12.34, BSM at ctx vol 15.19) vol pts
+  NVDA: 14 quotes; |IV err| model 13.41  (real-world paths 12.69, BSM at ctx vol 12.02) vol pts
+  NVDA: 22 quotes; |IV err| model 24.94  (real-world paths 25.73, BSM at ctx vol 23.19) vol pts
+  NVDA: 17 quotes; |IV err| model 19.20  (real-world paths 19.17, BSM at ctx vol 16.57) vol pts
+  NVDA: 18 quotes; |IV err| model 17.85  (real-world paths 16.19, BSM at ctx vol 14.87) vol pts
+  NVDA: 18 quotes; |IV err| model 17.04  (real-world paths 16.15, BSM at ctx vol 18.39) vol pts
+  NVDA: 77 quotes; |IV err| model 10.04  (real-world paths 10.92, BSM at ctx vol 5.52) vol pts
+  NVDA: 17 quotes; |IV err| model 6.97  (real-world paths 10.06, BSM at ctx vol 3.08) vol pts
+  NVDA: 17 quotes; |IV err| model 4.34  (real-world paths 11.77, BSM at ctx vol 3.44) vol pts
+  NVDA: 16 quotes; |IV err| model 2.00  (real-world paths 3.06, BSM at ctx vol 3.70) vol pts
+  NVDA: 20 quotes; |IV err| model 5.04  (real-world paths 6.06, BSM at ctx vol 4.15) vol pts
+  NVDA: 19 quotes; |IV err| model 4.10  (real-world paths 10.47, BSM at ctx vol 2.83) vol pts
+  NVDA: 19 quotes; |IV err| model 11.46  (real-world paths 10.22, BSM at ctx vol 3.04) vol pts
+  NVDA: 16 quotes; |IV err| model 13.47  (real-world paths 22.18, BSM at ctx vol 7.05) vol pts
+  NVDA: 28 quotes; |IV err| model 13.15  (real-world paths 12.35, BSM at ctx vol 3.72) vol pts
+  NVDA: 17 quotes; |IV err| model 15.14  (real-world paths 14.68, BSM at ctx vol 15.38) vol pts
+  NVDA: 19 quotes; |IV err| model 16.15  (real-world paths 15.83, BSM at ctx vol 10.94) vol pts
+  NVDA: 16 quotes; |IV err| model 15.62  (real-world paths 16.21, BSM at ctx vol 13.91) vol pts
+  NVDA: 27 quotes; |IV err| model 21.92  (real-world paths 21.04, BSM at ctx vol 19.11) vol pts
+  NVDA: 16 quotes; |IV err| model 11.83  (real-world paths 21.57, BSM at ctx vol 10.55) vol pts
+  NVDA: 17 quotes; |IV err| model 7.30  (real-world paths 8.11, BSM at ctx vol 6.75) vol pts
+  NVDA: 17 quotes; |IV err| model 4.82  (real-world paths 9.76, BSM at ctx vol 5.52) vol pts
+  NVDA: 26 quotes; |IV err| model 9.21  (real-world paths 47.56, BSM at ctx vol 4.98) vol pts
+  NVDA: 17 quotes; |IV err| model 7.01  (real-world paths 6.77, BSM at ctx vol 5.59) vol pts
+  NVDA: 17 quotes; |IV err| model 3.50  (real-world paths 9.99, BSM at ctx vol 4.69) vol pts
+  NVDA: 19 quotes; |IV err| model 3.44  (real-world paths 24.68, BSM at ctx vol 3.75) vol pts
+  NVDA: 28 quotes; |IV err| model 4.58  (real-world paths 17.19, BSM at ctx vol 3.36) vol pts
+  NVDA: 20 quotes; |IV err| model 18.32  (real-world paths 16.54, BSM at ctx vol 10.64) vol pts
+  NVDA: 21 quotes; |IV err| model 15.79  (real-world paths 14.13, BSM at ctx vol 10.03) vol pts
+  NVDA: 22 quotes; |IV err| model 10.90  (real-world paths 30.54, BSM at ctx vol 15.87) vol pts
+  NVDA: 69 quotes; |IV err| model 12.19  (real-world paths 18.66, BSM at ctx vol 3.90) vol pts
+  NVDA: 22 quotes; |IV err| model 11.69  (real-world paths 20.33, BSM at ctx vol 7.04) vol pts
+  NVDA: 23 quotes; |IV err| model 11.97  (real-world paths 11.80, BSM at ctx vol 4.94) vol pts
+  NVDA: 23 quotes; |IV err| model 5.01  (real-world paths 5.41, BSM at ctx vol 3.45) vol pts
+  NVDA: 34 quotes; |IV err| model 1.30  (real-world paths 20.40, BSM at ctx vol 5.47) vol pts
+  NVDA: 22 quotes; |IV err| model 5.18  (real-world paths 5.66, BSM at ctx vol 3.72) vol pts
+  NVDA: 21 quotes; |IV err| model 9.28  (real-world paths 9.10, BSM at ctx vol 3.10) vol pts
+  NVDA: 22 quotes; |IV err| model 3.02  (real-world paths 26.18, BSM at ctx vol 3.11) vol pts
+  NVDA: 23 quotes; |IV err| model 3.29  (real-world paths 24.61, BSM at ctx vol 4.60) vol pts
+  NVDA: 34 quotes; |IV err| model 7.59  (real-world paths 7.23, BSM at ctx vol 3.49) vol pts
+  NVDA: 24 quotes; |IV err| model 11.39  (real-world paths 11.26, BSM at ctx vol 4.04) vol pts
+  NVDA: 24 quotes; |IV err| model 3.68  (real-world paths 15.41, BSM at ctx vol 2.96) vol pts
+  NVDA: 23 quotes; |IV err| model 5.34  (real-world paths 23.62, BSM at ctx vol 2.88) vol pts
+  NVDA: 33 quotes; |IV err| model 9.51  (real-world paths 9.54, BSM at ctx vol 3.25) vol pts
+  NVDA: 25 quotes; |IV err| model 3.64  (real-world paths 6.07, BSM at ctx vol 8.17) vol pts
+  NVDA: 24 quotes; |IV err| model 4.57  (real-world paths 8.91, BSM at ctx vol 4.82) vol pts
+  NVDA: 21 quotes; |IV err| model 8.25  (real-world paths 12.26, BSM at ctx vol 5.39) vol pts
+  NVDA: 31 quotes; |IV err| model 4.67  (real-world paths 8.87, BSM at ctx vol 6.80) vol pts
+[ar_token256q_mean] 16429 quotes over 546 contexts; mean |IV error| vs market: 7.684792298274041  (real-world: 12.006320021115732, BSM at ctx vol: 7.687688916679628)
+saved figs/megacap_tech/paths_ar_token256q_mean.png
+done: ar_token on megacap_tech
+# end 2026-11-26T18:30:02-05:00 exit 0 elapsed 1325s

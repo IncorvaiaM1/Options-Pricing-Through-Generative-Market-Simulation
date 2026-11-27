@@ -49,10 +49,63 @@
      4
     ]
    }
+  },
+  "megacap_tech": {
+   "data": "bench_data/real/megacap_tech",
+   "started_at": 1795731843.1882439,
+   "started": "2026-11-26T17:24:03",
+   "models": [
+    "bsm",
+    "bootstrap",
+    "garch",
+    "ar_diffusion",
+    "ar_token",
+    "rnade",
+    "gan",
+    "sde_gan",
+    "pure_diffusion",
+    "path_flow_t"
+   ],
+   "warnings": [
+    "fatnarwhal_quant not importable: hedging columns will be empty (pip install -e <fatnarwhal-quant>)"
+   ],
+   "config": {
+    "kind": "real",
+    "tickers": [
+     "AAPL",
+     "AMZN",
+     "GOOGL",
+     "META",
+     "MSFT",
+     "NVDA"
+    ],
+    "ctx_len": 64,
+    "horizon": 20,
+    "n_train": 17023,
+    "n_val": 1752,
+    "n_eval": 978,
+    "scale": 0.020005465939392755,
+    "train_end": "2021-12-31",
+    "val_end": "2023-06-30",
+    "ks": [
+     -2,
+     -1.5,
+     -1,
+     -0.5,
+     0,
+     0.5,
+     1,
+     1.5,
+     2
+    ],
+    "r_mean": 0.044351104095669606,
+    "nu": null,
+    "data_seed": null
+   }
   }
  },
  "created": "2026-11-26T15:11:45",
- "git": "f0213169b3fb01ba40460b5a2a8f210666a7df4d",
+ "git": "67d602e509a7990bb0c524d66578d5f4cee961ca",
  "git_dirty": false,
  "host": "atl1-1-03-010-30-0.pace.gatech.edu",
  "python": "3.11.17"

@@ -1,0 +1,33 @@
+{
+ "kind": "real",
+ "tickers": [
+  "AAPL",
+  "AMZN",
+  "GOOGL",
+  "META",
+  "MSFT",
+  "NVDA"
+ ],
+ "ctx_len": 64,
+ "horizon": 20,
+ "n_train": 17023,
+ "n_val": 1752,
+ "n_eval": 978,
+ "scale": 0.020005465939392755,
+ "train_end": "2021-12-31",
+ "val_end": "2023-06-30",
+ "ks": [
+  -2,
+  -1.5,
+  -1,
+  -0.5,
+  0,
+  0.5,
+  1,
+  1.5,
+  2
+ ],
+ "r_mean": 0.044351104095669606,
+ "nu": null,
+ "data_seed": null
+}
