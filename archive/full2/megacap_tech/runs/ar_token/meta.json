@@ -1,6 +1,6 @@
 {
  "label": "ar_token256q_mean",
  "n_params": 837504,
- "train_seconds": 97.41886401176453,
- "gen_seconds": 644.4003610610962
+ "train_seconds": 33.01565432548523,
+ "gen_seconds": 645.3373460769653
 }

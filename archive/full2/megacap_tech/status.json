@@ -32,21 +32,21 @@
  {
   "model": "ar_diffusion",
   "status": "ok",
-  "minutes": 42.5,
+  "minutes": 39.4,
   "label": "ar_diffusion",
   "n_params": 2088321,
-  "train_s": 275.3624806404114,
-  "gen_s": 1192.0133130550385,
+  "train_s": 69.25022339820862,
+  "gen_s": 1190.448972940445,
   "error": ""
  },
  {
   "model": "ar_token",
   "status": "ok",
-  "minutes": 22.1,
+  "minutes": 22.4,
   "label": "ar_token256q_mean",
   "n_params": 837504,
-  "train_s": 97.41886401176453,
-  "gen_s": 644.4003610610962,
+  "train_s": 33.01565432548523,
+  "gen_s": 645.3373460769653,
   "error": ""
  },
  {
@@ -82,21 +82,21 @@
  {
   "model": "pure_diffusion",
   "status": "ok",
-  "minutes": 4.8,
+  "minutes": 4.1,
   "label": "a6_pure_diffusion",
   "n_params": 3916052,
-  "train_s": 60.18634510040283,
-  "gen_s": 130.46053743362427,
+  "train_s": 16.737881183624268,
+  "gen_s": 131.60912036895752,
   "error": ""
  },
  {
   "model": "path_flow_t",
   "status": "ok",
-  "minutes": 1.3,
+  "minutes": 0.7,
   "label": "a7_path_flow_t",
   "n_params": 938944,
-  "train_s": 53.876933574676514,
-  "gen_s": 3.7323100566864014,
+  "train_s": 13.664056539535522,
+  "gen_s": 3.634246826171875,
   "error": ""
  }
 ]
